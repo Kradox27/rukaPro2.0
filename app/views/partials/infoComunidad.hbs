@@ -1,0 +1,85 @@
+<div class="card border-bottom-RukaPro">
+    <a class="btn btn-light" data-toggle="collapse" href="#info" role="button" aria-expanded="false"
+        aria-controls="collapseExample">
+        <h4><span class="fa-pull-right"><i class="icon-arrow-down12"></i></span>Información de la Comunidad</h4>
+    </a>
+    <div class="collapse" id="info">
+        <div class="card-body border-bottom-info">
+            <form autocomplete="off">
+                <div class="row row-lg">
+                    <div class="col-sm-12 col-lg-12 center-block">
+                        <div class="form-group form-material row d-flex justify-content-center">
+                            <div class="col-sm-3">
+                                <label class="col-sm-12 control-label">Nombre:</label>
+                                <input id="nombreInfo" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Tipo:</label>
+                                <input id="tipoInfo" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-sm-2 ">
+                                <label class="col-sm-12 control-label">Region:</label>
+                                <input id="regionInfo" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-sm-2 ">
+                                <label class="col-sm-12 control-label">Comuna:</label>
+                                <input id="comunaInfo" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group form-material row d-flex justify-content-center">
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Ciudad:</label>
+                                <input id="ciudadInfo" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-12 control-label">Calle:</label>
+                                <input id="calleInfo" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="col-sm-12 control-label">Numero:</label>
+                                <input id="numeroInfo" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="col-sm-12 control-label">Estado:</label>
+                                <div id="estadoInfo"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(function () {
+        $.ajax({
+            method: "GET",
+            url: "/mantenedor/comunidades/buscarComunidad/{{ idComunidad }}",
+            dataType: 'json',
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    $('#nombreInfo').val(data.ok.nombreComunidad)
+                    $('#tipoInfo').val(data.ok.tipoComunidad)
+                    $('#regionInfo').val(data.ok.regionComunidad)
+                    $('#comunaInfo').val(data.ok.comunaComunidad)
+                    $('#ciudadInfo').val(data.ok.ciudadComunidad)
+                    $('#calleInfo').val(data.ok.calleComunidad)
+                    $('#numeroInfo').val(data.ok.numeroComunidad)
+                    $('#estadoInfo').html(labelTipoTabla(data.ok.estadoComunidad))
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+
+    });
+
+</script>

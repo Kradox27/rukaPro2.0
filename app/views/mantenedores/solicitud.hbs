@@ -1,0 +1,623 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Solicitudes de
+                    Servicios</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+
+    <!-- Filtros -->
+    <div class="card border-bottom-RukaPro">
+        <div class="card-body border-bottom-info">
+            <form autocomplete="off" id='form-buscar'>
+                <div class="form-group form-material row d-flex justify-content-center">
+                    <div class="col-sm-2">
+                        <label class="col-sm-12 control-label">Estado</label>
+                        <select id="comboEstado" style="width:100%;" data-plugin="select2"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <br />
+                        <div class="mt-1">
+                            <button class="btn btn-animate btn-animate-vertical bg-RukaPro form-control" name="Buscar"
+                                type="submit" value="Buscar">
+                                <span>Buscar <i aria-hidden="true" class="fa fa-search"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Solicitudes</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Más Información</th>
+                            <th>Nombre Comunidad</th>
+                            <th>Region Comunidad</th>
+                            <th>Comuna Comunidad</th>
+                            <th>Ciudad Comunidad</th>
+                            <th>Calle Comunidad</th>
+                            <th>Numero Comunidad</th>
+                            <th>Tipo Comunidad</th>
+                            <th>Servicios</th>
+                            <th>Fecha Registro</th>
+                            <th width="10%">Estado</th>
+                            <th class="th-sm" width="20%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody> </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal-->
+<div class="modal fade" id="modal-contratacion">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-center">
+                            <strong style="float: left;">Información de la Comunidad</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Nombre:</label>
+                                    <input id="nombreComunidad" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Tipo:</label>
+                                    <select id="tipoComunidad" data-plugin="select2" class="form-control">
+                                        <option value="CONDOMINIO">Condominio</option>
+                                        <option value="EDIFICIO">Edificio</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Region:</label>
+                                    <select id="regiones" class="form-control" style="width:100%;" required></select>
+                                </div>
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Comuna:</label>
+                                    <select id="comunas" class="form-control" style="width:100%;" required></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 text-bluedark">
+                                    <label>Ciudad:</label>
+                                    <input id="ciudad" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Calle:</label>
+                                    <input id="calleComunidad" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-2 text-bluedark">
+                                    <label>Número:</label>
+                                    <input id="numeroComunidad" type="text" class="form-control noPaste soloNumeros"
+                                        maxlength="5">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header bg-secondary text-center">
+                            <strong style="float: left;">Información del Comité</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Nombres:</label>
+                                    <input id="nombreComite" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Apellidos:</label>
+                                    <input id="apellidoComite" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Correo:</label>
+                                    <input id="correoComite" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Teléfono</label>
+                                    <input id="telefonoComite" type="text" maxlength="12"
+                                        class="form-control noPaste telefono" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header bg-secondary text-center">
+                            <strong style="float: left;">Información del Administrador</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Nombres:</label>
+                                    <input id="nombreAdmin" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Apellidos:</label>
+                                    <input id="apellidoAdmin" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Correo:</label>
+                                    <input id="correoAdmin" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6 text-bluedark">
+                                    <label>Teléfono</label>
+                                    <input id="telefonoAdmin" type="text" maxlength="12"
+                                        class="form-control noPaste telefono" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header bg-secondary text-center">
+                            <div class="d-flex justify-content-center" style="float: left;">
+                                <label for=""><strong>Información de los Servicios</strong></label>
+                            </div>
+                            <div class="d-flex justify-content-center" style="float: right;">
+                                <button id="btnCrear" type="button" data-tipo="ING"
+                                    class="btn btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Agregar
+                                    Servicio</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover" id="tablaDT-servicios"
+                                    width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Nombre Servicio</th>
+                                            <th>Descripción Servicio</th>
+                                            <th>Neto</th>
+                                            <th>IVA</th>
+                                            <th width="10%">Estado</th>
+                                            <th class="th-sm" width="20%">Acciones</th>
+                                        </tr>
+                                        </thread>
+                                    <tbody> </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccion"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(() => {
+        $('[data-toggle="tooltip"]').tooltip();
+        estado2Select2N('#comboEstado');
+        buscarSolicitudes();
+    });
+
+    function buscarSolicitudes() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/solicitud/buscarSolicitudesAll",
+            dataType: 'json',
+            data: {
+                estado: $('#comboEstado').val()
+            },
+            beforeSend: loading()
+        })
+            .done((data) => {
+                Swal.close();
+                if (data.ok) {
+                    renderTable(data.ok)
+                    $("#tabla-panel").fadeIn();
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+
+    }
+
+    $('#regiones').on('select2:select', (e) => {
+        if ($('#comunas').hasClass("select2-hidden-accessible")) $('#comunas').select2('destroy');
+        comunaSelect2N('#comunas', e.params.data.id)
+    });
+
+    $('.modal').on('hidden.bs.modal', () => { $('.modal').find("input").val("").removeClass('invalid'); })
+
+    $('#form-buscar').submit(function (e) {
+        e.preventDefault();
+        buscarSolicitudes();
+    })
+
+    $(document).on('click', 'button[name="btnEditar"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT').DataTable().rows().data().toArray().find(e => e.idSolicitudServicio == id);
+
+        $("#nombreComunidad").val(row.nombreComunidad);
+        $(`#tipoComunidad option[value="${row.tipoComunidad}"]`).attr("selected", true);
+        regionesSelect2N('#regiones', row.regionComunidad)
+        comunaSelect2N('#comunas', row.regionComunidad, row.comunaComunidad)
+        $("#ciudad").val(row.ciudadComunidad);
+        $("#calleComunidad").val(row.calleComunidad);
+        $("#numeroComunidad").val(row.numeroComunidad);
+        $('#correoComite').val(row.correoComite);
+        $('#nombreComite').val(row.nombreComite);
+        $('#apellidoComite').val(row.apellidoComite);
+        $('#telefonoComite').val(row.telefonoComite);
+        $('#correoAdmin').val(row.correoAdmin);
+        $('#nombreAdmin').val(row.nombreAdmin);
+        $('#apellidoAdmin').val(row.apellidoAdmin);
+        $('#telefonoAdmin').val(row.telefonoAdmin);
+        renderTableServicios(row.solicitudservicioxservicios)
+
+        $('.botonAccion').attr('id', 'editar');
+        $('#modal-titulo').text("Editar Solicitud").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-contratacion').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editar', () => {
+        let validar = true;
+        //Comunidad
+        if ($('#nombreComunidad').val() == "") validar = validarMensaje('#nombreComunidad', 'Ingrese un nombre.', 'i');
+        if ($('#regiones').val() == "sin-region") {
+            resaltarInputSelectInvalid('#regiones')
+            validar = false;
+        }
+        if ($('#comunas').val() == "sin-comuna") {
+            resaltarInputSelectInvalid('#comunas')
+            validar = false;
+        }
+        if ($('#ciudad').val() == "") validar = validarMensaje('#ciudad', 'Ingrese una Ciudad.', 'i');
+        if ($('#calleComunidad').val() == "") validar = validarMensaje('#calleComunidad', 'Ingrese una Calle.', 'i');
+        if ($('#numeroComunidad').val() == "") validar = validarMensaje('#numeroComunidad', 'Ingrese un Numero.', 'i');
+        //Comite
+        if ($('#nombreComite').val() == "") validar = validarMensaje('#nombreComite', 'Ingrese Nombres Comité.', 'i');
+        if ($('#apellidoComite').val() == "") validar = validarMensaje('#apellidoComite', 'Ingrese un Apellidos Comité.', 'i');
+        if ($('#correoComite').val() == "") validar = validarMensaje('#correoComite', 'Ingrese un Correo Comité.', 'i');
+        if (!validarEmail($('#correoComite').val())) validar = validarMensaje('#correoComite', 'Ingrese un correo de comité valido .', 'i');
+        //Administrador
+        if (!validarEmail($('#correoAdmin').val())) validar = validarMensaje('#correoAdmin', 'Ingrese un correo de administrador valido .', 'i');
+
+        if (validar) {
+            var id = $('#modal-contratacion').data('id')
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/solicitud/editarSolicitud/" + id,
+                data: {
+                    //Comunidad
+                    nombreComunidad: $("#nombreComunidad").val(),
+                    tipoComunidad: $("#tipoComunidad").val(),
+                    calleComunidad: $("#calleComunidad").val(),
+                    numeroComunidad: $("#numeroComunidad").val(),
+                    regionComunidad: $("#regiones").val(),
+                    comunaComunidad: $("#comunas").val(),
+                    ciudadComunidad: $("#ciudad").val(),
+                    //Comité
+                    correoComite: $('#correoComite').val(),
+                    nombreComite: $('#nombreComite').val(),
+                    apellidoComite: $('#apellidoComite').val(),
+                    telefonoComite: $('#telefonoComite').val(),
+                    //Admin
+                    correoAdmin: $('#correoAdmin').val(),
+                    nombreAdmin: $('#nombreAdmin').val(),
+                    apellidoAdmin: $('#apellidoAdmin').val(),
+                    telefonoAdmin: $('#telefonoAdmin').val()
+                },
+                beforeSend: loading()
+            })
+                .done((data) => {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.solicitudServicio)
+                        Swal.fire('Éxito', data.ok, 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error')
+                })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEstado"]', function () {
+        let id = $(this).attr("id");
+        let estado = $(this).attr("data-estado");
+        var fun = function () {
+            $.ajax({
+                method: 'POST',
+                url: "/mantenedor/solicitud/estadoSolicitud",
+                dataType: 'json',
+                data: { id: id, estado: estado },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        eliminarDT('#tablaDT', id)
+                        Swal.fire('Éxito', data.ok, 'success');
+                    }
+                    if (data.error) swalWithBootstrapButtons.fire('Error', data.error, 'error')
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al Aprobar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+        let text = estado == 'APROB' ? 'aprobar' : 'rechazar'
+        mensajeConfirm(fun, `¿Seguro desea ${text} esta solicitud?`, '', 'warning');
+    });
+
+    $('#tablaDT tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = $('#tablaDT').DataTable().row(tr);
+        let aux = row.child.isShown()
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            row.child(formatSolicitud(row.data())).show();
+            tr.addClass('shown');
+        }
+    });
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        let columnas = [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": ''
+            },
+            { "data": "nombreComunidad" },
+            { "data": "regionComunidad" },
+            { "data": "comunaComunidad" },
+            { "data": "ciudadComunidad" },
+            { "data": "calleComunidad" },
+            { "data": "numeroComunidad" },
+            { "data": "tipoComunidad" },
+            { "data": "idSolicitudServicio" },
+            { "data": "createdAt" },
+            { "data": "estadoSolicitud" },
+            { "data": "idSolicitudServicio" }
+        ];
+
+        let columnaDefs = [
+            {
+                className: "text-center",
+                width: "10%",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) {
+                    let find = regionesYcomunas.regiones.find(e => e.numeroRegion == data)
+                    return find ? find.nombreRegion.toUpperCase() : "";
+                },
+                className: "text-center",
+                targets: 2
+            },
+            {
+                render: function (data, type, row) {
+                    let html = "";
+                    $.each(row.solicitudservicioxservicios, function (index, value) {
+                        html += `<h6><span class='badge badge-pill badge-secondary'>${value.servicio.nombreServicio}</span><h6>`;
+                    });
+                    return html;
+                },
+                className: "text-center",
+                targets: 8
+            },
+            {
+                render: function (data, type, row) { return data != null ? moment.tz(data, "America/Santiago").format("DD/MM/YYYY HH:mm:ss") : ""; },
+                className: "text-center",
+                targets: 9
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 10
+            },
+            {
+                render: function (data, type, row) {
+                    let iconAprobar = '';
+                    let iconRechazar = '';
+                    let iconEditar = '';
+                    let iconReenviar = '';
+                    if (row.estadoSolicitud == 'PEN') {
+                        iconAprobar = `<button id=${data} data-estado='APROB' type='button' class='btn btn-default' name='btnEstado' data-toggle='tooltip' data-original-title='Aprobar Solicitud' data-trigger='hover'><i class='icon-checkmark text-success fa-lg' aria-hidden='true'></i></button>`;
+                        iconRechazar = `<button id=${data} data-estado='RECH' type='button' class='btn btn-default' name='btnEstado' data-toggle='tooltip' data-original-title='Rechazar Solicitud' data-trigger='hover'><i class='icon-cross2 text-danger fa-lg' aria-hidden='true'></i></button>`;
+                        iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditar' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    }
+                    if (row.estadoSolicitud == 'APROB') {
+                        iconReenviar = `<button id=${data} type='button' class='btn btn-default' name='btnReenviar' data-toggle='tooltip' data-original-title='Reenviar Correo a Comité' data-trigger='hover'><i class='icon-mail5 text-success fa-lg' aria-hidden='true'></i></button>`;
+                    }
+                    return iconAprobar + iconRechazar + iconEditar;
+                },
+                className: "text-center",
+                targets: 11
+            },
+        ];
+
+        let rowId = function (a) { return a.idSolicitudServicio }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+    $(document).on('click', '#btnCrear', () => {
+        let idSolicitudServicio = $('#modal-contratacion').data('id');
+        Swal.fire({
+            title: 'Seleccione un Servicio',
+            html: `<select id="servicios" style="width:100%;" data-plugin="select2"></select>`,
+            inputAttributes: { autocapitalize: 'off' },
+            onOpen: () => { servicioSelect2N('#servicios') },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let idServicio = $('#servicios').val();
+                if (idServicio != null) {
+                    $.ajax({
+                        method: 'GET',
+                        dataType: 'json',
+                        url: `/mantenedor/solicitud/agregarServicio/${idSolicitudServicio}/${idServicio}`,
+                        beforeSend: loading()
+                    })
+                        .done((data) => {
+                            Swal.close();
+                            if (data.ok) {
+                                editarDT('#tablaDT', idSolicitudServicio, data.solicitud)
+                                let row = data.solicitud.solicitudservicioxservicios.find(e => e.servicio.idServicios == idServicio);
+                                agregarDT('#tablaDT-servicios', row);
+                            }
+                            if (data.error) Swal.fire('Error', data.error, 'error');
+                        })
+                        .fail((jqXHR, textStatus, errorThrown) => {
+                            Swal.close();
+                            console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                        })
+
+                } else Swal.fire('Aviso', 'Seleccione un Servicio.', 'warning')
+            };
+        })
+    });
+
+    $(document).on('click', 'button[name="btnEliminar"]', function () {
+        let idServicio = $(this).attr("id");
+        let idSolicitudServicio = $('#modal-contratacion').data('id');
+        Swal.fire({
+            title: 'Aviso',
+            icon: 'warning',
+            text: '¿Seguro desea Eliminar este servicio?',
+            inputAttributes: { autocapitalize: 'off' },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'GET',
+                    dataType: 'json',
+                    url: `/mantenedor/solicitud/eliminarServicio/${idSolicitudServicio}/${idServicio}`,
+                    beforeSend: loading()
+                })
+                    .done((data) => {
+                        Swal.close();
+                        if (data.ok) {
+                            editarDT('#tablaDT', idSolicitudServicio, data.solicitud)
+                            let row = $('#tablaDT-servicios').DataTable().rows().data().toArray().find(e => e.servicio.idServicios == idServicio);
+                            eliminarDT('#tablaDT-servicios', row.idSolicitudservicioxservicios)
+                            Swal.fire('Aviso', data.ok, 'info')
+                        }
+                        if (data.error) Swal.fire('Error', data.error, 'error')
+                    })
+                    .fail((jqXHR, textStatus, errorThrown) => {
+                        Swal.close();
+                        console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                    })
+            }
+        })
+    });
+
+    function renderTableServicios(datos) {
+        $("#tablaDT-servicios").dataTable().fnClearTable();
+        $("#tablaDT-servicios").dataTable().fnDestroy();
+        let columnas = [
+            { "data": "" },
+            { "data": "servicio.nombreServicio" },
+            { "data": "servicio.descripcionServicio" },
+            { "data": "servicio.neto" },
+            { "data": "servicio.iva" },
+            { "data": "servicio.estadoServicio" },
+            { "data": "servicio.idServicios" }
+        ];
+
+        let columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) { return formatMoney(data, "CLP"); },
+                className: "text-center",
+                targets: [3, 4]
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 5
+            },
+            {
+                render: function (data, type, row) {
+                    let iconRechazar = `<button id=${data}  type='button' class='btn btn-default' name='btnEliminar' data-toggle='tooltip' data-original-title='Eliminar Servicio' data-trigger='hover'><i class='icon-cross2 text-danger fa-lg' aria-hidden='true'></i></button>`;
+                    return iconRechazar;
+                },
+                className: "text-center",
+                targets: 6
+            },
+        ];
+
+        let rowId = function (a) { return a.idSolicitudservicioxservicios }
+
+        createTableData('#tablaDT-servicios', datos, columnas, columnaDefs, rowId);
+    }
+
+
+</script>

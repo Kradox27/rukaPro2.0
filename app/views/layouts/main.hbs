@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RukaPRO</title>
+
+  <!-- General stylesheets -->
+  <link href="/utilitarios/css/font_Roboto.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/assets/css/layout.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/assets/css/components.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/assets/css/colors2.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/externos/assets/css/toastr.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+  <link href="/scripts/select2/dist/css/select2.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+
+  <!-- Global stylesheets -->
+  <link href="/utilitarios/css/utils.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+
+  <!-- fontawesome-free -->
+  <link href="/externos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" nonce="{{nonce}}">
+
+  <!-- /tempusdominus-bootstrap-4 -->
+  <link href="/scripts/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"
+    type="text/css" nonce="{{nonce}}">
+
+  <!-- /password-strength-meter -->
+  <link href="/scripts/password-strength-meter/dist/password.min.css" rel="stylesheet" type="text/css"
+    nonce="{{nonce}}">
+
+  {{!-- Starting Scripts --}}
+
+  <!-- Core JS files -->
+  <script src="/externos/js/main/jquery.min.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/main/bootstrap.bundle.min.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/loaders/blockui.min.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/ui/ripple.min.js" nonce="{{nonce}}"></script>
+  <!-- /core JS files -->
+
+  <!-- /SELECT2 -->
+  <script src="/scripts/select2/dist/js/select2.full.min.js?v=2" nonce="{{nonce}}"></script>
+
+  <!-- Theme JS files -->
+  <script src="/externos/js/plugins/visualization/d3/d3.min.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/visualization/d3/d3_tooltip.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/forms/styling/switchery.min.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/forms/selects/bootstrap_multiselect.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/ui/moment/moment.min.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/pickers/daterangepicker.js" nonce="{{nonce}}"></script>
+
+  <script src="/externos/assets/js/app.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/demo_pages/dashboard.js" nonce="{{nonce}}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/externos/vendor/jquery-easing/jquery.easing.min.js" nonce="{{nonce}}"></script>
+
+  <!-- DataTables -->
+  <script src="/externos/vendor/datatables/jquery.dataTables.min.js" nonce="{{nonce}}"></script>
+
+  <!-- Custom Tooltip -->
+  <script src="/externos/js/plugins/popper/popper.min.js" nonce="{{nonce}}"></script>
+
+  <!-- sweetalert2 JS-->
+  <script src="/externos/js/plugins/sweetalert2/sweetalert2.js" nonce="{{nonce}}"></script>
+
+  <!-- Moment JS-->
+  <script src="/scripts/moment/moment.js" nonce="{{nonce}}"></script>
+  <script src="/scripts/moment/locale/es-mx.js" nonce="{{nonce}}"></script>
+  <script src="/externos/js/plugins/moment/moment-timezone-with-data-1970-2030.min.js" nonce="{{nonce}}"></script>
+
+  <!-- toastr JS-->
+  <script src="/externos/js/plugins/toastr/toastr.min.js" nonce="{{nonce}}"></script>
+
+  <!-- Handlebars-->
+  <script src="/scripts/handlebars/dist/handlebars.min.js" nonce="{{nonce}}"></script>
+
+  <!-- /tempusdominus-bootstrap-4 -->
+  <script src="/scripts/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" nonce="{{nonce}}"></script>
+
+  <!-- /jquery-mask-plugin -->
+  <script src="/scripts/jquery-mask-plugin/dist/jquery.mask.min.js" nonce="{{nonce}}"></script>
+
+  <!-- /countdown -->
+  <script src="/externos/vendor/countdown/jquery.countdown.min.js" nonce="{{nonce}}"></script>
+
+  <!-- /password-strength-meter -->
+  <script src="/scripts/password-strength-meter/dist/password.min.js" nonce="{{nonce}}"></script>
+
+  <!--Generales-->
+  <script src="/utilitarios/js/utils.js" nonce="{{nonce}}"></script>
+  <script src="/utilitarios/js/select2.js" nonce="{{nonce}}"></script>
+  <script src="/utilitarios/js/createTableData.js" nonce="{{nonce}}"></script>
+
+  {{!-- Ending Scripts --}}
+</head>
+
+<body>
+  <script nonce="{{nonce}}">
+    'use strict'
+    $(document).ready(() => {
+      inicializar();
+      '{{#if user}}'
+      comunidad('{{user.usuario.usuario}}', '{{user.rol.codigoRol}}')
+      '{{/if}}'
+    });
+  </script>
+  <div>
+    {{>navigation}}
+    {{{ body }}}
+  </div>
+</body>
+
+</html>

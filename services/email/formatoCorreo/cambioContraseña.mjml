@@ -1,0 +1,40 @@
+<mjml>
+  <mj-head>
+    <mj-style inline="inline">
+      .texto-titulo {
+        -webkit-text-stroke: 0.3px white;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-section background-url="../public/imagenes/fondoCorreo.jpg" background-size="cover" background-repeat="no-repeat">
+      <mj-column>
+        <mj-image align="center" width="90px" src="../public/imagenes/RukaPro_Solo_naranjo.png" alt="logo" />
+        <mj-text css-class="texto-titulo" align="center" color="#ff670f" font-size="40px" font-family="Helvetica Neue">Cambiemos tu Contraseña</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#fafafa">
+      <mj-column width="400px">
+        <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Hola, {{correo}} </mj-text>
+        <mj-text align="center" color="#626262">Gracias, hemos validado tu correo.</mj-text>
+        <mj-text align="center" color="#525252">Con RukaPro podrás administrar tus unidades con efectividad y de forma cómoda. Se parte de tu comunidad de
+          manera activa, pagando tus gastos comunes, entre otros, mediante nuestra plataforma.
+        </mj-text>
+        <mj-button href="{{url}}" background-color="#ff8037" href="#">Aquí</mj-button>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#fafafa">
+      <mj-column width="400px">
+        <mj-text align="center" color="#525252">En caso de que el botón no funcione, simplemente copia y pega el siguiente enlace en tu navegador.</mj-text>
+      </mj-column>
+      <mj-column width="400px">
+        <mj-table>
+          {{#each jsonUrl}}
+            <tr style="text-align:center;">
+              <td>{{texto}}</td>
+            </tr>
+          {{/each}}
+        </mj-table>
+      </mj-column>
+    </mj-section>
+</mjml>

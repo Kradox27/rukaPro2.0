@@ -1,0 +1,348 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Gastos Comunes del
+                    Sistema</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+        {{#if (eqBool user.habilitado) }}
+        <div class="header-elements d-none">
+            <div class="d-flex justify-content-center">
+                <button id="btnCrear" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                    Gasto Comun</button>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Informacion -->
+    {{>infoComunidad}}
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Gastos Comunes</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Periodo</th>
+                            <th>Valor Total</th>
+                            <th width="10%">Estado</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Termino</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Fecha Registro</th>
+                            <th>Usuario Registro</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if (eqBool user.habilitado) }}
+<!-- Inicio Modal-->
+<div class="modal fade" id="modal-periodo">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group row text-bluedark">
+                        <label for="diaInicio" class="col-sm-4 col-form-label">Dia Inicio (01-31)</label>
+                        <div class="col-sm-8">
+                            <input id="diaInicio" type="text" maxlength="2" size="2"
+                                class="form-control text-center soloNumeros" />
+                        </div>
+                    </div>
+                    <div class="form-group row text-bluedark">
+                        <label for="fechaPeriodo" class="col-sm-3 col-form-label">Mes/Año</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control datetimepicker-input text-center" id="fechaPeriodo"
+                                data-toggle="datetimepicker" data-target="#fechaPeriodo" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccion"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    var idComunidad = "{{ idComunidad }}";
+
+    $(document).ready(() => {
+        buscarGastosComunes();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    function buscarGastosComunes() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/gastosComunes/buscarGastosComunesAll",
+            dataType: 'json',
+            data: { idComunidad: idComunidad },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    renderTable(data.ok)
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+    }
+
+    '{{#if (eqBool user.habilitado) }}'
+    $('.modal').on('hidden.bs.modal', () => { $('.modal').find("input").val("").removeClass('invalid'); })
+
+    $("#btnCrear").on('click', () => {
+        let rows = $('#tablaDT').DataTable().rows().data().toArray();
+        if (rows.length == 0) {
+            $('#fechaPeriodo').datetimepicker({ viewMode: 'years', format: 'MM/YYYY', date: moment() });
+            $("#diaInicio").on('blur', (e) => {
+                let diaInicio = $("#diaInicio").val();
+                if (diaInicio < 10 && diaInicio > 0) $("#diaInicio").val(diaInicio.padStart(2, "00"));
+                if (diaInicio == 0 || diaInicio > 31) $("#diaInicio").val('')
+            });
+            $('.botonAccion').attr('id', 'agregar');
+            $('#modal-titulo').text("Nuevo Periodo").parent().attr('class', 'modal-header bg-RukaPro')
+            $('#modal-periodo').modal('show');
+        } else if (rows.filter(e => e.tipoProceso == 'EP').length < 2) {
+            let idMayorGC = 0;
+            rows = rows.map(function (task, index, array) {
+                if (task.idGastoComun > idMayorGC) idMayorGC = task.idGastoComun;
+                return task
+            })
+            let gastoComun = rows.find(e => e.idGastoComun == idMayorGC);
+            let fechaInicio = moment.tz(gastoComun.fechaInicio, "America/Santiago").add(1, 'M')
+            let fechaInicioStr = fechaInicio.format("DD/MM/YYYY")
+            let fechaFinStr = moment.tz(gastoComun.fechaTermino, "America/Santiago").add(1, 'M').format("DD/MM/YYYY");
+            let fechaVenStr = moment.tz(gastoComun.fechaVencimiento, "America/Santiago").add(1, 'M').format("DD/MM/YYYY");
+            let html = `
+                <table class="table table-sm table-striped table-hover" cellspacing="0">
+                    <thead><tr><th>Periodo</th><th>Fecha Inicio</th><th>Fecha Termino</th><th>Fecha Vencimiento</th></tr></thread>
+                    <tbody>
+                        <tr><td>${fechaInicio.format("MM/YYYY")}</td><td>${fechaInicioStr}</td><td>${fechaFinStr}</td><td>${fechaVenStr}</td></tr>
+                    </tbody>
+                </table>    
+            `
+            swalWithBootstrapButtons
+                .fire({
+                    title: 'Periodo Siguiente',
+                    html: html,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: false
+                })
+                .then(function (result) {
+                    if (result.value) {
+                        $.ajax({
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "/mantenedor/gastosComunes/crearGastoComun",
+                            data: { idComunidad: idComunidad },
+                            beforeSend: loading()
+                        })
+                            .done(function (data) {
+                                Swal.close();
+                                if (data.ok) {
+                                    renderTable(data.ok)
+                                    resaltarDT('#tablaDT', data.ok.id)
+                                    Swal.fire('Periodo ingresado.', '', 'success')
+                                    $('.modal').modal('hide')
+                                }
+                                if (data.error) Swal.fire('Error', data.error, 'error');
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) {
+                                Swal.close();
+                                console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                            })
+                    };
+                    if (result.dismiss) {
+                        ///eval case esc|cancel
+                    }
+                });
+        } else toastr.warning('No puede tener mas de 2 periodos abiertos.');
+    });
+
+    $(document).on('click', '#agregar', () => {
+        let validar = true;
+        if ($("#diaInicio").val() == "") validar = validarMensaje('#diaInicio', 'Ingrese un dia de inicio.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/gastosComunes/crearGastoComun",
+                data: {
+                    periodo: $("#fechaPeriodo").val(),
+                    diaInicio: $("#diaInicio").val(),
+                    idComunidad: idComunidad
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTable(data.ok)
+                        resaltarDT('#tablaDT', data.ok.id)
+                        Swal.fire('Periodo ingresado.', '', 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnCambiarEstadoProceso"]', function () {
+        let validar = false;
+        let rows = $('#tablaDT').DataTable().rows().data().toArray().sort((a, b) => parseInt(b.idGastoComun) - parseInt(a.idGastoComun));
+        let id = $(this).attr("id");
+        if (rows.filter(e => e.tipoProceso == 'EP').length == 1) validar = true;
+        if (rows.filter(e => e.tipoProceso == 'EP').length == 2) {
+            if (rows[0].idGastoComun != id) validar = true;
+            else toastr.warning('Aun tiene un periodo anterior en proceso.');
+        }
+        if (validar) {
+            var fun = function () {
+                $.ajax({
+                    method: 'GET',
+                    url: "/mantenedor/gastosComunes/finalizarEstadoGastoComun/" + id,
+                    dataType: 'json',
+                    beforeSend: loading()
+                })
+                    .done(function (data) {
+                        Swal.close();
+                        if (data.ok) {
+                            editarDT('#tablaDT', id, data.gastoComun);
+                            Swal.fire('Éxito', data.ok, 'success');
+                            $('.modal').modal('hide');
+                        }
+                        if (data.error) swalWithBootstrapButtons.fire('Error', data.error, 'error')
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        Swal.close();
+                        console.log("Error al cambiar estado: ", errorMessage(jqXHR, textStatus, errorThrown))
+                    })
+
+            }
+            mensajeConfirm(fun, '¿Seguro desea finalizar este periodo?', '', 'warning');
+        }
+    });
+    '{{/if}}'
+
+    $(document).on('click', 'button[name="btnValidarProrrateo"]', function () {
+        Swal.fire({
+            title: 'Aviso',
+            text: "El Total Prorrateo es mayor al 100%",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Seguir',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.replace(`/mantenedor/subGastosComunes/${idComunidad}/${$(this).attr("id")}`);
+            }
+        })
+    });
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "periodo" },
+            { "data": "valorTotal" },
+            { "data": "tipoProceso" },
+            { "data": "fechaInicio" },
+            { "data": "fechaTermino" },
+            { "data": "fechaVencimiento" },
+            { "data": "createdAt" },
+            { "data": "usuarioRegistro" },
+            { "data": "idGastoComun" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                width: "200px",
+                targets: 1
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 2
+            },
+            {
+                render: function (data, type, row) { return data != "" ? moment.tz(data, "America/Santiago").format("DD/MM/YYYY") : ""; },
+                className: "text-center",
+                targets: [3, 4, 5, 6]
+            },
+            {
+                render: function (data, type, row, meta) {
+                    let iconItem = `<a href='/mantenedor/subGastosComunes/${idComunidad}/${data}' class='btn btn-default' data-toggle='tooltip' data-original-title='Ver Detalle' data-trigger='hover'><i class='icon-list2 text-info fa-lg'></i></a>`;
+                    let iconProceso = ''
+                    '{{#if (eqBool user.habilitado) }}'
+                    let jsonAux = {};
+                    if (row.tipoProceso == "EP") {
+                        if (datos.totalProrrateo > 100) iconItem = `<button id=${data} type='button' class='btn btn-default' name='btnValidarProrrateo' data-idComunidad=${idComunidad} data-toggle='tooltip' data-original-title='Ver Detalle' data-trigger='hover'><i class='icon-list2 text-info fa-lg' aria-hidden='true'></i></button>`;
+                        iconProceso = `<button id=${data} type='button' class='btn btn-default' name='btnCambiarEstadoProceso' data-toggle='tooltip' data-original-title='Finalizar Periodo' data-trigger='hover'><i class='icon-checkmark-circle2 text-success fa-lg' aria-hidden='true'></i></button>`;
+                    }
+                    '{{/if}}'
+                    return iconItem + iconProceso;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 8
+            }
+        ];
+
+        var rowId = function (a) { return a.idGastoComun }
+
+        createTableData('#tablaDT', datos.gastoComun, columnas, columnaDefs, rowId);
+    }
+
+
+</script>

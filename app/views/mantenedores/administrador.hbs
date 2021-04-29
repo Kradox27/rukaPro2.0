@@ -1,0 +1,482 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Administradores de
+                    la Comunidad</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+        <div class="header-elements d-none">
+            <div class="d-flex justify-content-center">
+                <button id="btnAsignar" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Asignar
+                    Administrador</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Administradores-->
+    <div class="card border-bottom-RukaPro" id="tabla-panel1">
+        <a class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between"
+            data-toggle="collapse" href="#info" role="button" aria-expanded="true" aria-controls="info">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">
+                <span class="fa-pull-right"><i class="icon-arrow-down12"></i></span>
+                Listado de Administradores
+            </h5>
+        </a>
+        <div class="collapse show" id="info">
+            <div class="container">
+                <div class="card border-RukaPro">
+                    <div class="card-body ">
+                        <form autocomplete="off" id='form-buscar-admin'>
+                            <div class="row row-lg">
+                                <div class="col-sm-12 col-lg-12 center-block">
+                                    <div class="form-group form-material row d-flex justify-content-center">
+                                        <div class="col-sm-2">
+                                            <label class="col-sm-12 control-label">Estado</label>
+                                            <select id="comboEstadoAdmin" style="width:100%;"
+                                                data-plugin="select2"></select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <br />
+                                            <div class="mt-1">
+                                                <button
+                                                    class="btn btn-animate btn-animate-vertical bg-RukaPro form-control"
+                                                    name="Buscar" type="submit" value="Buscar">
+                                                    <span>Buscar <i aria-hidden="true" class="fa fa-search"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-bottom-info">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-hover" id="tablaDT-admin" width="100%"
+                        cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Usuario</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Telefono</th>
+                                <th>Inicio de Servicio</th>
+                                <th>Termino de Servicio</th>
+                                <th>Fecha de Bloqueo </th>
+                                <th width="10%">Estado</th>
+                                <th class="th-sm" width="10%">Acciones</th>
+                            </tr>
+                            </thread>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solicitudes -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel2">
+        <a class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between"
+            data-toggle="collapse" href="#info2" role="button" aria-expanded="true" aria-controls="info2">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">
+                <span class="fa-pull-right"><i class="icon-arrow-down12"></i></span>
+                Listado de Solicitudes
+            </h5>
+        </a>
+        <div class="collapse show" id="info2">
+            <div class="container">
+                <div class="card border-RukaPro">
+                    <div class="card-body ">
+                        <form autocomplete="off" id='form-buscar'>
+                            <div class="row row-lg">
+                                <div class="col-sm-12 col-lg-12 center-block">
+                                    <div class="form-group form-material row d-flex justify-content-center">
+                                        <div class="col-sm-2">
+                                            <label class="col-sm-12 control-label">Estado</label>
+                                            <select id="comboEstado" style="width:100%;" data-plugin="select2"></select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <br />
+                                            <div class="mt-1">
+                                                <button
+                                                    class="btn btn-animate btn-animate-vertical bg-RukaPro form-control"
+                                                    name="Buscar" type="submit" value="Buscar">
+                                                    <span>Buscar <i aria-hidden="true" class="fa fa-search"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-bottom-info">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Correo</th>
+                                <th>Fecha Envio Solicitud</th>
+                                <th width="10%">Estado</th>
+                                <th class="th-sm" width="10%">Acciones</th>
+                            </tr>
+                            </thread>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        estadoSelect2N('#comboEstadoAdmin');
+        estado2Select2N('#comboEstado');
+        buscarAdmin();
+        buscarAsignacion();
+    });
+
+    $('.modal').on('hidden.bs.modal', () => { $('.modal').find("input").val("").removeClass('invalid'); })
+
+    function buscarAdmin() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/administrador/buscarAdministradorAll",
+            dataType: 'json',
+            data: {
+                idComunidad: '{{user.idComunidad}}',
+                estadoRolxcomunidad: $("#comboEstadoAdmin").val(),
+            },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data) {
+                    renderTableAdmin(data)
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                $("#tabla-panel").fadeOut();
+            })
+    }
+
+    function buscarAsignacion() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/solicitudAsignacion/buscarSolicitudesAdminAll",
+            dataType: 'json',
+            data: {
+                idComunidad: '{{user.idComunidad}}',
+                estadoSolicitudAdmin: $("#comboEstado").val(),
+            },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data) {
+                    renderTable(data)
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                $("#tabla-panel").fadeOut();
+            })
+    }
+
+    $('#form-buscar-admin').submit(function (e) {
+        e.preventDefault();
+        buscarAdmin();
+    })
+
+    $('#form-buscar').submit(function (e) {
+        e.preventDefault();
+        buscarAsignacion();
+    })
+
+    $("#btnAsignar").on('click', () => {
+        Swal.fire({
+            title: 'Ingrese Correo del Administrador',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Validar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            preConfirm: (correo) => {
+                if (validarEmail(correo)) return correo.toUpperCase()
+                else Swal.showValidationMessage(`El correo es inválido.`)
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let idComunidad;
+                if ('{{user.rol.codigoRol}}' == "COMITE") idComunidad = '{{user.idComunidad}}'
+                if ('{{user.rol.codigoRol}}' == "SUPERADMIN") idComunidad = $("#comboComunidad").val();
+                if (idComunidad != "" || idComunidad != null) {
+                    $.ajax({
+                        method: "POST",
+                        url: "/mantenedor/solicitudAsignacion/solicitudAsignacion",
+                        dataType: 'json',
+                        data: {
+                            correo: result.value,
+                            idComunidad: idComunidad
+                        },
+                        beforeSend: loading()
+                    })
+                        .done(data => {
+                            Swal.close();
+                            if (data.ok) {
+                                Swal.fire({
+                                    title: "Solicitud Enviada",
+                                    html: `
+                                        <div>
+                                            <p>Se ha enviado un correo administrador ${data.ok} para responder a Solicitud.</p>
+                                        </div>
+                                    `
+                                });
+                                renderTableAdmin(data.solicitudAdmin)
+                            }
+                            if (data.error) Swal.fire('Eviso', data.error, 'warning');
+                        })
+                        .fail((jqXHR, textStatus, errorThrown) => {
+                            Swal.close();
+                            console.log(errorMessage(jqXHR, textStatus, errorThrown))
+                        })
+
+                } else Swal.fire('Eviso', 'Seleccione una Comunidad', 'warning');
+            }
+        })
+    });
+
+    $(document).on('click', 'button[name="btnTerminarServicio"]', function () {
+        var id = $(this).attr("id");
+        Swal.fire({
+            title: 'Aviso',
+            icon: 'warning',
+            html: `
+                <h6>¿Seguro desea Terminar el servicio de este administrador?</h6>
+                <p>En caso de confirmar ingrese fecha de termino.</p>
+                <input type="text" class="form-control text-center" id="fecha">
+            `,
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            onOpen: () => {
+                $('#fecha').daterangepicker({
+                    singleDatePicker: true,
+                    locale: daterangepickerLang,
+                    opens: "center",
+                    drops: "up"
+                }).val();
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: "POST",
+                    url: "/mantenedor/administrador/terminarServicio",
+                    dataType: 'json',
+                    data: { id: id, finServicio: $('#fecha').val() },
+                    beforeSend: loading()
+                })
+                    .done(data => {
+                        Swal.close();
+                        if (data.ok) {
+                            editarDT('#tablaDT-admin', id, data.admin)
+                            Swal.fire('Éxito', data.ok, 'success')
+                        }
+                        if (data.error) Swal.showValidationMessage(data.error)
+                    })
+                    .fail((jqXHR, textStatus, errorThrown) => {
+                        Swal.close();
+                        console.log(errorMessage(jqXHR, textStatus, errorThrown))
+                    })
+            }
+        })
+    });
+
+    $(document).on('click', 'button[name="btnInicioServicio"]', function () {
+        var id = $(this).attr("id");
+        Swal.fire({
+            title: 'Aviso',
+            icon: 'warning',
+            html: `
+                <h6>¿Seguro desea Iniciar el servicio de este administrador?</h6>
+                <p>En caso de confirmar ingrese fecha de inicio.</p>
+                <input type="text" class="form-control text-center" id="fecha">
+            `,
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            onOpen: () => {
+                $('#fecha').daterangepicker({
+                    singleDatePicker: true,
+                    locale: daterangepickerLang,
+                    opens: "center",
+                    drops: "up"
+                }).val();
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: "POST",
+                    url: "/mantenedor/administrador/iniciarServicio",
+                    dataType: 'json',
+                    data: { id: id, inicioServicio: $('#fecha').val() },
+                    beforeSend: loading()
+                })
+                    .done(data => {
+                        Swal.close();
+                        if (data.ok) {
+                            editarDT('#tablaDT-admin', id, data.admin)
+                            Swal.fire('Éxito', data.ok, 'success')
+                        }
+                        if (data.error) Swal.showValidationMessage(data.error)
+                    })
+                    .fail((jqXHR, textStatus, errorThrown) => {
+                        Swal.close();
+                        console.log(errorMessage(jqXHR, textStatus, errorThrown))
+                    })
+            }
+        })
+    });
+
+    function renderTableAdmin(datos) {
+        $("#tablaDT-admin").dataTable().fnClearTable();
+        $("#tablaDT-admin").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "usuarioxrol.usuario.usuario" },
+            { "data": "usuarioxrol.usuario.nombres" },
+            { "data": "usuarioxrol.usuario.apellidos" },
+            { "data": "usuarioxrol.usuario.telefono" },
+            { "data": "inicioServicio" },
+            { "data": "finServicio" },
+            { "data": "fechaBloqueo" },
+            { "data": "estadoRolxcomunidad" },
+            { "data": "idAdministrador" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                width: "10%",
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) { return data != null ? moment.tz(data, "America/Santiago").format("DD/MM/YYYY") : ""; },
+                className: "text-center",
+                targets: [5, 6, 7]
+            },
+
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 8
+            },
+            {
+                render: function (data, type, row) {
+                    let estado = {};
+                    switch (row.estadoRolxcomunidad) {
+                        case 'ACT':
+                            estado = { icon: 'icon-user-block text-danger fa-lg', title: 'Terminar Servicio', name: 'btnTerminarServicio' }
+                            break;
+                        case 'INAC':
+                            estado = { icon: 'icon-user-check text-success fa-lg', title: 'Inicio Servicio', name: 'btnInicioServicio' }
+                            break;
+                    }
+                    let iconAccion = `<button id=${data} type='button' class='btn btn-default' name='${estado.name}' data-toggle='tooltip' data-original-title='${estado.title}' data-trigger='hover'><i class='${estado.icon}' aria-hidden='true'></i></button>`;
+                    return iconAccion;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 9
+            }
+        ];
+
+        var rowId = function (a) { return a.idAdministrador }
+
+        createTableData('#tablaDT-admin', datos.ok, columnas, columnaDefs, rowId);
+    }
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "correo" },
+            { "data": "createdAt" },
+            { "data": "estadoSolicitudAdmin" },
+            { "data": "idSolicitudAdmin" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) { return data != null ? moment.tz(data, "America/Santiago").format("DD/MM/YYYY hh:MM:ss") : ""; },
+                className: "text-center",
+                targets: 2
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 3
+            },
+            {
+                render: function (data, type, row) {
+                    let iconCorreo = `<button id=${data} type='button' class='btn btn-default' name=' ' data-toggle='tooltip' data-original-title='Re-Enviar Correo' data-trigger='hover'><i class='icon-envelop3 text-success fa-lg' aria-hidden='true'></i></button>`;
+                    return iconCorreo;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 4
+            }
+        ];
+
+        var rowId = function (a) { return a.idSolicitudAdmin }
+
+        createTableData('#tablaDT', datos.ok, columnas, columnaDefs, rowId);
+    }
+
+</script>

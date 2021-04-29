@@ -1,0 +1,33 @@
+<mjml>
+  <mj-head>
+    <mj-style inline="inline">
+      .texto-titulo {
+        -webkit-text-stroke: 0.3px white;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-section background-url="../public/imagenes/fondoCorreo.jpg" background-size="cover" background-repeat="no-repeat">
+      <mj-column>
+        <mj-image align="center" width="90px" src="../public/imagenes/RukaPro_Solo_naranjo.png" alt="logo" />
+        <mj-text css-class="texto-titulo" align="center" color="#ff8037" font-size="40px" font-family="Helvetica Neue">¡Bienvenido a RukaPro!</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#fafafa">
+      <mj-column width="400px">
+        <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Solicitud Aceptada</mj-text>
+        <mj-text align="center" color="#626262">Gracias por elegir a RukaPro como su Sistema de Administracion de Condominios.</mj-text>
+        <mj-text align="center" color="#525252">Con RukaPro podrás administrar tus unidades con efectividad y de forma cómoda. Se parte de tu comunidad de
+          manera activa, pagando tus gastos comunes, entre otros, mediante nuestra plataforma.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#fbfbfb">
+      <mj-column>
+        <mj-button align="right" href="{{urlAprobado}}" background-color="#ff8037" href="#">Aceptar</mj-button>
+      </mj-column>
+      <mj-column>
+        <mj-button align="left" href="{{urlRechazo}}" background-color="#ff8037" href="#">Rechazar</mj-button>
+      </mj-column>
+    </mj-section>
+</mjml>

@@ -1,0 +1,245 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Tipos de
+                    Medidores</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+        {{#if (eqBool user.habilitado) }}
+        <div class="header-elements d-none">
+            <div id="btnCrear" class="d-flex justify-content-center">
+                <button id="btnCrear" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                    Tipo Medición</button>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+
+    <!-- Informacion -->
+    {{>infoComunidad}}
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Tipo de Medidores</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Descripcion</th>
+                            <th>Unidad Medicion</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if (eqBool user.habilitado) }}
+<!-- Inicio Modal medidores-->
+<div class="modal fade" id="modal-medidores">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group text-bluedark">
+                        <label>Descripción</label>
+                        <input id="descripcionTipoMedidores" type="text" class="form-control">
+                    </div>
+                    <div class="form-group text-bluedark">
+                        <label>Unidad de Medición</label>
+                        <input id="tipoUnidadMedidores" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccion"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    var idComunidad = "{{ idComunidad }}";
+
+    $(document).ready(function () {
+        buscarMedidores();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    function buscarMedidores() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/tipoMedidores/buscarTipoMedidoresAll",
+            dataType: 'json',
+            data: { idComunidad: idComunidad },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) renderTable(data.ok)
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                $("#tabla-panel").fadeOut();
+            })
+
+    }
+
+    '{{#if (eqBool user.habilitado) }}'
+    $('.modal').on('hidden.bs.modal', () => { $('.modal').find("input").val("").removeClass('invalid'); })
+
+    $("#btnCrear").on('click', () => {
+        $('.botonAccion').attr('id', 'agregar');
+        $('#modal-titulo').text("Nuevo Tipo Medidor").parent().attr('class', 'modal-header bg-RukaPro')
+        $('#modal-medidores').modal('show');
+    });
+
+    $(document).on('click', '#agregar', () => {
+        let validar = true;
+        if ($('#descripcionTipoMedidores').val() == "") validar = validarMensaje('#descripcionTipoMedidores', 'Ingrese una descripción.', 'i');
+        if ($('#tipoUnidadMedidores').val() == "") validar = validarMensaje('#tipoUnidadMedidores', 'Ingrese una Unidad de Medida.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/tipoMedidores/crearTipoMedidores",
+                data: {
+                    descripcionTipoMedidores: $("#descripcionTipoMedidores").val(),
+                    tipoUnidadMedidores: $("#tipoUnidadMedidores").val(),
+                    idComunidad: idComunidad
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        agregarDT('#tablaDT', data.ok);
+                        Swal.fire('Éxito', 'Fondo ingresado.', 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEditar"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT').DataTable().rows().data().toArray().find(e => e.idTipoMedidores == id);
+        $('#descripcionTipoMedidores').val(row.descripcionTipoMedidores);
+        $('#tipoUnidadMedidores').val(row.tipoUnidadMedidores);
+
+        $('.botonAccion').attr('id', 'editar');
+        $('#modal-titulo').text("Editar Tipo Medidor").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-medidores').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editar', () => {
+        let validar = true;
+        if ($('#descripcionTipoMedidores').val() == "") validar = validarMensaje('#descripcionTipoMedidores', 'Ingrese una descripción.', 'i');
+        if ($('#tipoUnidadMedidores').val() == "") validar = validarMensaje('#tipoUnidadMedidores', 'Ingrese una Unidad de Medida.', 'i');
+        if (validar) {
+            var id = $('#modal-medidores').data('id')
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/tipoMedidores/editarTipoMedidores/" + id,
+                data: {
+                    descripcionTipoMedidores: $("#descripcionTipoMedidores").val(),
+                    tipoUnidadMedidores: $("#tipoUnidadMedidores").val(),
+                    idComunidad: idComunidad
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.tipoMedidores);
+                        Swal.fire('Éxito', data.ok, 'success');
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error')
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+    '{{/if}}'
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "descripcionTipoMedidores" },
+            { "data": "tipoUnidadMedidores" },
+            { "data": "idTipoMedidores" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) {
+                    let iconEditar = '';
+                    '{{#if (eqBool user.habilitado) }}'
+                    iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditar' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    '{{/if}}'
+                    return iconEditar;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 3
+            }
+        ];
+
+        var rowId = function (a) {
+            return a.idTipoMedidores
+        }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+</script>

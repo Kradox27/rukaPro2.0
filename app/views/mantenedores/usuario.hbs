@@ -1,0 +1,414 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Usuarios del
+                    Sistema</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+        <div class="header-elements d-none">
+            <div class="d-flex justify-content-center">
+                <button id="btnCrear" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                    Usuario</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Filtros -->
+    <div class="card border-bottom-RukaPro">
+        <div class="card-body border-bottom-info">
+            <form autocomplete="off" id='form-buscar'>
+                <div class="row row-lg">
+                    <div class="col-sm-12 col-lg-12 center-block">
+                        <div class="form-group form-material row d-flex justify-content-center">
+                            <div class="col-sm-2 ">
+                                <label class="col-sm-12 control-label">Usuario</label>
+                                <input class="form-control" id="usuarioFiltro" name="usuario" type='text'>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Nombre</label>
+                                <input class="form-control" id="nombreFiltro" name="nombres" type='text'>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Apellido</label>
+                                <input class="form-control" id="apellidoFiltro" name="apellidos" type='text'>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Estado</label>
+                                <select id="comboEstado" name="estadoComunidad" style="width:100%;"
+                                    data-plugin="select2"></select>
+                            </div>
+                            <div class="col-sm-1">
+                                <br />
+                                <div class="mt-1">
+                                    <button class="btn btn-animate btn-animate-vertical bg-RukaPro form-control"
+                                        name="Buscar" type="submit" value="Buscar">
+                                        <span>Buscar <i aria-hidden="true" class="fa fa-search"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Usuarios</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Usuario</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Telefono</th>
+                            <th>Direccion</th>
+                            <th>Rol</th>
+                            <th width="10%">Estado</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal Crear Usuario-->
+<div class="modal fade" id="modal-usuario">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="div1" class="row">
+                        <div id="divCorreo" class="form-group col-md-6 text-bluedark">
+                            <label>Correo</label>
+                            <input id="idUsuario" type="text" class="form-control" placeholder="xxxx@xxxx.com">
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Rol</label>
+                            <select id="comboRol" data-plugin="select2" class="form-control"> </select>
+                        </div>
+                    </div>
+                    <div id="div2" class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Password</label>
+                            <input id="idPass1" type="password" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Confirmar Password</label>
+                            <input id="idPass2" type="password" class="form-control">
+                        </div>
+                    </div>
+                    <div id="div3" class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Nombres</label>
+                            <input id="nombre" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Apellidos</label>
+                            <input id="apellido" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div id="div4" class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Teléfono</label>
+                            <input id="telefono" type="text" maxlength="12" class="form-control noPaste telefono" />
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Dirección</label>
+                            <input id="direccion" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccion"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(function () {
+        $('#tabla-panel').hide();
+        $('[data-toggle="tooltip"]').tooltip();
+        rolesSelect2N('#comboRol');
+        estadoSelect2N('#comboEstado');
+    });
+
+    $('.modal').on('hidden.bs.modal', () => {
+        $('.modal').find("input").val("").removeClass('invalid');
+        $('#div1,#div2,#div3,#div4,#divCorreo').show();
+    })
+
+    $('#form-buscar').submit(function (e) {
+        e.preventDefault()
+        let validar = true;
+        if ($("#comboComunidad").val() == null) {
+            validar = false;
+            Swal.fire('Eviso', 'Seleccione una Comunidad', 'warning');
+        }
+        if ($("#usuarioFiltro").val() == "" && $("#nombreFiltro").val() == "" && $("#apellidoFiltro").val() == "") {
+            validar = false;
+            toastr.warning('Ingrese un Filtro.');
+        }
+        if (validar) {
+            $.ajax({
+                method: "POST",
+                url: "/mantenedor/usuarios/buscarUsuariosAll",
+                dataType: 'json',
+                data: {
+                    usuario: $("#usuarioFiltro").val(),
+                    nombres: $("#nombreFiltro").val(),
+                    apellidos: $("#apellidoFiltro").val(),
+                    idComunidad: $("#comboComunidad").val(),
+                    estadoUsuario: $("#comboEstado").val(),
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data) {
+                        renderTable(data)
+                        $('#form-buscar').find("input").val("").removeClass('invalid');
+                        $('#form-buscar').find(".select2-selection").val("").removeClass('invalid').attr({ 'style': '' });
+                        $("#tabla-panel").fadeIn();
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                    $("#tabla-panel").fadeOut();
+                })
+
+        }
+    })
+
+    $("#btnCrear").on('click', () => {
+        $("#comboRol").val("RES").trigger('change');
+        $('.botonAccion').attr('id', 'agregar');
+        $('#modal-titulo').text("Nuevo Usuario").parent().attr('class', 'modal-header bg-RukaPro')
+        $('#modal-usuario').modal('show');
+    });
+
+    $(document).on('click', '#agregar', () => {
+        let validar = true;
+        if ($('#idUsuario').val() == "") validar = validarMensaje('#idUsuario', 'Ingrese un Correo.', 'i');
+        if ($('#idPass1').val() == "") validar = validarMensaje('#idPass1', 'Ingrese una contraseña.', 'i');
+        if ($('#idPass2').val() == "") validar = validarMensaje('#idPass2', 'Confirme su contraseña.', 'i');
+        if ($('#comboRol').val() == null) validar = validarMensaje('#comboRol', 'Seleccione un Rol.', 's');
+        if (!validarEmail($('#idUsuario').val())) validar = validarMensaje('#idUsuario', 'Ingrese un correo valido.', 'i');
+        if ($('#idPass1').val() != $('#idPass2').val()) validar = validarMensaje('#idPass2', 'Las contraseñas no coinciden.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/usuarios/crearUsuario",
+                data: {
+                    usuario: $('#idUsuario').val(),
+                    password: $('#idPass1').val(),
+                    nombres: $('#nombre').val(),
+                    apellidos: $('#apellido').val(),
+                    telefono: $('#telefono').val(),
+                    direccion: $('#direccion').val(),
+                    codigoRol: $('#comboRol').val()
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTable(data)
+                        Swal.fire('Usuario ingresado.', '', 'success')
+                        $('.modal').modal('hide')
+                        $("#tabla-panel").fadeIn();
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEditar"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT').DataTable().rows().data().toArray().find(e => e.usuario == id);
+        $('#nombre').val(row.nombres)
+        $('#apellido').val(row.apellidos)
+        $('#telefono').val(row.telefono)
+        $('#direccion').val(row.direccion)
+        $("#comboRol").val(row.codigoRol).trigger('change');
+
+        $('#div2,#divCorreo').hide();
+        $('.botonAccion').attr('id', 'editar');
+        $('#modal-titulo').text("Editar Usuario").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-usuario').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editar', () => {
+        let validar = true;
+        if ($('#comboRol').val() == null) validar = validarMensaje('#comboRol', 'Seleccione un Rol.', 's');
+        if (validar) {
+            var id = $('#modal-usuario').data('id')
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/usuarios/editarUsuario/" + id,
+                data: {
+                    nombres: $('#nombre').val(),
+                    apellidos: $('#apellido').val(),
+                    telefono: $('#telefono').val(),
+                    direccion: $('#direccion').val(),
+                    codigoRol: $('#comboRol').val()
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.usuario);
+                        Swal.fire('Éxito', data.ok, 'success');
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnCambiarPassword"]', function () {
+        let id = $(this).attr("id");
+        $('#div1,#div3,#div4').hide();
+        $('.botonAccion').attr('id', 'cambiarContraseña');
+        $('#modal-titulo').text("Cambiar Contraseña").parent().attr('class', 'modal-header bg-RukaPro')
+        $('#modal-usuario').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#cambiarContraseña', () => {
+        let validar = true;
+        if ($('#idPass1').val() == "") validar = validarMensaje('#idPass1', 'Ingrese Contraseña.', 'i');
+        if ($('#idPass2').val() == "") validar = validarMensaje('#idPass2', 'Confirme Contraseña.', 'i');
+        if ($('#idPass1').val() != $('#idPass2').val()) validar = validarMensaje('#idPass1,#idPass2', 'Ambas contraseñas deben ser iguales.', 'i');
+        if (validar) {
+            var fun = function () {
+                $.ajax({
+                    method: 'POST',
+                    url: "/mantenedor/usuarios/cambiarPassword/" + id,
+                    dataType: 'json',
+                    data: $("#usuario-modal-cambioPass form").serialize(),
+                    beforeSend: loading()
+                })
+                    .done(function (data) {
+                        Swal.close();
+                        if (data.ok) {
+                            $('.modal').modal('hide');
+                            swalWithBootstrapButtons.fire('Éxito', data.ok, 'success');
+                            Swal.fire('Éxito', data.ok, 'success')
+                            $('#form-buscar').submit();
+                        }
+                        if (data.error) swalWithBootstrapButtons.fire('Error', data.error, 'error')
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        Swal.close();
+                        console.log("Error al cambiar contraseña: ", errorMessage(jqXHR, textStatus, errorThrown))
+                    })
+            }
+            mensajeConfirm(fun, '¿Seguro desea cambiar la contraseña?', '¡No podrás revertir el proceso!', 'warning');
+        }
+    });
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "usuario" },
+            { "data": "nombres" },
+            { "data": "apellidos" },
+            { "data": "telefono" },
+            { "data": "direccion" },
+            { "data": "" },
+            { "data": "estadoUsuario" },
+            { "data": "usuario" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) {
+                    let html = "";
+                    $.each(row.usuarioxrols, function (index, value) {
+                        html += `<h6><span class='badge badge-pill badge-info'>${value.rol.descripcionRol}</span><h6>`;
+                    });
+                    return html;
+                },
+                className: "text-center",
+                targets: 6
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 7
+            },
+            {
+                render: function (data, type, row) {
+                    let iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditar' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    let iconCambioPass = `<button id=${data} type='button' class='btn btn-default' name='btnCambiarPassword' data-toggle='tooltip' data-original-title='Cambiar Contraseña' data-trigger='hover'><i class='icon-key text-success fa-lg' aria-hidden='true'></i></button>`;
+                    let iconEliminar = "";
+                    if (datos.userLogin != data) iconEliminar = `<button type='button' class='btn btn-default' data-toggle='tooltip' data-original-title='Eliminar' data-trigger='hover'><i class='icon-trash text-danger fa-lg' aria-hidden='true'></i></button>`;
+                    return iconEditar + iconCambioPass;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 8
+            }
+        ];
+
+        var rowId = function (a) { return a.usuario }
+
+        createTableData('#tablaDT', datos.ok, columnas, columnaDefs, rowId);
+    }
+
+</script>

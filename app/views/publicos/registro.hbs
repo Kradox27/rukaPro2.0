@@ -1,0 +1,269 @@
+<div class="page-content">
+    <style>
+        body {
+            background-image: url('/imagenes/background1.jpeg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        #show_password:hover {
+            color: #F95B00;
+        }
+
+        .showPassword {
+            position: relative;
+            top: -66%;
+            left: 45%;
+        }
+    </style>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="content">
+                <div class="row vh-100 justify-content-around align-items-center">
+                    <div class="card w-75 border-bottom-RukaPro" id="form-registro">
+                        <div class="card-header bg-RukaPro">
+                            <h3 class="text-center">Registrar Nuevo Residente</h3>
+                        </div>
+                        <img src="/imagenes/RukaPro_Solo_naranjo.png" alt="Logo rukaPRO"
+                            style="width: 80px; height: 80px" class="card-img-top mx-auto m-2">
+                        <p class="text-center">breve Información para explicar </p>
+                        <div class="card-body">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-12 text-bluedark" style="margin-bottom: 0px;">
+                                            <h5 class="text-RukaPro">Información del Residente</h5>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="card card-border">
+                                        <div class="card-body card-border-body">
+                                            This is some text within a card body.
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group text-bluedark">
+                                                <label>Nombres</label>
+                                                <input id="nombresU" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group text-bluedark">
+                                                <label>Apellidos</label>
+                                                <input id="apellidosU" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group text-bluedark">
+                                                <label>Correo</label>
+                                                {{#if (eq tipo "RES")}}
+                                                <input id="correoU" type="text" value="{{correo}}" class="form-control">
+                                                {{else}}
+                                                <input id="correoU" type="text" value="{{correo}}" class="form-control"
+                                                    disabled>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group text-bluedark">
+                                                <label>Teléfono</label>
+                                                <input id="telefonoU" type="text" value="{{telefono}}" maxlength="12"
+                                                    class="form-control noPaste telefono" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group text-bluedark">
+                                                <label>Dirección</label>
+                                                <input id="direccionU" type="text" class="form-control" name="direccion"
+                                                    placeholder="Dirección">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group  text-bluedark">
+                                                <label>Contraseña</label>
+                                                <input type="password" class="form-control" id="password">
+                                                <label for="show_password" class="showPassword">
+                                                    <span id="show_password"
+                                                        class="icon-eye-blocked text-RukaPro"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group text-bluedark">
+                                                <label>Confirmar contraseña</label>
+                                                <input type="password" class="form-control" id="confirmPass">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="terminosycondiciones">
+                                    <label class="form-check-label" for="terminosycondiciones">Aceptar Terminos y
+                                        Condiciones</label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <button type="button" name="btnCrear" class="btn bg-RukaPro">Registrarme</button>
+                                <a href="/" class="btn bg-danger">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+    $(document).ready(function () { validadorPassword('#password') });
+
+    function validador() {
+        let validar = true;
+        if ($('#nombresU').val() == "") validar = validarMensaje('#nombresU', 'Ingrese Nombres.', 'i');
+        if ($('#apellidosU').val() == "") validar = validarMensaje('#apellidosU', 'Ingrese Apellidos.', 'i');
+        if ($('#correoU').val() == "") validar = validarMensaje('#correoU', 'Ingrese Apellidos.', 'i');
+        if ($('#telefonoU').val() == "") validar = validarMensaje('#telefonoU', 'Ingrese Teléfono.', 'i');
+        if ($('#correoU').val() == "") validar = validarMensaje('#correoU', 'Ingrese un Correo.', 'i');
+        if ($('#password').val() == "") validar = validarMensaje('#password', 'Ingrese Contraseña.', 'i');
+        if ($('#confirmPass').val() == "") validar = validarMensaje('#confirmPass', 'Confirme contraseña.', 'i');
+        if (!validarEmail($('#correoU').val())) validar = validarMensaje('#correoU', 'Ingrese un correo valido.', 'i');
+        if ($('#password').val() != $('#confirmPass').val()) validar = validarMensaje('#password,#confirmPass', 'Ambas contraseñas deben ser iguales.', 'i');
+        if (!$('#terminosycondiciones').prop('checked')) validar = validarMensaje('#terminosycondiciones', 'Acepte Termino y Condiciones.', 'c');
+        return validar;
+    }
+
+    function data() {
+        return {
+            usuario: $("#correoU").val(),
+            nombres: $("#nombresU").val(),
+            apellidos: $("#apellidosU").val(),
+            telefono: $("#telefonoU").val(),
+            direccion: $("#direccionU").val(),
+            password: $("#password").val(),
+            idComunidad: '{{idComunidad}}'
+        };
+    }
+
+    '{{#if (eq tipo "RES")}}'
+    $(document).on('click', 'button[name="btnCrear"]', function () {
+        if (validador()) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/solicitudRegistro",
+                data: data(),
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        Swal.fire({
+                            title: "Solicitud Enviada",
+                            showConfirmButton: false,
+                            footer: '<a href="/">Volver</a>',
+                            html: `
+                                <div>
+                                    <p>Se ha enviado un correo a ${data.ok} para validar el registro.</p>
+                                    <p>Timpo Restante:</p>
+                                    <strong><p id="temporizador"></p></strong>
+                                </div>
+                            `
+                        })
+                        temporizador("#temporizador", 30)
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+    '{{/if}}'
+
+    '{{#if (eq tipo "ADMIN")}}'
+    $(document).on('click', 'button[name="btnCrear"]', function () {
+        let validar = true;
+        if ($('#pwd1').val() == "") validar = validarMensaje('#pwd1', 'Ingrese Contraseña.', 'i');
+        if ($('#pwd2').val() == "") validar = validarMensaje('#pwd2', 'Confirme contraseña.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/ingresoRegistroAdmin",
+                data: {
+                    usuario: $("#correoU").val(),
+                    nombres: $("#nombresU").val(),
+                    apellidos: $("#apellidosU").val(),
+                    telefono: $("#telefonoU").val(),
+                    direccion: $("#direccionU").val(),
+                    pwd1: $("#pwd1").val(),
+                    pwd2: $("#pwd2").val(),
+                    idComunidad: '{{idComunidad}}',
+                    idSolicitudAdmin: '{{idSolicitudAdmin}}'
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.url) {
+
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+    '{{/if}}'
+
+    '{{#if (eq tipo "COMITE")}}'
+    $(document).on('click', 'button[name="btnCrear"]', function () {
+        if (validador()) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/ingresoRegistroComite",
+                data: data(),
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.url) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Aviso',
+                            text: "Se a creado su cuenta satisfactoriamente, por favor inicie sesión",
+                            icon: 'info',
+                            showCancelButton: false,
+                            confirmButtonText: `<a href=${data.url} style="text-decoration:none;color:white;">AQUÍ</a>`,
+                            cancelButton: false,
+                            reverseButtons: false
+                        })
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+
+        }
+    });
+    '{{/if}}'
+
+</script>

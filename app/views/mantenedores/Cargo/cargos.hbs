@@ -1,0 +1,427 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Cargos de una
+                    Unidad</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+
+    <!-- Informacion Comunidad-->
+    {{>infoComunidad}}
+ 
+    <!-- Informacion Unidad -->
+    <div class="card border-bottom-RukaPro">
+        <a class="btn btn-light" data-toggle="collapse" href="#infoUnidad" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <h4><span class="fa-pull-right"><i class="icon-arrow-down12"></i></span>Información de la Unidad</h4>
+        </a>
+        <div class="collapse" id="infoUnidad">
+            <div class="card-body border-bottom-info">
+                <form autocomplete="off">
+                    <div class="row row-lg">
+                        <div class="col-sm-12 col-lg-12 center-block">
+                            <div class="form-group form-material row d-flex justify-content-center">
+                                <div class="col-sm-3">
+                                    <label class="col-sm-12 control-label">Numero Unidad:</label>
+                                    <input id="numeroUnidadInfo" type="text" class="form-control text-center" disabled>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Rol Unidad:</label>
+                                    <input id="rolUnidadInfo" type="text" class="form-control text-center" disabled>
+                                </div>
+                                <div class="col-sm-2 ">
+                                    <label class="col-sm-12 control-label">Area Unidad:</label>
+                                    <input id="areaUnidadInfo" type="text" class="form-control text-center" disabled>
+                                </div>
+
+                            </div>
+                            <div class="form-group form-material row d-flex justify-content-center">
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Total Prorrateo:</label>
+                                    <input id="totalProrrateoInfo" type="text" class="form-control text-center"
+                                        disabled>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col-sm-12 control-label">Codigo Unico:</label>
+                                    <input id="codigoUnicoInfo" type="text" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informacion Deuda -->
+    <div class="card border-bottom-RukaPro">
+        <a class="btn btn-light" data-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <h4>Información de la Deuda</h4>
+        </a>
+        <div class="card-body border-bottom-info">
+            <form autocomplete="off">
+                <div class="row row-lg">
+                    <div class="col-sm-12 col-lg-12 center-block">
+                        <div class="form-group form-material row d-flex justify-content-center">
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Ultimo Gasto Común:</label>
+                                <input id="valorGCInfo" type="text" class="form-control text-center" disabled>
+                            </div>
+                             <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Morosidad:</label>
+                                <input id="valorDeudaInfo" type="text" class="form-control text-center" disabled>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Interes:</label>
+                                <input id="valorInteresInfo" type="text" class="form-control text-center" disabled>
+                            </div>
+     
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Saldo Favor:</label>
+                                <input id="valorFavorInfo" type="text" class="form-control text-center" disabled>
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Total Deuda:</label>
+                                <input id="valorTotalInfo" type="text" class="form-control text-center" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenido Cargo -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Cargos</h5>
+            <div id="divSaldoFavor" class="d-flex justify-content-center">
+                <button id="btnSaldoFavor" type="button"
+                    class="btn btn-outline btn-lg bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Pagar
+                    con Saldo a Favor</button>
+            </div>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover" id="tablaDT-cargo" width="100%"
+                    cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Periodo</th>
+                            <th>Gasto Comun</th>
+                            <th>Interes</th>
+                            <th>Morosidad</th>
+                            <th>Descuento</th>
+                            <th>Total</th>
+                            <th width="10%">Estado</th>
+                            <th>Fecha de Vencimiento</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Abono -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Abonos</h5>
+            <div class="d-flex justify-content-center">
+                <button id="btnCrear" type="button"
+                    class="btn btn-outline btn-lg bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                    Abono</button>
+            </div>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT-abono" width="100%"
+                    cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Abono</th>
+                            <th>Metodo de Pago</th>
+                            <th>Fecha de Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal-->
+<div class="modal fade" id="modal-abono">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"> </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group text-bluedark">
+                        <label>Abono</label>
+                        <input id="abono" type="text" class="form-control text-center noPaste soloNumeros"
+                            maxlength="12" placeholder="0">
+                        <label>Metodo de Pago</label>
+                        <select id="metodoPago" data-plugin="select2" class="form-control">
+                            <option value="TRANS" selected>TRANSFERENCIA</option>
+                            <option value="EFEC">EFECTIVO</option>
+                            <option value="TDC">TARJETA DE CREDITO</option>
+                            <option value="TDB">TARJETA DE DEBITO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccion"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    var idUnidad = "{{ idUnidad }}";
+
+    $(document).ready(() => {
+        buscarUnidad();
+        buscarCargos();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    function buscarUnidad() {
+        $.ajax({
+            method: "GET",
+            url: "/mantenedor/cargo/buscarUnidad/" + idUnidad,
+            dataType: 'json',
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    $('#numeroUnidadInfo').val(data.ok.numeroUnidad);
+                    $('#rolUnidadInfo').val(data.ok.rolUnidad);
+                    $('#areaUnidadInfo').val(data.ok.areaUnidad);
+                    $('#totalProrrateoInfo').val(data.ok.totalProrrateo);
+                    $('#codigoUnicoInfo').val(data.ok.codigoUnico);
+                    $('#valorInteresInfo').val(formatMoney(data.ok.interes, "CLP"));
+                    $('#valorDeudaInfo').val(formatMoney(data.ok.morosidad, "CLP"));
+                    $('#valorGCInfo').val(formatMoney(data.ok.ultimoGC, "CLP"));
+                    $('#valorFavorInfo').val(formatMoney(data.ok.saldoFavor, "CLP"));
+                    let totalPendiente = data.ok.interes + data.ok.morosidad + data.ok.ultimoGC - data.ok.saldoFavor;
+                    $('#valorTotalInfo').val(formatMoney((Math.sign(totalPendiente) == 1 || Math.sign(totalPendiente) == 0) ? totalPendiente : 0, "CLP"));
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+    }
+
+    function buscarCargos() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/cargo/buscarCargoAll/" + idUnidad,
+            dataType: 'json',
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    renderTableCargo(data.ok.cargos);
+                    renderTableAbono(data.ok.abonos);
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+
+    }
+
+    $('.modal').on('hidden.bs.modal', () => { $('.modal').find("input").val("").removeClass('invalid'); })
+
+    $("#btnCrear").on('click', () => {
+        $('.botonAccion').attr('id', 'agregar');
+        $('#modal-titulo').text("Nuevo Abono").parent().attr('class', 'modal-header bg-RukaPro')
+        $('#modal-abono').modal('show');
+    });
+
+    $(document).on('click', '#agregar', function () {
+        let validar = true;
+        if ($('#abono').val() == "") validar = validarMensaje('#abono', 'Ingrese un Abono.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/cargo/crearAbono",
+                data: {
+                    abono: $("#abono").val(),
+                    metodoPago: $("#metodoPago").val(),
+                    idUnidad: idUnidad
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTableCargo(data.ok.cargo);
+                        agregarDT('#tablaDT-abono', data.ok.abono);
+                        Swal.fire('Éxito', 'Abono ingresado.', 'success');
+                        $('#valorInteresInfo').val(formatMoney(data.ok.interes, "CLP"));
+                        $('#valorDeudaInfo').val(formatMoney(data.ok.morosidad, "CLP"));
+                        $('#valorGCInfo').val(formatMoney(data.ok.ultimoGC, "CLP"));
+                        $('#valorFavorInfo').val(formatMoney(data.ok.saldoFavor, "CLP"));
+                        let totalPendiente = data.ok.interes + data.ok.morosidad + data.ok.ultimoGC - data.ok.saldoFavor;
+                        $('#valorTotalInfo').val(formatMoney((Math.sign(totalPendiente) == 1 || Math.sign(totalPendiente) == 0) ? totalPendiente : 0, "CLP"));
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $("#btnSaldoFavor").on('click', () => {
+        var fun = function () {
+            $.ajax({
+                method: 'GET',
+                dataType: 'json',
+                url: "/mantenedor/cargo/pagoSaldoFavor/" + idUnidad,
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTableCargo(data.ok.cargo);
+                        Swal.fire('Éxito', 'Se ha efectuado el pago.', 'success');
+                        $('#valorInteresInfo').val(formatMoney(data.ok.interes, "CLP"));
+                        $('#valorDeudaInfo').val(formatMoney(data.ok.morosidad, "CLP"));
+                        $('#valorGCInfo').val(formatMoney(data.ok.ultimoGC, "CLP"));
+                        $('#valorFavorInfo').val(formatMoney(data.ok.saldoFavor, "CLP"));
+                        let totalPendiente = data.ok.interes + data.ok.morosidad + data.ok.ultimoGC - data.ok.saldoFavor;
+                        $('#valorTotalInfo').val(formatMoney((Math.sign(totalPendiente) == 1 || Math.sign(totalPendiente) == 0) ? totalPendiente : 0, "CLP"));
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+
+        mensajeConfirm(fun, '¿Seguro desea pagar con su saldo a favor?', '', 'warning');
+    });
+
+    function renderTableCargo(datos) {
+        $("#tablaDT-cargo").dataTable().fnClearTable();
+        $("#tablaDT-cargo").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "gastocomun.periodo" },
+            { "data": "valorGastoComun" },
+            { "data": "interes" },
+            { "data": "morosidad" },
+            { "data": "descuento" },
+            { "data": "" },
+            { "data": "estadoCargo" },
+            { "data": "gastocomun.fechaVencimiento" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                targets: [1, 2, 3, 4]
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney((row.valorGastoComun + row.morosidad + row.interes) - row.descuento, "CLP"); },
+                targets: 5
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 6
+            },
+            {
+                render: function (data, type, row) { return data != "" ? moment.tz(data, "America/Santiago").format("DD/MM/YYYY") : ""; },
+                className: "text-center",
+                targets: 7
+            }
+        ];
+
+        var rowId = function (a) { return a.idCargo }
+
+        createTableData('#tablaDT-cargo', datos, columnas, columnaDefs, rowId);
+    }
+
+    function renderTableAbono(datos) {
+        $("#tablaDT-abono").dataTable().fnClearTable();
+        $("#tablaDT-abono").dataTable().fnDestroy();
+
+        var columnas = [
+            { "data": "" },
+            { "data": "abono" },
+            { "data": "metodoPago" },
+            { "data": "createdAt" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                targets: 1
+            },
+            {
+                render: function (data, type, row) { return labelMetodoPago(data); },
+                className: "text-center",
+                targets: 2
+            },
+            {
+                render: function (data, type, row) { return data != "" ? moment.tz(data, "America/Santiago").add(1, 'days').format("DD/MM/YYYY") : ""; },
+                className: "text-center",
+                targets: 3
+            }
+        ];
+
+        var rowId = function (a) { return a.idAbono }
+
+        createTableData('#tablaDT-abono', datos, columnas, columnaDefs, rowId);
+    }
+
+</script>

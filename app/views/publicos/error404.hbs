@@ -1,0 +1,102 @@
+<style>
+    body {
+        background-color: #e5e5e9;
+    }
+
+    .imagen {
+        height: 263px;
+        width: 313px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -136px;
+        margin-left: -338px;
+    }
+
+    .message-box {
+        height: 200px;
+        width: 380px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: 50px;
+        color: rgb(10, 10, 10);
+        font-family: Roboto;
+        font-weight: 300;
+    }
+
+    .message-box h1 {
+        font-size: 60px;
+        line-height: 46px;
+        margin-bottom: 40px;
+    }
+
+    .buttons-con .action-link-wrap {
+        margin-top: 40px;
+    }
+
+    .buttons-con .action-link-wrap a {
+        background: #68c950;
+        padding: 8px 25px;
+        border-radius: 4px;
+        color: #FFF;
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.3s linear;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px
+    }
+
+    .buttons-con .action-link-wrap a:hover {
+        background: #363e81;
+        color: #fff;
+    }
+
+    @keyframes float {
+        100% {
+            transform: translateY(20px);
+        }
+    }
+
+    @media (max-width: 450px) {
+        .imagen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -250px;
+            margin-left: -190px;
+        }
+
+        .message-box {
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -190px;
+            text-align: center;
+        }
+    }
+</style>
+
+
+<img src="/imagenes/error404.png" class="imagen" alt="Error 404" sizes="" srcset="">
+
+<div class="message-box">
+    <h1>Error 404</h1>
+    <h3>Lo sentimos, pero la página que busca no existe.</h3>
+
+
+    <div class="buttons-con">
+        <div class="action-link-wrap">
+            <a id="volver" class="link-button link-back-button">Volver atrás</a>
+            <a href="/" class="link-button">Volver al Inicio</a>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $("#volver").click(() => { history.back(-1) });
+</script>

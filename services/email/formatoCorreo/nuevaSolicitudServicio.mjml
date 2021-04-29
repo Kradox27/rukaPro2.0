@@ -1,0 +1,133 @@
+<mjml>
+  <mj-head>
+    <mj-style inline="inline">
+      .texto-titulo {
+        -webkit-text-stroke: 0.3px white;
+      }
+
+      body {
+        background-color: #fafafa
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-section background-url="..\public\imagenes\fondoCorreo.jpg" background-size="cover" background-repeat="no-repeat">
+      <mj-column>
+        <mj-image align="center" width="90px" src="..\public\imagenes\RukaPro_Solo_naranjo.png" alt="logo" />
+        <mj-text css-class="texto-titulo" align="center" color="#ff8037" font-size="40px" font-family="Helvetica Neue">¡Bienvenido a RukaPro!</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column width="400px">
+        <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Se ha recibido una nueva solicitud:</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column width="400px">
+        <mj-text align="center" font-style="italic" font-size="18px" font-family="Helvetica Neue" color="#626262">Información de la Comunidad</mj-text>
+        <mj-table padding-left="30px">
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Nombre:</th>
+            <td style="text-align:center;">{{solicitud.nombreComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Tipo de Comunidad:</th>
+            <td style="text-align:center;">{{solicitud.tipoComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Region:</th>
+            <td style="text-align:center;">{{solicitud.regionComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Comuna:</th>
+            <td style="text-align:center;">{{solicitud.comunaComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Ciudad:</th>
+            <td style="text-align:center;">{{solicitud.ciudadComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Calle:</th>
+            <td style="text-align:center;">{{solicitud.calleComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037">
+            <th style="text-align:left;">Numero:</th>
+            <td style="text-align:center;">{{solicitud.numeroComunidad}}</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column width="400px">
+        <mj-text align="center" font-style="italic" font-size="18px" font-family="Helvetica Neue" color="#626262">Información del Comité</mj-text>
+        <mj-table padding-left="30px">
+         <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Nombre:</th>
+            <td style="text-align:center;">{{solicitud.nombreComunidad}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Correo:</th>
+            <td style="text-align:center;">{{solicitud.correoComite}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Nombres:</th>
+            <td style="text-align:center;">{{solicitud.nombreComite}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Apellidos:</th>
+            <td style="text-align:center;">{{solicitud.apellidoComite}}</td>
+          </tr>
+          <tr style="border-bottom:1px solid #ff8037;">
+            <th style="text-align:left;">Teléfono:</th>
+            <td style="text-align:center;">{{solicitud.telefonoComite}}</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    {{#if isAdmin}}
+      <mj-section>
+        <mj-column width="400px">
+          <mj-text align="center" font-style="italic" font-size="18px" font-family="Helvetica Neue" color="#626262">Información del Administrador</mj-text>
+          <mj-table padding-left="30px">
+            <tr style="border-bottom:1px solid #ff8037;">
+              <th style="text-align:left;">Correo:</th>
+              <td style="text-align:center;">{{solicitud.correoAdmin}}</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ff8037;">
+              <th style="text-align:left;">Nombres:</th>
+              <td style="text-align:center;">{{solicitud.nombreAdmin}}</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ff8037;">
+              <th style="text-align:left;">Apellidos:</th>
+              <td style="text-align:center;">{{solicitud.apellidoAdmin}}</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ff8037;">
+              <th style="text-align:left;">Teléfono:</th>
+              <td style="text-align:center;">{{solicitud.telefonoAdmin}}</td>
+            </tr>
+          </mj-table>
+        </mj-column>
+      </mj-section>
+    {{/if}}
+    <mj-section>
+      <mj-column width="600px">
+        <mj-text align="center" font-style="italic" font-size="18px" font-family="Helvetica Neue" color="#626262">Información de Servicios</mj-text>
+        <mj-table padding-left="30px">
+          <tr style="border-bottom:1px solid #ff8037;text-align:left;">
+            <th style="text-align:left;padding-left:6px">Nombre Servicio</th>
+            <th style="text-align:left;padding-left:6px">Descripcion Servicio</th>
+            <th style="text-align:left;padding-left:6px">IVA</th>
+            <th style="text-align:left;padding-left:6px">NETO</th>
+          </tr>
+          {{#each servicio}}
+            <tr>
+              <td style="text-align:center;padding-left:6px">{{nombreServicio}}cascascascascascascascascasc</td>
+              <td style="text-align:center;padding-left:6px">{{descripcionServicio}}sascascascascascascascascascasascascascascascascascascascascascascasc</td>
+              <td style="text-align:center;padding-left:6px">$ {{formatMoney iva}}</td>
+              <td style="text-align:center;padding-left:6px">$ {{formatMoney neto}}</td>
+            </tr>
+          {{/each}}
+        </mj-table>
+      </mj-column>
+    </mj-section>
+</mjml>

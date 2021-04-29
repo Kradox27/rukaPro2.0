@@ -1,0 +1,1515 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Detalles Gasto
+                    Común</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Informacion -->
+    <div class="card border-bottom-RukaPro">
+        <a class="btn btn-light" data-toggle="collapse" href="#info" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <h4><span class="fa-pull-right"><i class="icon-arrow-down12"></i></span>Información del Gasto Común</h4>
+        </a>
+        <div class="collapse" id="info">
+            <div class="card-body border-bottom-info">
+                <form autocomplete="off">
+                    <div class="row row-lg">
+                        <div class="col-sm-12 col-lg-12 center-block">
+                            <div class="form-group form-material row d-flex justify-content-center">
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Periodo:</label>
+                                    <input id="periodoInfo" type="text" value="{{gc.periodo}}"
+                                        class="form-control text-center" disabled>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Fecha Inicio:</label>
+                                    <input type="text" value="{{formatDate gc.fechaInicio}}"
+                                        class="form-control text-center" disabled>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Fecha Termino:</label>
+                                    <input type="text" value="{{formatDate gc.fechaTermino}}"
+                                        class="form-control text-center" disabled>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Fecha Vencimiento:</label>
+                                    <input type="text" value="{{formatDate gc.fechaVencimiento}}"
+                                        class="form-control text-center" disabled>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="col-sm-12 control-label">Estado:</label>
+                                    <div id="estadoInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <div class="container-fluid">
+                    <div id="panelGeneral">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-remuneracion-tab" data-toggle="pill"
+                                    href="#pills-remuneracion" role="tab" aria-controls="pills-remuneracion"
+                                    aria-selected="false">REMUNERACIONES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-ingreso-tab" data-toggle="pill" href="#pills-ingreso"
+                                    role="tab" aria-controls="pills-ingreso" aria-selected="true">INGRESOS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-egreso-tab" data-toggle="pill" href="#pills-egreso"
+                                    role="tab" aria-controls="pills-egreso" aria-selected="false">EGRESOS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-fondos-tab" data-toggle="pill" href="#pills-fondos"
+                                    role="tab" aria-controls="pills-fondos" aria-selected="false">FONDOS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-resumen-tab" data-toggle="pill" href="#pills-resumen"
+                                    role="tab" aria-controls="pills-resumen" aria-selected="false">RESUMEN</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-medidores-tab" data-toggle="pill" href="#pills-medidores"
+                                    role="tab" aria-controls="pills-medidores" aria-selected="false">MEDIDORES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-prorrateo-tab" data-toggle="pill" href="#pills-prorrateo"
+                                    role="tab" aria-controls="pills-prorrateo" aria-selected="false">PRORRATEO</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <!--REMUNERACION-->
+                            <div class="tab-pane fade show active" id="pills-remuneracion" role="tabpanel"
+                                aria-labelledby="pills-gestion-tab">
+                                <!-- Contenido -->
+                                <div class="card border-bottom-RukaPro" id="tabla-panel">
+                                    <a href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de
+                                            Remuneración</h5>
+                                        {{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}
+                                        <div class="d-flex justify-content-center">
+                                            <button id="btnCrear" type="button" data-tipo="REMU"
+                                                class="btn btn-outline btn-lg bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                                                Remuneración</button>
+                                        </div>
+                                        {{/if}}
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover"
+                                                id="tablaDT-remuneracion" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>Nombre Trabajador</th>
+                                                        <th>Sueldo Liquido</th>
+                                                        <th>Valor Ley Social</th>
+                                                        <th class="th-sm" width="10%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2" style="text-align-last: right;font-size:200%;">
+                                                            <strong>Total:</strong>
+                                                        </th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--INGRESO-->
+                            <div class="tab-pane fade" id="pills-ingreso" role="tabpanel"
+                                aria-labelledby="pills-ingreso-tab">
+                                <!-- Contenido -->
+                                <div class="card border-bottom-RukaPro" id="tabla-panel-ingreso">
+                                    <a href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de
+                                            Ingresos</h5>
+                                        {{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}
+                                        <div class="d-flex justify-content-center">
+                                            <button id="btnCrear" type="button" data-tipo="ING"
+                                                class="btn btn-outline btn-lg bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                                                Ingreso</button>
+                                        </div>
+                                        {{/if}}
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover" id="tablaDT-ingreso"
+                                                width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>Descripcion Item </th>
+                                                        <th>Descripcion</th>
+                                                        <th>Valor</th>
+                                                        <th class="th-sm" width="10%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="3" style="text-align-last: right;font-size:200%;">
+                                                            Total:</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--EGRESO-->
+                            <div class="tab-pane fade" id="pills-egreso" role="tabpanel"
+                                aria-labelledby="pills-mantenedores-tab">
+                                <!-- Contenido -->
+                                <div class="card border-bottom-RukaPro" id="tabla-panel-egreso">
+                                    <a href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de
+                                            Egresos</h5>
+                                        {{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}
+                                        <div class="d-flex justify-content-center">
+                                            <button id="btnCrear" type="button" data-tipo="EGR"
+                                                class="btn btn-outline btn-lg bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                                                Egreso</button>
+                                        </div>
+                                        {{/if}}
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover" id="tablaDT-egreso"
+                                                width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>Descripcion Item </th>
+                                                        <th>Descripcion</th>
+                                                        <th>Valor</th>
+                                                        <th class="th-sm" width="10%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="3" style="text-align-last: right;font-size:200%;">
+                                                            <strong>Total:</strong>
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FONDOS-->
+                            <div class="tab-pane fade" id="pills-fondos" role="tabpanel"
+                                aria-labelledby="pills-fondos-tab">
+                                <!-- Contenido -->
+                                <div class="card border-bottom-RukaPro" id="tabla-panel-fondo">
+                                    <a id="a-panel-fondo" href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de
+                                            Fondos</h5>
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover" id="tablaDT-fondo"
+                                                width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>Nombre Fondo</th>
+                                                        <th>Valor Porcentaje</th>
+                                                        <th>Valor Fijo</th>
+                                                        <th>Calculo</th>
+                                                        {{#if (and (eq gc.tipoProceso "ER") (eqBool user.habilitado))}}
+                                                        <th class="th-sm" width="10%">Acciones</th>
+                                                        {{/if}}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="4" style="text-align-last: right;font-size:200%;">
+                                                            Total:</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--RESUMEN-->
+                            <div class="tab-pane fade" id="pills-resumen" role="tabpanel"
+                                aria-labelledby="pills-indicadores-tab">
+                                <div class="card border-bottom-RukaPro" id="tabla-panel-fondo">
+                                    <a id="a-panel-fondo" href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Resumen Gasto
+                                            Comunes</h5>
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover" id="tablaDT-resumen"
+                                                width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>Descripcion Item </th>
+                                                        <th>Descripcion</th>
+                                                        <th>Valor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot id="idfooter">
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--MEDIDORES-->
+                            <div class="tab-pane fade" id="pills-medidores" role="tabpanel"
+                                aria-labelledby="pills-medidores-tab">
+                                <!-- Contenido -->
+                                <div class="card border-bottom-RukaPro" id="tabla-panel-medidores">
+                                    <a href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de
+                                            Medidores</h5>
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover"
+                                                id="tablaDT-medidores" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>Numero Unidad</th>
+                                                        {{#each tm}}
+                                                        <th>{{descripcionTipoMedidores}}({{tipoUnidadMedidores}})</th>
+                                                        <th>{{descripcionTipoMedidores}}</th>
+                                                        {{/each}}
+                                                        <th class="th-sm" width="10%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--PRORRATEO-->
+                            <div class="tab-pane fade" id="pills-prorrateo" role="tabpanel"
+                                aria-labelledby="pills-prorrateo-tab">
+                                <!-- Contenido -->
+                                <div class="card border-bottom-RukaPro" id="tabla-panel-prorrateo">
+                                    <a href="#collapseCardOne"
+                                        class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                        data-toggle="collapse" role="button" aria-expanded="true"
+                                        aria-controls="collapseCardOne">
+                                        <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de
+                                            Prorrateo</h5>
+                                    </a>
+                                    <div class="card-body border-bottom-info">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-hover"
+                                                id="tablaDT-prorrateo" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nº</th>
+                                                        <th>NUMERO UNIDAD</th>
+                                                        <th>PORCENTAJE PRORRATEO</th>
+                                                        <th>GASTOS COMUNES</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2" style="text-align-last: right;font-size:200%;">
+                                                            Total:</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if (eqBool user.habilitado)}}
+{{#if (ne gc.tipoProceso "FIN")}}
+<!-- Inicio Modal Trabajador-->
+<div class="modal fade" id="modal-remuneracion">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo-remu"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group text-bluedark">
+                        <label>Trabajador</label>
+                        <select id="comboTrabajador" class="form-control"></select>
+                    </div>
+                    <div class="form-group text-bluedark">
+                        <label>Sueldo Liquido</label>
+                        <input id="sueldoLiq" type="text" class="form-control text-center noPaste soloNumeros"
+                            maxlength="15" placeholder="0">
+                    </div>
+                    <div class="form-group text-bluedark">
+                        <label>Valor Ley Social</label>
+                        <input id="leySocial" type="text" class="form-control text-center noPaste soloNumeros"
+                            maxlength="15" placeholder="0">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccionRemu"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal Sub Gasto Comun-->
+<div class="modal fade" id="modal-subGastoComun">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo-IE"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group text-bluedark">
+                        <label>Descripcion</label>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="descripcion" type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <button id="btnSugerencia" class="btn bg-RukaPro " data-toggle='tooltip'
+                                        data-original-title='Sugerir SubItem' data-trigger='hover' type="button">
+                                        <span class="icon-help"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-bluedark">
+                        <label>Valor</label>
+                        <input id="valor" type="text" class="form-control text-center noPaste soloNumeros"
+                            maxlength="15" placeholder="0">
+                    </div>
+                    <div id="divItem" class="form-group text-bluedark">
+                        <label>Item</label>
+                        <select id="comboItem" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccionIE"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal Sugerencia SubItem-->
+<div class="modal fade" id="modal-sugerenciaSubItem">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="">
+                <h4 class="modal-title mb-0" id="modal-titulo-sugerencia"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group text-bluedark">
+                    <label>SubItem</label>
+                    <select id="comboSubItem" class="form-control"></select>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success botonAccionSugerencia"><i
+                            class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                            class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal Crear Medidor-->
+<div class="modal fade" id="modal-medidores">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo-medidores"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 text-bluedark">
+                            <label>Tipo Medidor:</label>
+                        </div>
+                        <div class="form-group col-md-4 text-bluedark">
+                            <label>Cantidad:</label>
+                        </div>
+                        <div class="form-group col-md-4 text-bluedark">
+                            <label>Valor:</label>
+                        </div>
+                    </div>
+                    {{#each tm}}
+                    <div class="row">
+                        <div class="form-group col-md-4 text-bluedark">
+                            <input type="text" class="form-control"
+                                placeholder="{{descripcionTipoMedidores}} ({{tipoUnidadMedidores}})" disabled>
+                        </div>
+                        <div class="form-group col-md-4 text-bluedark">
+                            <input id="cant-{{idTipoMedidores}}" type="text"
+                                class="form-control text-center noPaste soloNumeros" maxlength="15" placeholder="0">
+                        </div>
+                        <div class="form-group col-md-4 text-bluedark">
+                            <input id="valor-{{idTipoMedidores}}" type="text"
+                                class="form-control text-center noPaste soloNumeros" maxlength="15" placeholder="0">
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccionMedidores"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+{{/if}}
+
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    var idGastoComun = "{{ gc.idGastoComun }}";
+    var idComunidad = "{{ gc.idComunidad }}";
+    var tipoProceso = "{{ gc.tipoProceso }}";
+
+    var totalFinalFondo = 0;
+    var cantUnidades = 0;
+
+    $(document).ready(() => {
+        $('[data-toggle="tooltip"]').tooltip();
+        itemList(idComunidad)
+        subItemList(idComunidad);
+        trabajadorList(idComunidad);
+        tipoMedidoresList(idComunidad);
+        buscarSubGastosComunes();
+        $('#estadoInfo').html(labelTipoTabla(tipoProceso))
+    });
+
+    function buscarSubGastosComunes() {
+        $.ajax({
+            method: "GET",
+            url: "/mantenedor/subGastosComunes/buscarSubGastoComunAll/N/{{gc.idComunidad}}/{{gc.idGastoComun}}",
+            dataType: 'json',
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    renderTable("#tablaDT-ingreso", data.ok.ingreso)
+                    renderTable("#tablaDT-egreso", data.ok.egreso)
+                    renderTableRemuneracion(data.ok.remuneracion)
+                    resumenFondo(data.ok.fondo)
+                    renderTableMedidores(data.ok.unidad);
+                    cantUnidades = data.ok.unidad.length;
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+    }
+
+    $('.nav-link').on('shown.bs.tab', (e) => {
+        let dt;
+        switch (e.currentTarget.id) {
+            case 'pills-remuneracion-tab':
+                dt = new $.fn.dataTable.Api("#tablaDT-remuneracion");
+                $(dt.rows().nodes()).removeClass('highlight');
+                break;
+            case 'pills-ingreso-tab':
+                dt = new $.fn.dataTable.Api("#tablaDT-ingreso");
+                $(dt.rows().nodes()).removeClass('highlight');
+                break;
+            case 'pills-egreso-tab':
+                dt = new $.fn.dataTable.Api("#tablaDT-egreso");
+                $(dt.rows().nodes()).removeClass('highlight');
+                break;
+            case 'pills-fondos-tab': resumenFondo($('#tablaDT-fondo').DataTable().rows().data());
+                break;
+            case 'pills-resumen-tab': resumenGeneral();
+                break;
+            case 'pills-medidores-tab': tipoMedidoresList(idComunidad);
+                break;
+            case 'pills-prorrateo-tab': resumenProrrateo();
+                break;
+        }
+    })
+
+    $('.modal').on('hidden.bs.modal', (e) => {
+        switch (e.currentTarget.id) {
+            case 'modal-remuneracion':
+                $('.modal').find("input").val("").removeClass('invalid');
+                $('.modal').find('span.select2-selection').removeClass("invalid").attr({ 'style': '' });
+                $("#comboTrabajador").empty().prop('disabled', false);
+                break;
+            case 'modal-subGastoComun':
+                $('.modal').find("input").val("").removeClass('invalid');
+                $('.modal').find("button").val("").removeClass('invalid');
+                $('.modal').find('span.select2-selection').removeClass("invalid").attr({ 'style': '' });
+                $('#divItem,#btnSugerencia').show();
+                break;
+            case 'modal-sugerenciaSubItem':
+                $('.modal').find('span.select2-selection').removeClass("invalid").attr({ 'style': '' });
+                $("#comboSubItem").empty()
+                break;
+            case 'modal-fondo': $('.modal').find("input").val("").removeClass('invalid');
+                break;
+            case 'modal-medidores':
+                $.each($("body").data("tipoMedidoresSelect2"), (pos, tm) => {
+                    $("#modal-medidores").find(`#cant-${tm.idTipoMedidores},#valor-${tm.idTipoMedidores}`).val("");
+                })
+                break;
+        }
+    })
+
+    '{{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}'
+    $(document).on('click', '#btnCrear', function () {
+        let tipo = $(this).attr("data-tipo");
+        if (tipo == "ING" || tipo == "EGR") {
+            $('#modal-subGastoComun').data('tipo', tipo).data('sugerencia', false);
+            let data = $.map($("body").data("itemSelect2").filter(x => x.tipoIngresoItem == (tipo == "ING" ? "INC" : "ENC")), function (a, b) { return { id: a.idItem, text: a.descripcionItem } });
+            iniciarCombo("#comboItem", data, "Seleccione SubItem")
+            $('.botonAccionIE').attr('id', 'agregarIE');
+            let titulo = tipo == "ING" ? "Nuevo Ingreso" : "Nuevo Egreso";
+            $('#modal-titulo-IE').text(titulo).parent().attr('class', 'modal-header bg-RukaPro')
+            $('#modal-subGastoComun').modal('show');
+        }
+        if (tipo == "REMU") {
+            let data = $("body").data("trabajadorSelect2");
+            $("#tablaDT-remuneracion").DataTable().rows().data().each(function (value) {
+                var pos = data.findIndex(x => x.idTrabajador == value.idTrabajador)
+                if (pos != -1) data.splice(pos, 1);
+            });
+            if (data.length == 0) Swal.fire('Información', 'No existen mas Trabajadores', 'info');
+            else {
+                let dataSelect = $.map(data, function (a, b) { return { id: a.idTrabajador, text: a.nombres + " " + a.apellidos } });
+                iniciarCombo("#comboTrabajador", dataSelect, "Seleccione Trabajador");
+                $('.botonAccionRemu').attr('id', 'agregarRemu');
+                $('#modal-titulo-remu').text("Nueva Remuneración").parent().attr('class', 'modal-header bg-RukaPro')
+                $('#modal-remuneracion').modal('show');
+            }
+        }
+    });
+
+    /*-------------------------------------------REMUNERACION--------------------------------------------------------------------------------------*/
+
+    $(document).on('click', '#agregarRemu', () => {
+        let validar = true;
+        if ($("#comboTrabajador").val() == null) validar = validarMensaje('#comboTrabajador', 'Seleccione un Trabajador.', 's');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/remuneraciones/crearRemuneracion",
+                data: {
+                    idTrabajador: $("#comboTrabajador").val(),
+                    sueldoLiquido: $("#sueldoLiq").val() != "" ? $("#sueldoLiq").val() : 0,
+                    totalLeySocial: $("#leySocial").val() != "" ? $("#leySocial").val() : 0,
+                    idGastoComun: parseInt(idGastoComun),
+                    tipo: "NORMAL"
+                }
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        agregarDT('#tablaDT-remuneracion', data.ok);
+                        Swal.fire('Éxito', 'Remuneración ingresada.', 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEditarRemu"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT-remuneracion').DataTable().rows().data().toArray().find(e => e.idRemuneracion == id);
+        let trabajador = [{ id: row.idTrabajador, text: row.trabajador.nombres + " " + row.trabajador.apellidos }]
+        iniciarCombo("#comboTrabajador", trabajador, '', row.idTrabajador).prop('disabled', true).trigger('change')
+        $('#sueldoLiq').val(row.sueldoLiquido);
+        $('#leySocial').val(row.totalLeySocial);
+
+        $('.botonAccionRemu').attr('id', 'editarRemu');
+        $('#modal-titulo-remu').text("Editar Remuneración").parent().attr('class', 'modal-header bg-RukaPro')
+        $('#modal-remuneracion').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editarRemu', () => {
+        let validar = true;
+        if ($("#comboTrabajador").val() == null) validar = validarMensaje('#comboTrabajador', 'Seleccione un Trabajador.', 's');
+        if (validar) {
+            var id = $('#modal-remuneracion').data('id');
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/remuneraciones/editarRemuneracion/" + id,
+                data: {
+                    sueldoLiquido: $("#sueldoLiq").val() != "" ? $("#sueldoLiq").val() : 0,
+                    totalLeySocial: $("#leySocial").val() != "" ? $("#leySocial").val() : 0,
+                    idGastoComun: parseInt(idGastoComun),
+                    tipo: "NORMAL"
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT-remuneracion', id, data.remuneracion, true);
+                        Swal.fire('Éxito', data.ok, 'success');
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+
+        }
+    });
+    '{{/if}}'
+
+    function renderTableRemuneracion(datos) {
+        $("#tablaDT-remuneracion").dataTable().fnClearTable();
+        $("#tablaDT-remuneracion").dataTable().fnDestroy();
+
+        var columnas = [
+            { "data": "" },
+            { "data": "trabajador.nombreCompleto" },
+            { "data": "sueldoLiquido" },
+            { "data": "totalLeySocial" },
+            { "data": "idRemuneracion" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                width: "200px",
+                targets: [2, 3]
+            },
+            {
+                render: function (data, type, row, meta) {
+                    let iconEditar = '';
+                    '{{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}'
+                    iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditarRemu' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    '{{/if}}'
+                    return iconEditar;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 4
+            }
+        ];
+
+        var rowId = function (a) { return a.idRemuneracion }
+
+        var drawCallback = function (settings) { $('[data-toggle="tooltip"]').tooltip(); }
+
+        var footerCallback = function (row, data, start, end, display) {
+            var api = this.api(), data;
+            //Total Ley Social
+            let totalLeySocial = api.column(2).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+            $(api.column(2).footer()).html(`<strong>${formatMoney(totalLeySocial, "CLP")}</strong>`);
+
+            //Sueldo Liquido
+            let totalSueldoLiquido = api.column(3).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+            $(api.column(3).footer()).html(`<strong>${formatMoney(totalSueldoLiquido, "CLP")}</strong>`);
+        }
+
+        createTableData_personalizado("#tablaDT-remuneracion", datos, columnas, columnaDefs, rowId, drawCallback, footerCallback, true, false)
+    }
+
+    /*-------------------------------------------INGRESOS Y EGRESOS--------------------------------------------------------------------------------*/
+
+    '{{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}'
+    $(document).on('click', '#btnSugerencia', function () {
+        var tipo = $('#modal-subGastoComun').data('tipo');
+        let data = $.map($("body").data("subItemSelect2").filter(x => x.item.tipoIngresoItem == (tipo == "ING" ? "INC" : "ENC")), function (a, b) { return { id: a.idSubItem, text: a.descripcionSubItem } });
+        if (data.length != 0) {
+            iniciarCombo("#comboSubItem", data, 'Seleccione SubItem')
+            $('.botonAccionSugerencia').attr('id', 'agregarSugerencia');
+            $('#modal-titulo-sugerencia').text("Sugerencia").parent().attr('class', 'modal-header bg-RukaPro')
+            $('#modal-sugerenciaSubItem').modal('show');
+        } else Swal.fire('Información', 'No existen Sugerencias', 'info');
+    });
+
+    $(document).on('click', '#agregarSugerencia', function () {
+        let validar = true;
+        if ($("#comboSubItem").val() == null) validar = validarMensaje('#comboSubItem', 'Seleccione un SubItem.', 's');
+        if (validar) {
+            $('.modal').find("input").val("").removeClass('invalid');
+            $('.modal').find("button").val("").removeClass('invalid');
+            let subItem = $("body").data("subItemSelect2").find(x => x.idSubItem == $("#comboSubItem").val());
+            $("#descripcion").val(subItem.descripcionSubItem);
+            $('#modal-subGastoComun').data('sugerencia', true).data('item', subItem.item.idItem);
+            $('#modal-sugerenciaSubItem').modal('hide');
+            $('#divItem').hide();
+        }
+    });
+
+    $(document).on('click', '#agregarIE', () => {
+        let validar = true;
+        if ($("#descripcion").val() == "") validar = validarMensaje('#descripcion,#btnSugerencia', 'Ingrese una descripcion o sugiera un SubItem.', 'i');
+        if ($("#comboItem").val() == null && !$('#modal-subGastoComun').data('sugerencia')) validar = validarMensaje('#comboItem', 'Seleccione un Item.', 's');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/subGastosComunes/crearSubGastoComun",
+                data: {
+                    valorSubItemGastoComun: $("#valor").val() != "" ? $("#valor").val() : 0,
+                    descripcionSubItemGastoComun: $("#descripcion").val(),
+                    idGastoComun: parseInt(idGastoComun),
+                    idComunidad: parseInt(idComunidad),
+                    tipo: "NORMAL",
+                    idItem: $('#modal-subGastoComun').data('sugerencia') ? parseInt($('#modal-subGastoComun').data('item')) : $("#comboItem").val()
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        switch (data.ok.item.tipoIngresoItem) {
+                            case "INC": agregarDT('#tablaDT-ingreso', data.ok); break;
+                            case "ENC": agregarDT('#tablaDT-egreso', data.ok); break;
+                        }
+                        Swal.fire('Éxito', 'Linea ingresada', 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEditarIE"]', function () {
+        let id = $(this).attr("id");
+        let tabla = $(this).attr("data-tipo") == "INC" ? '#tablaDT-ingreso' : '#tablaDT-egreso'
+        let row = $(tabla).DataTable().rows().data().toArray().find(e => e.idSubItemGastoComun == id);
+
+        $('#descripcion').val(row.descripcionSubItemGastoComun);
+        $('#valor').val(row.valorSubItemGastoComun);
+
+        $('#divItem,#btnSugerencia').hide();
+        $('.botonAccionIE').attr('id', 'editarIE');
+        $('#modal-titulo-IE').text("Editar Linea").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-subGastoComun').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editarIE', () => {
+        let validar = true;
+        if ($("#descripcion").val() == "") validar = validarMensaje('#descripcion', 'Ingrese una descripcion.', 'i');
+        if (validar) {
+            var id = $('#modal-subGastoComun').data('id');
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/subGastosComunes/editarSubGastoComun/" + id,
+                data: {
+                    valorSubItemGastoComun: $("#valor").val(),
+                    descripcionSubItemGastoComun: $("#descripcion").val(),
+                    idGastoComun: parseInt(idGastoComun),
+                    idComunidad: parseInt(idComunidad),
+                    tipo: "NORMAL"
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        switch (data.subGastoComun.item.tipoIngresoItem) {
+                            case "INC": editarDT('#tablaDT-ingreso', id, data.subGastoComun, true); break;
+                            case "ENC": editarDT('#tablaDT-egreso', id, data.subGastoComun, true); break;
+                        }
+                        $('.modal').modal('hide')
+                        Swal.fire('Éxito', data.ok, 'success')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+
+        }
+    });
+    '{{/if}}'
+
+    function renderTable(selector, datos) {
+        $(selector).dataTable().fnClearTable();
+        $(selector).dataTable().fnDestroy();
+
+        var columnas = [
+            { "data": "" },
+            { "data": "item.descripcionItem" },
+            { "data": "descripcionSubItemGastoComun" },
+            { "data": "valorSubItemGastoComun" },
+            { "data": "idSubItemGastoComun" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                width: "200px",
+                targets: 3
+            },
+            {
+                render: function (data, type, row, meta) {
+                    let iconEditar = '';
+                    '{{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}'
+                    iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditarIE' data-tipo='${row.item.tipoIngresoItem}' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    '{{/if}}'
+                    return iconEditar;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 4
+            },
+            { visible: false, targets: 1 }
+        ];
+
+        var drawCallback = function (settings) {
+            $('[data-toggle="tooltip"]').tooltip()
+            var api = this.api();
+            var rows = api.rows({ page: 'current' }).nodes();
+            var last = null;
+            var suma = 0;
+            api.column(1, { page: 'current' }).data().each(function (group, i) {
+                if (last !== group) {
+                    rows.data().each(function (object, i) { if (object.item.descripcionItem == group) suma += object.valorSubItemGastoComun; })
+                    $(rows).eq(i).before(`<tr class="group"><td colspan="2" style="background-color: #cbd5e0"><strong>${group}</strong></td><td colspan="2" style="background-color: #cbd5e0"><strong>${formatMoney(suma, "CLP")}</strong></td></tr>`);
+                    last = group;
+                    suma = 0;
+                }
+            });
+        }
+
+        var footerCallback = function (row, data, start, end, display) {
+            var api = this.api(), data;
+            let total = api.column(3).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+            $(api.column(3).footer()).html(`<strong>${formatMoney(total, "CLP")}</strong>`);
+        }
+
+        var rowId = function (a) { return a.idSubItemGastoComun }
+
+        createTableData_personalizado(selector, datos, columnas, columnaDefs, rowId, drawCallback, footerCallback);
+    }
+
+    /*-------------------------------------------FONDO---------------------------------------------------------------------------------------------*/
+
+    function resumenFondo(fondos) {
+        totalFinalFondo = 0;
+        let data = obtenerData();
+        let datos = juntarJson(data)
+        let totalEgreso = datos.filter(e => e.item.tipoIngresoItem == "ENC").reduce((sum, value) => (typeof value.valorSubItemGastoComun == "number" ? sum + value.valorSubItemGastoComun : sum), 0);
+        let totalIngreso = datos.filter(e => e.item.tipoIngresoItem == "INC").reduce((sum, value) => (typeof value.valorSubItemGastoComun == "number" ? sum + value.valorSubItemGastoComun : sum), 0);
+        let total = (totalIngreso >= totalEgreso) ? 0 : (totalEgreso - totalIngreso);
+        fondos = fondos.map(function (task, index, array) {
+            if (task.porcentajeFondo != 0) task.calculo = Math.round((total * task.porcentajeFondo) / 100);
+            else if (task.valorFondo != 0) task.calculo = total != 0 ? task.valorFondo * cantUnidades : 0;
+            else task.calculo = 0;
+            return task
+        });
+        renderTableFondo(fondos);
+    }
+
+    function renderTableFondo(datos) {
+        $("#tablaDT-fondo").dataTable().fnClearTable();
+        $("#tablaDT-fondo").dataTable().fnDestroy();
+
+        var columnas = [
+            { "data": "" },
+            { "data": "nombreFondo" },
+            { "data": "porcentajeFondo" },
+            { "data": "valorFondo" },
+            { "data": "calculo" }
+        ];
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) { return data + "%"; },
+                width: "200px",
+                targets: 2
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                width: "200px",
+                targets: [3, 4]
+            }
+        ];
+
+        var drawCallback = function (settings) { $('[data-toggle="tooltip"]').tooltip() }
+
+        var footerCallback = function (row, data, start, end, display) {
+            var api = this.api(), data;
+            let total = api.column(4).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+            $(api.column(4).footer()).html(`<strong>${formatMoney(total, "CLP")}</strong>`);
+        }
+
+        var rowId = function (a) { return a.idFondo }
+
+        createTableData_personalizado("#tablaDT-fondo", datos, columnas, columnaDefs, rowId, drawCallback, footerCallback);
+    }
+
+    /*-------------------------------------------RESUMEN-------------------------------------------------------------------------------------------*/
+
+    function resumenGeneral() {
+        let data = obtenerData();
+        renderTableResumen(juntarJson(data), data.ok.fondo, data.ok.unidad.length);
+    }
+
+    function renderTableResumen(datos, fondos, cantUnidad) {
+        $("#tablaDT-resumen").dataTable().fnClearTable();
+        $("#tablaDT-resumen").dataTable().fnDestroy();
+
+        var columnas = [
+            { "data": "" },
+            { "data": "item.descripcionItem" },
+            { "data": "descripcionSubItemGastoComun" },
+            { "data": "valorSubItemGastoComun" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + 1;
+                },
+                className: "text-center",
+                width: "50px",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) {
+                    var valor = data
+                    if (data == "TOTAL LEYES SOCIALES") valor = `<strong> ${data}</strong > `;
+                    return valor
+                },
+                width: "500px",
+                targets: 2
+            },
+            {
+                render: function (data, type, row, meta) {
+                    var tipo = row.item.tipoIngresoItem;
+                    switch (row.item.tipoIngresoItem) {
+                        case 'ENC': return `<p class="positive"> ${formatMoney(data, "CLP")}</p> `;
+                        case 'INC': return `<p class="negative"> -${formatMoney(data, "CLP")}</p> `;
+                    }
+                },
+                width: "200px",
+                targets: 3
+
+            },
+            { visible: false, targets: 1 }
+        ];
+
+        var drawCallback = function (settings) {
+            $('[data-toggle="tooltip"]').tooltip()
+            var api = this.api();
+            var rows = api.rows({ page: 'current' }).nodes();
+            var last = null;
+            var suma = 0;
+            api.column(1, { page: 'current' }).data().each(function (group, i) {
+                if (last !== group) {
+                    var tipo;
+                    rows.data().each(function (object, i) {
+                        if (object.item.descripcionItem == group) {
+                            suma += object.valorSubItemGastoComun;
+                            tipo = object.item.tipoIngresoItem;
+                        }
+                    })
+                    var valor = tipo == 'INC' ? `-${formatMoney(suma, "CLP")}` : formatMoney(suma, "CLP")
+                    $(rows).eq(i).before(`<tr class="group"><td colspan="2" style="background-color: #cbd5e0"><strong>${group}</strong></td><td colspan="2" style="background-color: #cbd5e0"><strong>${valor}</strong></td></tr>`);
+                    last = group;
+                    suma = 0;
+                }
+            });
+        }
+
+        var footerCallback = function (row, data, start, end, display) {
+            var api = this.api(), data;
+            let rows = api.rows({ page: 'current' }).nodes();
+            let tipo;
+            let egreso = rows.data().filter(e => e.item.tipoIngresoItem == "ENC").reduce((sum, value) => (typeof value.valorSubItemGastoComun == "number" ? sum + value.valorSubItemGastoComun : sum), 0);
+            let ingreso = rows.data().filter(e => e.item.tipoIngresoItem == "INC").reduce((sum, value) => (typeof value.valorSubItemGastoComun == "number" ? sum + value.valorSubItemGastoComun : sum), 0);
+            let totalContable = (ingreso >= egreso) ? 0 : (egreso - ingreso);
+
+            let totalFinal = 0;
+            let textoFondo = "";
+            datos.fondos = fondos.map(function (task, index, array) {
+                if (task.porcentajeFondo != "") task.calculo = (totalContable * task.porcentajeFondo) / 100;
+                else if (task.valorFondo != "") task.calculo = totalContable != 0 ? task.valorFondo * cantUnidad : 0;
+                textoFondo += `<tr><th colspan="2" style="text-align-last: right;font-size:150%;" class="text-center" rowspan="1">${task.nombreFondo}:</th><th>${formatMoney(task.calculo, "CLP")}</th></tr>`
+                return task
+            });
+            totalFinal = totalContable + datos.fondos.reduce((sum, value) => (typeof value.calculo == "number" ? sum + value.calculo : sum), 0);
+
+            $("#idfooter tr").remove();
+            $("#idfooter").append(` 
+                <tr><th colspan="2" style="text-align-last: right;font-size: 160%;">Ingresos:</th><th><strong>${formatMoney(ingreso, "CLP")}</strong></th></tr>  
+                <tr><th colspan="2" style="text-align-last: right;font-size: 160%;">Egresos:</th><th><strong>${formatMoney(egreso, "CLP")}</strong></th></tr>
+                <tr><th colspan="2" style="text-align-last: right;font-size: 160%;">Total Gastos Comunes:</th><th><strong>${formatMoney(totalContable, "CLP")}</strong></th></tr> 
+                ${textoFondo}
+                <tr><th colspan="2" style="text-align-last: right;font-size:28px;" class="text-center" rowspan="1"><strong>TOTAL:</strong></th><th><h5><strong>${formatMoney(totalFinal, "CLP")}</strong></h5></th></tr>
+            `)
+        }
+
+        createTableData_personalizado("#tablaDT-resumen", datos, columnas, columnaDefs, null, drawCallback, footerCallback, false, false);
+    }
+
+    /*-------------------------------------------MEDIDORES-----------------------------------------------------------------------------------------*/
+
+    '{{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}'
+    $(document).on('click', 'button[name="btnEditarMedidores"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT-medidores').DataTable().rows().data().toArray().find(e => e.idUnidad == id);
+        if (row.medidores.length != 0) {
+            $.each(row.medidores, (pos, e) => {
+                $(`#cant-${e.idTipoMedidores}`).val(e.cantidadMedidores == 0 ? "" : e.cantidadMedidores)
+                $(`#valor-${e.idTipoMedidores}`).val(e.valorMedidores == 0 ? "" : e.valorMedidores)
+            });
+        }
+        $('.botonAccionMedidores').attr('id', 'editarMedidores');
+        $('#modal-titulo-medidores').text("Editar Medidores").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-medidores').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editarMedidores', () => {
+        var id = $('#modal-medidores').data('id');
+        var listMedidores = $("body").data("tipoMedidoresSelect2").map(function (task, index, array) {
+            return {
+                idTipoMedidores: task.idTipoMedidores,
+                cantidadMedidores: $(`#cant-${task.idTipoMedidores}`).val(),
+                valorMedidores: $(`#valor-${task.idTipoMedidores}`).val(),
+                idGastoComun: parseInt(idGastoComun)
+            }
+        });
+        $.ajax({
+            method: 'POST',
+            dataType: 'json',
+            url: "/mantenedor/medidores/editarMedidores/",
+            data: { medidores: JSON.stringify(listMedidores), idUnidad: id, idComunidad: idComunidad, idGastoComun: idGastoComun },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    editarDT('#tablaDT-medidores', id, data.unidad)
+                    $('.modal').modal('hide')
+                    Swal.fire('Éxito', data.ok, 'success')
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+
+    });
+    '{{/if}}'
+
+    function renderTableMedidores(datos) {
+        $("#tablaDT-medidores").dataTable().fnClearTable();
+        $("#tablaDT-medidores").dataTable().fnDestroy();
+        var columnas = [{ "data": "", }, { "data": "numeroUnidad" }];
+        var columnaDefs = [{
+            render: function (data, type, row, meta) {
+                return meta.row + 1;
+            },
+            className: "text-center",
+            width: "10%",
+            targets: 0
+        },
+        {
+            width: "40%",
+            targets: 1
+        }];
+
+        $.each($("body").data("tipoMedidoresSelect2"), (pos, e) => {
+            columnas.push({ "data": "", "defaultContent": 0 }, { "data": "", "defaultContent": 0 })
+            columnaDefs.push(
+                {
+                    render: function (data, type, row, meta) {
+                        var valor = 0
+                        if (row.medidores.some(r => r.idTipoMedidores == e.idTipoMedidores))
+                            valor = row.medidores.find(r => r.idTipoMedidores == e.idTipoMedidores).cantidadMedidores;
+                        return valor;
+                    },
+                    width: "10%",
+                    targets: columnas.length - 2
+                },
+                {
+                    render: function (data, type, row, meta) {
+                        var valor = 0
+                        if (row.medidores.some(r => r.idTipoMedidores == e.idTipoMedidores))
+                            valor = row.medidores.find(r => r.idTipoMedidores == e.idTipoMedidores).valorMedidores;
+                        return formatMoney(valor, "CLP");
+                    },
+                    width: "10%",
+                    targets: columnas.length - 1
+                }
+            );
+        });
+
+        columnas.push({ "data": "idUnidad" });
+        columnaDefs.push({
+            render: function (data, type, row) {
+                let iconEditar = "";
+                '{{#if (and (ne gc.tipoProceso "FIN") (eqBool user.habilitado) )}}'
+                iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditarMedidores' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                '{{/if}}'
+                return iconEditar;
+            },
+            className: "text-center",
+            targets: columnas.length - 1
+        });
+
+        var rowId = function (a) { return a.idUnidad }
+
+        createTableData("#tablaDT-medidores", datos, columnas, columnaDefs, rowId);
+    }
+
+    /*-------------------------------------------PRORRATEO-----------------------------------------------------------------------------------------*/
+
+    function resumenProrrateo() {
+        let data = obtenerData();
+        let datos = juntarJson(data)
+        let egreso = datos.filter(e => e.item.tipoIngresoItem == "ENC").reduce((sum, value) => (typeof value.valorSubItemGastoComun == "number" ? sum + value.valorSubItemGastoComun : sum), 0);
+        let ingreso = datos.filter(e => e.item.tipoIngresoItem == "INC").reduce((sum, value) => (typeof value.valorSubItemGastoComun == "number" ? sum + value.valorSubItemGastoComun : sum), 0);
+        let totalFinal = (ingreso >= egreso) ? 0 : (egreso - ingreso);
+        renderTableProrrateo(data.ok.unidad, totalFinal, data.ok.fondo);
+    }
+
+    function renderTableProrrateo(datos, total, fondos) {
+        $("#tablaDT-prorrateo").dataTable().fnClearTable();
+        $("#tablaDT-prorrateo").dataTable().fnDestroy();
+        let tipoMedidores = $("body").data("tipoMedidoresSelect2");
+        var totalFinal = 0;
+
+        var columnas = [
+            { "data": "" },
+            { "data": "numeroUnidad" },
+            { "data": "totalProrrateo" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                width: "10%",
+                targets: 0
+            },
+            {
+                className: "text-left",
+                width: "10%",
+                targets: 1
+            },
+            {
+                render: function (data, type, row, meta) { return data + "%"; },
+                width: "10%",
+                targets: 2
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney((row.totalProrrateo.toFixed(6) * total) / 100, "CLP"); },
+                width: "10%",
+                targets: 3
+            }
+        ];
+
+        $.each(fondos, (pos, e) => {
+            $(`#${e.idFondo}fh,#${e.idFondo}ff`).remove();
+            $("#tablaDT-prorrateo thead tr").append(`<th id="${e.idFondo}fh">${e.nombreFondo}</th>`);
+            $("#tablaDT-prorrateo tfoot tr").append(`<th id="${e.idFondo}ff"></th>`);
+            columnas.push({ "data": "" });
+            columnaDefs.push({
+                render: function (data, type, row, meta) { return formatMoney(calculoFondo(e, row.totalProrrateo, total), "CLP"); },
+                width: "10%",
+                targets: columnas.length
+            });
+        });
+
+
+        $.each(tipoMedidores, (pos, e) => {
+            $(`#${e.idTipoMedidores}tmhp1,#${e.idTipoMedidores}tmhp2,#${e.idTipoMedidores}tmfp1,#${e.idTipoMedidores}tmfp2`).remove();
+            $("#tablaDT-prorrateo thead tr").append(`
+                <th id="${e.idTipoMedidores}tmhp1">${e.descripcionTipoMedidores} (${e.tipoUnidadMedidores})</th>
+                <th id="${e.idTipoMedidores}tmhp2">${e.descripcionTipoMedidores}</th>
+            `);
+            $("#tablaDT-prorrateo tfoot tr").append(`
+                <th id="${e.idTipoMedidores}tmfp1"></th>
+                <th id="${e.idTipoMedidores}tmfp2"></th>
+            `);
+
+            columnas.push({ "data": "", "defaultContent": 0 }, { "data": "", "defaultContent": 0 })
+            columnaDefs.push(
+                {
+                    render: function (data, type, row, meta) {
+                        var valor, total = 0
+                        if (row.medidores.length != 0) {
+                            valor = row.medidores.find(r => r.idTipoMedidores == e.idTipoMedidores);
+                            total = valor.cantidadMedidores;
+                        }
+                        return `${total} ${e.tipoUnidadMedidores}`;
+                    },
+                    width: "10%",
+                    targets: columnas.length - 1
+                },
+                {
+                    render: function (data, type, row, meta) {
+                        var valor, total = 0
+                        if (row.medidores.length != 0) {
+                            valor = row.medidores.find(r => r.idTipoMedidores == e.idTipoMedidores);
+                            total = valor.valorMedidores;
+                        }
+                        return formatMoney(total, "CLP");
+                    },
+                    width: "10%",
+                    targets: columnas.length
+                }
+            );
+        });
+
+        $(`#totalh,#totalf`).remove();
+        $("#tablaDT-prorrateo thead tr").append(`<th id="totalh" class="th-sm" width="10%">Total</th>`);
+        $("#tablaDT-prorrateo tfoot tr").append(`<th id="totalf"></th>`);
+        columnas.push({ "data": "" });
+        columnaDefs.push({
+            render: function (data, type, row, meta) {
+                var totalxUnidad = total * row.totalProrrateo / 100;
+                fondos = fondos.map(function (task, index, array) {
+                    task.calculo = calculoFondo(task, row.totalProrrateo, total)
+                    return task
+                });
+                totalxUnidad += fondos.reduce((sum, value) => (typeof value.calculo == "number" ? sum + value.calculo : sum), 0);
+                totalxUnidad += row.medidores.reduce((sum, value) => (typeof value.valorMedidores == "number" ? sum + value.valorMedidores : sum), 0);
+                return formatMoney(totalxUnidad, "CLP");
+            },
+            width: "10%",
+            targets: columnas.length
+        });
+
+        var drawCallback = function (settings) { $('[data-toggle="tooltip"]').tooltip() }
+
+        var footerCallback = function (row, data, start, end, display) {
+            var totalSumaProrrateo = 0, totalFondos = 0, totalCantidad = 0, totalValor = 0, totalFinal = 0;
+            var api = this.api(), data;
+            let totalProrrateo = api.column(2).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+            $(api.column(2).footer()).html(`<strong>${totalProrrateo.toFixed(6)}%</strong>`);
+            data.forEach(e => { totalSumaProrrateo = (totalSumaProrrateo + (e.totalProrrateo * total)); });
+            $(api.column(3).footer()).html(`<strong> ${formatMoney(totalSumaProrrateo / 100, "CLP")}</strong>`);
+            var cantColumnas = 4;
+            totalFinal = totalSumaProrrateo / 100;
+            $.each(fondos, (pos, f) => {
+                let calculo = 0;
+                data.forEach(u => { totalFondos += calculoFondo(f, u.totalProrrateo, total); });
+                $(api.column(cantColumnas).footer()).html(`<strong>${formatMoney(totalFondos.toFixed(0), "CLP")}</strong>`);
+                totalFinal += totalFondos;
+                cantColumnas++
+                totalFondos = 0;
+            })
+            $.each(tipoMedidores, (pos, tm) => {
+                data.forEach(u => {
+                    if (u.medidores.length != 0) {
+                        let row = u.medidores.find(r => r.idTipoMedidores == tm.idTipoMedidores)
+                        totalCantidad += row.cantidadMedidores;
+                        totalValor += row.valorMedidores;
+                    }
+                });
+                $(api.column(cantColumnas).footer()).html(`<strong>${totalCantidad} ${tm.tipoUnidadMedidores}</strong>`);
+                cantColumnas++
+                $(api.column(cantColumnas).footer()).html(`<strong>${formatMoney(totalValor, "CLP")}</strong>`);
+                totalFinal += totalValor;
+                cantColumnas++
+                totalCantidad = 0;
+                totalValor = 0;
+            })
+            $(api.column(cantColumnas).footer()).html(`<strong>${formatMoney(totalFinal, "CLP")}</strong>`);
+
+        }
+
+        var rowId = function (a) { return a.idUnidad }
+
+        createTableData_personalizado("#tablaDT-prorrateo", datos, columnas, columnaDefs, rowId, drawCallback, footerCallback);
+    }
+
+    /*-------------------------------------------FUNCIONES-----------------------------------------------------------------------------------------*/
+
+    function juntarJson(data) {
+        var ingreso = data.ok.ingreso.map(function (task, index, array) {
+            var divisiones = task.item.descripcionItem.split(" ");
+            if (divisiones[divisiones.length - 1] != '(INGRESO)') task.item.descripcionItem = `${task.item.descripcionItem} (INGRESO)`;
+            return task
+        });
+        var egreso = data.ok.egreso.map(function (task, index, array) {
+            var divisiones = task.item.descripcionItem.split(" ");
+            if (divisiones[divisiones.length - 1] != '(EGRESO)') task.item.descripcionItem = `${task.item.descripcionItem} (EGRESO)`;
+            return task;
+        });
+        var item = { descripcionItem: "GASTO REMUNERACIONES", tipoIngresoItem: "ENC" }
+        var remuneracion = data.ok.remuneracion.map(function (task, index, array) {
+            return {
+                descripcionSubItemGastoComun: task.trabajador.nombreCompleto,
+                item: item,
+                valorSubItemGastoComun: task.sueldoLiquido
+            };
+        });
+        let leyesSociales = data.ok.remuneracion.reduce((sum, value) => (typeof value.totalLeySocial == "number" ? sum + value.totalLeySocial : sum), 0);
+        remuneracion.push({ descripcionSubItemGastoComun: "TOTAL LEYES SOCIALES", valorSubItemGastoComun: leyesSociales, item: item });
+        return [].concat(remuneracion, ingreso, egreso);
+    }
+
+    function obtenerData() {
+        return {
+            ok: {
+                ingreso: $('#tablaDT-ingreso').DataTable().rows().data().toArray(),
+                egreso: $('#tablaDT-egreso').DataTable().rows().data().toArray(),
+                remuneracion: $('#tablaDT-remuneracion').DataTable().rows().data().toArray(),
+                fondo: $('#tablaDT-fondo').DataTable().rows().data().toArray(),
+                unidad: $('#tablaDT-medidores').DataTable().rows().data().toArray()
+            }
+        }
+    }
+
+    function iniciarCombo(selector, data, placeholder, value = null) {
+        return $(selector).empty().select2({
+            data: data,
+            containerCssClass: "form-control",
+            dropdownCssClass: "custom-dropdown",
+            allowClear: true,
+            placeholder: placeholder,
+            width: '100%'
+        }).val(value).trigger('change');
+    }
+
+    function calculoFondo(objeto, totalProrrateo, total) {
+        let calculo = 0
+        var valor = (totalProrrateo.toFixed(6) * total) / 100
+        if (objeto.porcentajeFondo != 0) calculo = valor * objeto.porcentajeFondo / 100;
+        else if (objeto.valorFondo != 0) calculo = valor != 0 ? objeto.valorFondo : 0;
+        return calculo
+    }
+
+</script>

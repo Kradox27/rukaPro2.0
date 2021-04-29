@@ -1,0 +1,112 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Cargos del
+                    Sistema</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Unidades</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Numero Unidad</th>
+                            <th>Rol Unidad</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+    
+    let idComunidad = $mySessionStorage.get("idComunidad")
+
+    $(document).ready(() => {
+        $('#tabla-panel').hide();
+        $('[data-toggle="tooltip"]').tooltip();
+        buscarCargosUnidad()
+    });
+
+    function buscarCargosUnidad() {
+        let validar = true;
+        if (idComunidad == "" || idComunidad == null) {
+            validar = false;
+            Swal.fire('Eviso', 'Seleccione una Comunidad', 'warning');
+        }
+        if (validar) {
+            $.ajax({
+                method: "POST",
+                url: "/mantenedor/cargo/buscarCargoUnidadAll",
+                dataType: 'json',
+                data: { idComunidad: idComunidad },
+                beforeSend: loading()
+            })
+                .done((data) => {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTable(data.ok)
+                        $("#tabla-panel").fadeIn();
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                    Swal.close();
+                    console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    }
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "numeroUnidad" },
+            { "data": "rolUnidad" },
+            { "data": "idUnidad" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) {
+                    let iconCargo = `<a href='/mantenedor/cargo/cargoItem/${idComunidad}/${data}' class='btn btn-default' data-toggle='tooltip' data-original-title='Ver Cargos' data-trigger='hover'><i class='icon-add text-info fa-lg'></i></a>`;
+                    return iconCargo;
+                },
+                className: "text-center",
+                targets: 3
+            },
+        ];
+
+        var rowId = function (a) { return a.idUnidad }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+</script>

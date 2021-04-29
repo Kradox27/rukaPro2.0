@@ -1,0 +1,123 @@
+<div class="page-content">
+    <style>
+        body {
+            background-image: url('/imagenes/background1.jpeg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        #show_password:hover {
+            color: #F95B00;
+        }
+
+        .showPassword {
+            position: relative;
+            top: -66%;
+            left: 45%;
+        }
+    </style>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="content">
+                <div class="row vh-100 justify-content-around align-items-center">
+                    <div class="card w-75 border-bottom-RukaPro" id="form-registro">
+                        <div class="card-header bg-RukaPro">
+                            <h3 class="text-center">Solicitud Cambio de Contraseña</h3>
+                        </div>
+                        <img src="/imagenes/RukaPro_Solo_naranjo.png" alt="Logo rukaPRO"
+                            style="width: 80px; height: 80px" class="card-img-top mx-auto m-2">
+                        <p class="text-center">breve Información para explicar </p>
+                        <div class="card-body">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-12 text-bluedark" style="margin-bottom: 0px;">
+                                            <h5 class="text-RukaPro">Contraseñas</h5>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="card card-border">
+                                        <div class="card-body card-border-body">
+                                            This is some text within a card body.
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-bluedark">
+                                        <label>Contraseña</label>
+                                        <input type="password" class="form-control" id="password">
+                                        <label for="show_password" class="showPassword">
+                                            <span id="show_password" class="icon-eye-blocked text-RukaPro"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group text-bluedark">
+                                        <div class="form-group text-bluedark">
+                                            <label>Confirmar contraseña</label>
+                                            <input type="password" class="form-control" id="confirmPass">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <button type="button" name="btnCrear" class="btn bg-RukaPro">Cambiar Contraseña</button>
+                                <a href="/" class="btn bg-danger">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+    $(document).ready(function () { validadorPassword('#password') });
+
+    function validador() {
+        let validar = true;
+        if ($('#password').val() == "") validar = validarMensaje('#password', 'Ingrese Contraseña.', 'i');
+        if ($('#confirmPass').val() == "") validar = validarMensaje('#confirmPass', 'Confirme contraseña.', 'i');
+        if ($('#password').val() != $('#confirmPass').val()) validar = validarMensaje('#password,#confirmPass', 'Ambas contraseñas deben ser iguales.', 'i');
+        return validar;
+    }
+
+    function data() {
+        return {
+            password: $("#password").val(),
+            password: $("#password").val(),
+            usuario: '{{correo}}'
+        };
+    }
+
+    $(document).on('click', 'button[name="btnCrear"]', function () {
+        if (validador()) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/cambioPass",
+                data: data(),
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        Swal.fire({
+                            title: "Exito",
+                            showConfirmButton: false,
+                            text: data.ok,
+                            footer: '<a href="/">Iniciar Sesión</a>',
+                        })
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+
+</script>

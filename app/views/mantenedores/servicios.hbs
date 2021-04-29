@@ -1,0 +1,372 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Servicios del
+                    Sistema</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+        <div class="header-elements d-none">
+            <div class="d-flex justify-content-center">
+                <button id="btnCrear" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                    Servicio</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Filtros -->
+    <div class="card border-bottom-RukaPro">
+        <div class="card-body border-bottom-info">
+            <form autocomplete="off" id='form-buscar'>
+                <div class="row row-lg">
+                    <div class="col-sm-12 col-lg-12 center-block">
+                        <div class="form-group form-material row d-flex justify-content-center">
+                            <div class="col-sm-2 ">
+                                <label class="col-sm-12 control-label">Nombre Servicio</label>
+                                <input id="nombreServicioFiltro" class="form-control" type='text'>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Codigo Servicio</label>
+                                <input id="codigoServicioFiltro" class="form-control" name="regionComunidad"
+                                    type='text'>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Estado</label>
+                                <select id="comboEstado" name="estadoComunidad" style="width:100%;"
+                                    data-plugin="select2"></select>
+                            </div>
+                            <div class="col-sm-1">
+                                <br />
+                                <div class="mt-1">
+                                    <button class="btn btn-animate btn-animate-vertical bg-RukaPro form-control"
+                                        name="Buscar" type="submit" value="Buscar">
+                                        <span>Buscar <i aria-hidden="true" class="fa fa-search"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Servicios</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>IVA</th>
+                            <th>NETO</th>
+                            <th>Tipo</th>
+                            <th>Codigo</th>
+                            <th>Servicio Obligatorio</th>
+                            <th width="10%">Estado</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody> </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inicio Modal-->
+<div class="modal fade" id="modal-servicio">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Nombre</label>
+                            <input id="nombreServicio" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Descripción</label>
+                            <input id="descripcionServicio" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>NETO</label>
+                            <input id="neto" type="text" class="form-control text-center noPaste soloNumeros"
+                                maxlength="15" placeholder="0">
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>IVA</label>
+                            <input id="iva" type="text" class="form-control text-center noPaste soloNumeros"
+                                maxlength="15" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Codigo</label>
+                            <input id="codigoServicio" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6 text-bluedark">
+                            <label>Tipo</label>
+                            <select id="tipoServicio" data-plugin="select2" class="form-control">
+                                <option value="AFECTA">Afecta</option>
+                                <option value="EXENTA">Exenta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group col-md-6 text-bluedark">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="obligatorio">
+                                <label class="form-check-label" for="obligatorio">Servicio Obligatorio</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success botonAccion"><i
+                                    class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                    class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(() => {
+        $('#tabla-panel').hide();
+        $('[data-toggle="tooltip"]').tooltip();
+        estadoSelect2N('#comboEstado');
+    });
+
+    $('.modal').on('hidden.bs.modal', () => { $('.modal').find("input").val("").removeClass('invalid'); })
+
+    $('#form-buscar').submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/servicios/buscarServiciosAll",
+            dataType: 'json',
+            data: {
+                nombreServicio: $("#nombreServicioFiltro").val(),
+                codigoServicio: $("#codigoServicioFiltro").val(),
+                estadoServicio: $("#comboEstado").val()
+            },
+            beforeSend: loading()
+        })
+            .done((data) => {
+                Swal.close();
+                if (data.ok) {
+                    renderTable(data.ok)
+                    $("#tabla-panel").fadeIn();
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+
+    })
+
+    $("#btnCrear").on('click', () => {
+        $('.botonAccion').attr('id', 'agregar');
+        $('#modal-titulo').text("Nuevo Servicio").parent().attr('class', 'modal-header bg-RukaPro')
+        $('#modal-servicio').modal('show');
+    });
+
+    $(document).on('click', '#agregar', () => {
+        let validar = true;
+        if ($('#nombreServicio').val() == "") validar = validarMensaje('#nombreServicio', 'Ingrese un nombre.', 'i');
+        if ($('#descripcionServicio').val() == "") validar = validarMensaje('#descripcionServicio', 'Ingrese una descripción.', 'i');
+        if ($('#codigoServicio').val() == "") validar = validarMensaje('#codigoServicio', 'Ingrese un codigo.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/servicios/crearServicios",
+                data: {
+                    nombreServicio: $("#nombreServicio").val(),
+                    descripcionServicio: $("#descripcionServicio").val(),
+                    neto: $("#neto").val() != "" ? $("#neto").val() : 0,
+                    iva: $("#iva").val() != "" ? $("#iva").val() : 0,
+                    tipoServicio: $("#tipoServicio").val(),
+                    codigoServicio: $("#codigoServicio").val(),
+                    obligatorioServicio: $('#obligatorio').prop('checked')
+                },
+                beforeSend: loading()
+            })
+                .done((data) => {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTable(data.ok)
+                        Swal.fire('Éxito', 'Servicio ingresado.', 'success')
+                        $('.modal').modal('hide')
+                        $("#tabla-panel").fadeIn();
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEditar"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT').DataTable().rows().data().toArray().find(e => e.idServicios == id);
+
+        $('#nombreServicio').val(row.nombreServicio);
+        $('#descripcionServicio').val(row.descripcionServicio);
+        $('#neto').val(row.neto);
+        $('#iva').val(row.iva);
+        $('#codigoServicio').val(row.codigoServicio);
+        $(`#tipoServicio option[value="${row.tipoServicio}"]`).attr("selected", true);
+        $('#obligatorio').attr("checked", row.obligatorioServicio);
+        $('.botonAccion').attr('id', 'editar');
+        $('#modal-titulo').text("Editar Servicio").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-servicio').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editar', () => {
+        let validar = true;
+        if ($('#nombreServicio').val() == "") validar = validarMensaje('#nombreServicio', 'Ingrese un nombre.', 'i');
+        if ($('#descripcionServicio').val() == "") validar = validarMensaje('#descripcionServicio', 'Ingrese una descripción.', 'i');
+        if ($('#codigoServicio').val() == "") validar = validarMensaje('#codigoServicio', 'Ingrese un codigo.', 'i');
+        if (validar) {
+            var id = $('#modal-servicio').data('id')
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/servicios/editarServicios/" + id,
+                data: {
+                    nombreServicio: $("#nombreServicio").val(),
+                    descripcionServicio: $("#descripcionServicio").val(),
+                    neto: $("#neto").val() != "" ? $("#neto").val() : 0,
+                    iva: $("#iva").val() != "" ? $("#iva").val() : 0,
+                    tipoServicio: $("#tipoServicio").val(),
+                    codigoServicio: $("#codigoServicio").val(),
+                    obligatorioServicio: $('#obligatorio').prop('checked')
+                },
+                beforeSend: loading()
+            })
+                .done((data) => {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.servicio)
+                        Swal.fire('Éxito', data.ok, 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error')
+                })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnCambiarEstado"]', function () {
+        let id = $(this).attr("id");
+        var fun = function () {
+            $.ajax({
+                method: 'GET',
+                url: "/mantenedor/servicios/cambiarEstadoServicios/" + id,
+                dataType: 'json',
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.servicio);
+                        Swal.fire('Éxito', data.ok, 'success');
+                        $('.modal').modal('hide');
+                    }
+                    if (data.error) swalWithBootstrapButtons.fire('Error', data.error, 'error')
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al cambiar estado: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+
+        }
+        mensajeConfirm(fun, '¿Seguro desea Cambiar el estado de este Servicio?', '', 'warning');
+    });
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "nombreServicio" },
+            { "data": "descripcionServicio" },
+            { "data": "iva" },
+            { "data": "neto" },
+            { "data": "tipoServicio" },
+            { "data": "codigoServicio" },
+            { "data": "obligatorioServicio" },
+            { "data": "estadoServicio" },
+            { "data": "idServicios" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                width: "200px",
+                targets: [3, 4]
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: [7, 8]
+            },
+            {
+                render: function (data, type, row) {
+                    let iconCambiarEstado = `<button id=${data} type='button' class='btn btn-default' name='btnCambiarEstado' data-toggle='tooltip' data-original-title='Cambiar Estado' data-trigger='hover'><i class='icon-loop3 text-success fa-lg' aria-hidden='true'></i></button>`;
+                    let iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditar' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    return iconEditar + iconCambiarEstado;
+                },
+                className: "text-center",
+                targets: 9
+            },
+        ];
+
+        var rowId = function (a) { return a.idServicios }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+</script>

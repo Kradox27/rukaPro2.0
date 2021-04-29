@@ -1,0 +1,93 @@
+<style>
+  .content {
+    background-image: url('/imagenes/background1.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+</style>
+
+<!-- Page content -->
+<div class="page-content">
+  <!-- Main content -->
+  <div class="content-wrapper">
+    <!-- Content area -->
+    <div class="content d-flex justify-content-center align-items-center">
+      {{!-- Login --}}
+      <div class="container p-1 mt-4">
+        <div class="row">
+          <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+              <div class="card-header pt-3 mb-3 bg-RukaPro">
+                <h3 class="">Bienvenido</h3>
+              </div>
+              <img src="/imagenes/RukaPro_Solo_naranjo.png" alt="Logo rukaPRO"  style="width: 80px; height: 80px" class="card-img-top mx-auto m-2">
+              <div class="card-body">
+                <form id='form-login'>
+                  <div class="form-group">
+                    <input type="text" class="form-control rounded-round" placeholder="SUPER ADMINISTRADOR" readonly>
+                    <input value='SUPERADMIN' name="codigoRol" hidden>
+                  </div>
+                  <div class="form-group">
+                    <input id="user" type="text" name="usuario" placeholder="Correo" class="form-control rounded-round"
+                      autofocus>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input id="txtPassword" type="Password" name="password" placeholder="Contraseña"
+                        class="form-control rounded-left-round">
+                      <div class="input-group-append">
+                        <button id="show_password" class="btn bg-RukaPro rounded-right-round" type="button">
+                          <span id="icon" class="icon-eye-blocked"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn bg-RukaPro btn-block mt-4">Ingresar</button>
+                </form>
+                <a href="/" class="btn bg-RukaPro btn-block mt-1 mb-4">Volver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script nonce="{{nonce}}">
+  'use strict'
+
+  $('#form-login').submit(function (e) {
+    e.preventDefault()
+    if ($('#user').val() == "" || $('#pass').val() == "") toastr.warning('Ingrese Usuario y Contraseña');
+    else {
+      $.ajax({
+        method: "POST",
+        url: "/login",
+        dataType: 'json',
+        data: $('#form-login').serialize(),
+        beforeSend: loading()
+      })
+        .done((respuesta) => {
+          window.location.replace(respuesta.url)
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+          Swal.close();
+          Swal.fire('Intente Nuevamente.', errorMessage(jqXHR, textStatus, errorThrown), 'error')
+        });
+    }
+  })
+
+  $("#show_password").click(function () {
+    var cambio = document.getElementById("txtPassword");
+    if (cambio.type == "password") {
+      cambio.type = "text";
+      $('#icon').removeClass('icon-eye-blocked').addClass('icon-eye');
+      cambio.focus();
+    } else {
+      cambio.type = "password";
+      $('#icon').removeClass('icon-eye').addClass('icon-eye-blocked');
+      cambio.focus();
+    }
+  });
+</script>

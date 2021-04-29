@@ -1,0 +1,15 @@
+<script nonce="{{nonce}}">
+    'use strict'
+    $(document).ready(function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Información',
+            text: "{{texto}}",
+            icon: 'info',
+            showCancelButton: false,
+            showConfirmButton: false,
+            cancelButton: false,
+            reverseButtons: false,
+            footer: '{{url}}' == '' ? '<a href="/">{{avisoBoton}}</a>' : '<a href="{{url}}">{{avisoBoton}}</a>'
+        })
+    });
+</script>

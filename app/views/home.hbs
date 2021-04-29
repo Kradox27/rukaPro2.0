@@ -1,0 +1,399 @@
+{{#if (eq user.rol.codigoRol "RES")}}
+<div class="container p-4">
+    {{#if (eq user.countUnidadPadre 0)}}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>Bienvenido {{user.usuario.nombres}}</h3>
+                    <button id="ingresarUnidad" type="button"
+                        class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Agregar
+                        Unidad Padre</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="card border-bottom-RukaPro" id="tabla-panel-ingreso">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Unidades</h5>
+            <div class="d-flex justify-content-center">
+                <button id="ingresarUnidad" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Agregar
+                    Unidad Padre</button>
+            </div>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Codigo Unico</th>
+                            <th>Rol Unidad</th>
+                            <th>Numero Unidad</th>
+                            <th>Total Prorrateo</th>
+                            <th>Comunidad</th>
+                            <th>Saldo Favor</th>
+                            <th>Deuda</th>
+                            <th>Total Pagar</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</div>
+
+<!-- Inicio Modal Deudas-->
+<div class="modal fade" id="deuda-modal">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form autocomplete="off">
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-RukaPro">
+                        <h4 class="modal-title mb-0" id="modal-titulo">Cargos</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <!-- Informacion Unidad -->
+                        <div class="card border-bottom-RukaPro">
+                            <div class="card-body border-bottom-info">
+                                <form autocomplete="off">
+                                    <div class="row row-lg">
+                                        <div class="col-sm-12 col-lg-12 center-block">
+                                            <div class="form-group form-material row d-flex justify-content-center">
+                                                <div class="col-sm-6">
+                                                    <label class="col-sm-12 control-label">Saldo Favor:</label>
+                                                    <input id="valorFavorInfo" type="text"
+                                                        class="form-control text-center" disabled>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="col-sm-12 control-label">Saldo Deuda:</label>
+                                                    <input id="valorDeudaInfo" type="text"
+                                                        class="form-control text-center" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Contenido -->
+                        <div class="card border-bottom-RukaPro" id="tabla-panel">
+                            <a href="#collapseCardOne"
+                                class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+                                data-toggle="collapse" role="button" aria-expanded="true"
+                                aria-controls="collapseCardOne">
+                                <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Cargos</h5>
+                                <div id="divSaldoFavor" class="d-flex justify-content-center">
+                                    <button id="btnSaldoFavor" type="button"
+                                        class="btn btn-outline btn-lg bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Pagar
+                                        con Saldo a Favor</button>
+                                </div>
+                            </a>
+                            <div class="card-body border-bottom-info">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-striped table-hover" id="tablaDT-cargo"
+                                        width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Periodo</th>
+                                                <th>Gasto Comun</th>
+                                                <th>Interes</th>
+                                                <th>Saldo Favor</th>
+                                                <th>Total</th>
+                                                <th width="10%">Estado</th>
+                                                <th>Fecha de Termino</th>
+                                            </tr>
+                                            </thread>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                    class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(function () {
+        buscarUnidades();
+    });
+
+    $("#ingresarUnidad").click(function () {
+        Swal.fire({
+            title: 'Ingrese Codigo Cliente',
+            input: 'text',
+            inputAttributes: { autocapitalize: 'off' },
+            showCancelButton: true,
+            confirmButtonText: 'Validar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            preConfirm: (unidad) => {
+                if (unidad != "") {
+                    return $.ajax({
+                        method: "GET",
+                        url: "/validarUnidades/" + unidad,
+                        dataType: 'json',
+                        beforeSend: loading()
+                    })
+                        .done(response => {
+                            if (response.error) Swal.showValidationMessage(response.error)
+                            return response.ok;
+                        })
+                        .fail((jqXHR, textStatus, errorThrown) => {
+                            Swal.showValidationMessage(errorMessage(jqXHR, textStatus, errorThrown))
+                        })
+                } else Swal.showValidationMessage(`Ingrese codigo valido.`)
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var unidad = result.value.ok;
+                Swal.fire({
+                    title: 'Unidad Encontrada',
+                    text: `El codigo unico pertenece a la unidad ${unidad.numeroUnidad} de la comunidad ${unidad.comunidad.nombreComunidad}`,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Guardar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "GET",
+                            url: "/ingresarUnidades/" + unidad.idUnidad,
+                            dataType: 'json',
+                            beforeSend: loading()
+                        })
+                            .done(data => {
+                                Swal.close();
+                                if (data.ok) {
+                                    renderTable(data.unidaXPadre);
+                                    Swal.fire('Éxito', data.ok, 'success');
+                                }
+                                if (data.url) window.location.replace(data.url)
+                                if (data.error) Swal.fire('Error', data.error, 'error');
+                            })
+                            .fail((jqXHR, textStatus, errorThrown) => {
+                                console.log(errorMessage(jqXHR, textStatus, errorThrown))
+                            })
+                    }
+                })
+            }
+        })
+    });
+
+    function buscarUnidades() {
+        $.ajax({
+            method: "POST",
+            url: "/listarUnidades",
+            dataType: 'json',
+            data: { usuario: "{{user.usuario.usuario}}" },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) renderTable(data.ok)
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+    }
+
+    $(document).on('click', 'button[name="btnDeuda"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT').DataTable().rows().data().toArray().find(e => e.idUnidad == id);
+        $.ajax({
+            method: "POST",
+            url: "/listarDeudas/" + id,
+            dataType: 'json',
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    renderTableDeuda(data.ok.cargos);
+                    if (data.ok.contPagado == 0) $('#divSaldoFavor').fadeOut();
+                    $('#deuda-modal form').data('id', id)
+                    $('#deuda-modal').modal('show')
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+    });
+
+    $("#btnSaldoFavor").click(() => {
+        var fun = function () {
+            $.ajax({
+                method: 'GET',
+                dataType: 'json',
+                url: "/pagoSaldoFavor/" + $('#deuda-modal form').data('id'),
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        renderTableDeuda(data.ok.cargo);
+                        Swal.fire('Éxito', 'Se ha efectuado el pago.', 'success');
+                        if (data.ok.contPagado == 0) $('#divSaldoFavor').fadeOut();
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+
+        mensajeConfirm(fun, '¿Seguro desea pagar con su saldo a favor?', '', 'warning');
+    });
+
+    function renderTable(datos) {
+        var columnas = [
+            { "data": "" },
+            { "data": "codigoUnico" },
+            { "data": "numeroUnidad" },
+            { "data": "rolUnidad" },
+            { "data": "totalProrrateo" },
+            { "data": "comunidad.nombreComunidad" },
+            { "data": "deuda" },
+            { "data": "" },
+            { "data": "idUnidad" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + 1;
+                },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) {
+                    return data + '%';
+                },
+                className: "text-center",
+                targets: 4
+            },
+            {
+                render: function (data, type, row, meta) {
+                    return formatMoney(data, "CLP");
+                },
+                targets: [6, 7]
+            },
+            {
+                render: function (data, type, row, meta) {
+                    return formatMoney(0, "CLP");
+                },
+                targets: 8
+            },
+            {
+                render: function (data, type, row, meta) {
+                    let iconDeuda = `<button id=${data} type='button' class='btn btn-default' name='btnDeuda' data-toggle='tooltip' data-original-title='Ver Deuda' data-trigger='hover'><i class='icon-coins text-success fa-lg' aria-hidden='true'></i></button>`;
+                    return iconDeuda;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 9
+            }
+
+        ];
+
+        var rowId = function (a) {
+            return a.id + a.tipoOrigen
+        }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+    function renderTableDeuda(datos) {
+        $("#tablaDT-cargo").dataTable().fnClearTable();
+        $("#tablaDT-cargo").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "gastoComun.periodo" },
+            { "data": "valorGastoComun" },
+            { "data": "interes" },
+            { "data": "saldoFavor" },
+            { "data": "" },
+            { "data": "estadoCargo" },
+            { "data": "gastoComun.fechaVencimiento" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) {
+                    return formatMoney(data, "CLP");
+                },
+                targets: [1, 2, 3]
+            },
+            {
+                render: function (data, type, row, meta) {
+                    return formatMoney(row.valorGastoComun - row.saldoFavor, "CLP");
+                },
+                targets: 4
+            },
+            {
+                render: function (data, type, row) {
+                    return labelTipoTabla(data);
+                },
+                className: "text-center",
+                targets: 5
+            },
+            {
+                render: function (data, type, row) {
+                    return data != "" ? moment.tz(data, "America/Santiago").add(1, 'days').format("DD/MM/YYYY") : "";
+                },
+                className: "text-center",
+                targets: 6
+            }
+        ];
+
+        var rowId = function (a) {
+            return a.idCargo
+        }
+
+        createTableData('#tablaDT-cargo', datos, columnas, columnaDefs, rowId);
+    }
+</script>
+{{/if}}
+
+{{#if (eq user.rol.codigoRol "SUPERADMIN")}}
+<div class="container p-4" onload="cargaHome()">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>Bienvenido {{user.usuario.nombres}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}

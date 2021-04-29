@@ -1,0 +1,474 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Roles de
+                    Sistema</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+    <!-- Filtros -->
+    <div class="card border-bottom-RukaPro">
+        <div class="card-body border-bottom-info">
+            <form autocomplete="off" id='form-buscar'>
+                <div class="row row-lg">
+                    <div class="col-sm-12 col-lg-12 center-block">
+                        <div class="form-group form-material row d-flex justify-content-center">
+                            <div class="col-sm-3">
+                                <label class="col-sm-12 control-label">Codigo Rol</label>
+                                <input class="form-control" id="codigoRolFiltro" name="codigoRol" type='text'>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 control-label">Estado</label>
+                                <select id="comboEstado" name="estadoComunidad" style="width:100%;"
+                                    data-plugin="select2"></select>
+                            </div>
+                            <div class="col-sm-1">
+                                <br />
+                                <div class="mt-1 ">
+                                    <button class="btn btn-animate btn-animate-vertical bg-RukaPro form-control "
+                                        name="Buscar" type="submit" value="Buscar">
+                                        <span>Buscar <i aria-hidden="true" class="fa fa-search"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Roles</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Codigo Rol</th>
+                            <th>Descripción</th>
+                            <th width="10%">Estado</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Permisos  -->
+<div class="modal fade" id="modal-permisos">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="">
+                <h4 class="modal-title mb-0" id="modal-titulo-P"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div id="panelGeneral">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-rukaPro-tab" data-toggle="pill"
+                                    href="#pills-rukaPro" role="tab" aria-controls="pills-rukaPro"
+                                    aria-selected="true">Ruka Pro</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-mantenedores-tab" data-toggle="pill"
+                                    href="#pills-mantenedores" role="tab" aria-controls="pills-mantenedores"
+                                    aria-selected="false">Mantenedores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-gestion-tab" data-toggle="pill" href="#pills-gestion"
+                                    role="tab" aria-controls="pills-gestion" aria-selected="false">Gestion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-facturacion-tab" data-toggle="pill"
+                                    href="#pills-facturacion" role="tab" aria-controls="pills-facturacion"
+                                    aria-selected="false">Facturación</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-indicadores-tab" data-toggle="pill"
+                                    href="#pills-indicadores" role="tab" aria-controls="pills-indicadores"
+                                    aria-selected="false">Indicadores</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <!--PERMISOS GENERALES-->
+                            <div class="tab-pane fade show active" id="pills-rukaPro" role="tabpanel"
+                                aria-labelledby="pills-rukaPro-tab">
+                                <div class="form-check form-control-lg">
+                                    <div class='checkbox checkbox-primary checkbox-custom'>
+                                        <input id='GEN' type='checkbox'>
+                                        <label for='GEN'>GENERALES</label>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: block;">
+                                    <div class="col-sm-4">
+                                        <div class="form-check ml-4">
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='GEN-PERF' type='checkbox'>
+                                                <label for='GEN-PERF'> PERFIL </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='GEN-RYP' type='checkbox'>
+                                                <label for='GEN-RYP'> ROLES Y PERMISOS </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='GEN-USER' type='checkbox'>
+                                                <label for='GEN-USER'> USUARIOS </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--PERMISOS MANTENEDORES-->
+                            <div class="tab-pane fade" id="pills-mantenedores" role="tabpanel"
+                                aria-labelledby="pills-mantenedores-tab">
+                                <div class="form-check form-control-lg">
+                                    <div class='checkbox checkbox-primary checkbox-custom'>
+                                        <input id='MAN' type='checkbox'>
+                                        <label for='MAN'> MANTENEDORES
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: block;">
+                                    <div class="col-sm-4">
+                                        <div class="form-check ml-4">
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='MAN-CLI' type='checkbox'>
+                                                <label for='MAN-CLI'> CLIENTE </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='MAN-SER' type='checkbox'>
+                                                <label for='MAN-SER'> SERVICIOS </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='MAN-COM' type='checkbox'>
+                                                <label for='MAN-COM'> COMUNIDADES </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--PERMISOS GESTION-->
+                            <div class="tab-pane fade" id="pills-gestion" role="tabpanel"
+                                aria-labelledby="pills-gestion-tab">
+                                <div class="form-check form-control-lg">
+                                    <div class='checkbox checkbox-primary checkbox-custom'>
+                                        <input id='GES' type='checkbox'>
+                                        <label for='GES'>GESTION </label>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: block;">
+                                    <div class="col-sm-4">
+                                        <div class="form-check ml-4">
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='GES-COT' type='checkbox'>
+                                                <label for='GES-COT'> COTIZACIONES </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='GES-CEI' type='checkbox'>
+                                                <label for='GES-CEI'> CARGOS E INGRESOS </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='GES-TIC' type='checkbox'>
+                                                <label for='GES-TIC'> TICKETS </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--PERMISOS FACTURACION-->
+                            <div class="tab-pane fade" id="pills-facturacion" role="tabpanel"
+                                aria-labelledby="pills-facturacion-tab">
+                                <div class="form-check form-control-lg">
+                                    <div class='checkbox checkbox-primary checkbox-custom'>
+                                        <input id='FAC' type='checkbox'>
+                                        <label for='FAC'> FACTURACIÓN </label>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: block;">
+                                    <div class="col-sm-4">
+                                        <div class="form-check ml-4">
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='FAC-BOR' type='checkbox'>
+                                                <label for='FAC-BOR'> BORRADORES </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='FAC-DOCE' type='checkbox'>
+                                                <label for='FAC-DOCE'> DOCUMENTOS EMITIDOS </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='FAC-FAM' type='checkbox'>
+                                                <label for='FAC-FAM'> FACTURA AFECTA MANUAL </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='FAC-FEM' type='checkbox'>
+                                                <label for='FAC-FEM'> FACTURA EXENTA MANUAL </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--PERMISOS INDICADIRES-->
+                            <div class="tab-pane fade" id="pills-indicadores" role="tabpanel"
+                                aria-labelledby="pills-indicadores-tab">
+                                <div class="form-check form-control-lg">
+                                    <div class='checkbox checkbox-primary checkbox-custom'>
+                                        <input id='IND' type='checkbox'>
+                                        <label for='IND'> INDICADORES</label>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: block;">
+                                    <div class="col-sm-4">
+                                        <div class="form-check ml-4">
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='IND-ING' type='checkbox'>
+                                                <label for='IND-ING'> INGRESOS </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='IND-FACT' type='checkbox'>
+                                                <label for='IND-FACT'> FACTURACION </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='IND-RM' type='checkbox'>
+                                                <label for='IND-RM'> RANKING MOROSOS </label>
+                                            </div>
+                                            <div class='checkbox checkbox-primary checkbox-custom'>
+                                                <input id='IND-RS' type='checkbox'>
+                                                <label for='IND-RS'> RESUMEN SEMESTRAL </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-right">
+                <button type="button" class="btn btn-success botonAccion-P"><i
+                        class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                        class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="{{nonce}}">
+    'use strict'
+
+    $(document).ready(function () {
+        $('#tabla-panel').hide();
+        $('[data-toggle="tooltip"]').tooltip();
+        estadoSelect2N('#comboEstado');
+
+        switchPermiso("#GEN", "#pills-rukaPro");
+        switchPermiso("#MAN", "#pills-mantenedores");
+        switchPermiso("#GES", "#pills-gestion");
+        switchPermiso("#FAC", "#pills-facturacion");
+        switchPermiso("#IND", "#pills-indicadores");
+    });
+
+    $('.modal').on('hidden.bs.modal', () => {
+        $('.modal').find("input").val("").removeClass('invalid');
+        $("input:checkbox:checked").each(function (i, check) {
+            if ($(check).prop('checked') == true) $(check).click();
+        })
+    })
+
+    $('#form-buscar').submit(function (e) {
+        e.preventDefault()
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/roles/buscarRolesAll",
+            dataType: 'json',
+            data: {
+                descripcionRol: $("#codigoRolFiltro").val(),
+                estadoRol: $("#comboEstado").val()
+            },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    renderTable(data.ok)
+                    $("#tabla-panel").fadeIn();
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log(errorMessage(jqXHR, textStatus, errorThrown));
+                $("#tabla-panel").fadeOut();
+            });
+    })
+
+    $(document).on('click', 'button[name="btnPermiso"]', function () {
+        let id = $(this).attr("id");
+        $.ajax({
+            method: 'GET',
+            dataType: 'json',
+            url: "/mantenedor/roles/buscarPermisos/" + id,
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    let permisos = data.ok;
+                    permisos.forEach(function (permiso) { $("#" + permiso.codigoPermiso).click(); });
+                    $('#panelGeneral a[href="#pills-rukaPro"]').tab('show')
+
+                    $('.botonAccion-P').attr('id', 'editarPermisos');
+                    $('#modal-titulo-P').text("Editar Permisos").parent().attr('class', 'modal-header bg-primary')
+                    $('#modal-permisos').data('id', id).modal('show')
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown));
+            });
+    });
+
+    $(document).on('click', '#editarPermisos', () => {
+        var id = $('#modal-permisos').data('id')
+        var permisos = new Array();
+        $('input[type=checkbox]:checked').each(function () { permisos.push($(this).prop("id")); });
+        $.ajax({
+            method: 'PUT',
+            dataType: 'json',
+            url: "/mantenedor/roles/editarPermisos/" + id,
+            data: {
+                permisos: JSON.stringify(permisos)
+            }
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) {
+                    Swal.fire('Éxito', data.ok, 'success');
+                    $('.modal').modal('hide')
+                }
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown));
+            });
+    })
+
+    $(document).on('click', 'button[name="btnCambiarEstado"]', function () {
+        let id = $(this).attr("id");
+        var fun = function () {
+            $.ajax({
+                method: 'GET',
+                url: "/mantenedor/roles/cambiarEstadoRol/" + id,
+                dataType: 'json',
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.rol);
+                        Swal.fire('Éxito', data.ok, 'success');
+                        $('.modal').modal('hide');
+                    }
+                    if (data.error) swalWithBootstrapButtons.fire('Error', data.error, 'error')
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al cambiar estado: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+
+        }
+        mensajeConfirm(fun, '¿Seguro desea Cambiar el estado de este Rol?', '', 'warning');
+    });
+
+    function renderTable(datos) {
+        $("#tablaDT").dataTable().fnClearTable();
+        $("#tablaDT").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "codigoRol" },
+            { "data": "descripcionRol" },
+            { "data": "estadoRol" },
+            { "data": "codigoRol" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row) { return labelTipoTabla(data); },
+                className: "text-center",
+                targets: 3
+            },
+            {
+                render: function (data, type, row) {
+                    let iconEditar = "";
+                    let iconCambiarEstado = "";
+                    if (data != "SUPERADMIN") {
+                        iconCambiarEstado = `<button id=${data} type='button' class='btn btn-default' name='btnCambiarEstado' data-toggle='tooltip' data-original-title='Cambiar Estado' data-trigger='hover'><i class='icon-loop3 text-success fa-lg' aria-hidden='true'></i></button>`;
+                        iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnPermiso' data-toggle='tooltip' data-original-title='Permisos' data-trigger='hover'><i class='icon-file-locked text-success fa-lg' aria-hidden='true'></i></button>`;
+                    }
+                    return iconEditar + iconCambiarEstado;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 4
+            },
+        ];
+
+        var rowId = function (a) {
+            return a.codigoRol
+        }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+    function switchPermiso(selector_checkbox, selector_submenu) {
+
+        $(selector_checkbox).parent().addClass("checkbox-success").removeClass("checkbox-primary");
+        $(selector_checkbox).parent().children('label').text("HABILITAR PERMISOS " + $(selector_checkbox).parent().children('label').text());
+
+        if (!$(selector_checkbox).is(':checked')) {
+            $(selector_submenu).find(".row").hide();
+            $(selector_submenu + " :checkbox").not(selector_checkbox).attr("disabled", true).prop('checked', false);
+        } else {
+            $(selector_submenu).find(".row").show();
+            $(selector_submenu + " :checkbox").not(selector_checkbox).attr("disabled", false).prop('checked', false);
+        }
+
+        $(selector_checkbox).change(function () {
+            if (!$(this).is(':checked')) {
+                $(selector_submenu).find(".row").fadeOut();
+                $(selector_submenu + " :checkbox").not(selector_checkbox).attr("disabled", true).prop('checked', false);
+            } else {
+                $(selector_submenu).find(".row").fadeIn();
+                $(selector_submenu + " :checkbox").not(selector_checkbox).attr("disabled", false).prop('checked', false);
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,320 @@
+<div class="page-content">
+
+  <style>
+    body {
+      background-image: url('/imagenes/background1.jpeg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .price li {
+      border-bottom: 1px solid #eee;
+      padding: 20px;
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      float: left;
+    }
+  </style>
+
+  <div class="content-wrapper">
+    <div class="content">
+      <div class="container">
+        <div class="row vh-100 justify-content-around align-items-center">
+          <div class="card w-75 border-bottom-RukaPro" id="form-registro">
+            <div class="card-header bg-RukaPro">
+              <h3 class="text-center">Solicitud para Contratación de Servicios</h3>
+            </div>
+            <img src="/imagenes/RukaPro_Solo_naranjo.png" alt="Logo rukaPRO" style="width: 80px; height: 80px"
+              class="card-img-top mx-auto m-2">
+            <p class="text-center">breve Información para explicar </p>
+            <div class="card-body">
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-12 text-bluedark" style="margin-bottom: 0px;">
+                      <h5 class="text-RukaPro">Información de la Comunidad</h5>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="card card-border">
+                    <div class="card-body card-border-body">
+                      This is some text within a card body.
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Nombre:</label>
+                      <input id="nombreComunidad" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Tipo:</label>
+                      <select id="tipoComunidad" data-plugin="select2" class="form-control">
+                        <option value="CONDOMINIO">Condominio</option>
+                        <option value="EDIFICIO">Edificio</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Region:</label>
+                      <select id="regiones" class="form-control" required></select>
+                    </div>
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Comuna:</label>
+                      <select id="comunas" class="form-control" required></select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-12 text-bluedark">
+                      <label>Ciudad:</label>
+                      <input id="ciudad" type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Calle:</label>
+                      <input id="calleComunidad" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2 text-bluedark">
+                      <label>Número:</label>
+                      <input id="numeroComunidad" type="text" class="form-control noPaste soloNumeros" maxlength="5">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-12 text-bluedark" style="margin-bottom: 0px;">
+                      <h5 class="text-RukaPro">Información del Comité</h5>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="card card-border">
+                    <div class="card-body card-border-body">
+                      This is some text within a card body.
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Nombres:</label>
+                      <input id="nombreComite" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Apellidos:</label>
+                      <input id="apellidoComite" type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Correo:</label>
+                      <input id="correoComite" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Teléfono</label>
+                      <input id="telefonoComite" type="text" maxlength="12" class="form-control noPaste telefono" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-12 text-bluedark" style="margin-bottom: 0px;">
+                      <h5 class="text-RukaPro">Información del Administrador</h5>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="card card-border">
+                    <div class="card-body card-border-body">
+                      This is some text within a card body.
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Nombres:</label>
+                      <input id="nombreAdmin" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Apellidos:</label>
+                      <input id="apellidoAdmin" type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Correo:</label>
+                      <input id="correoAdmin" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6 text-bluedark">
+                      <label>Teléfono</label>
+                      <input id="telefonoAdmin" type="text" maxlength="12" class="form-control noPaste telefono" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-12 text-bluedark" style="margin-bottom: 0px;">
+                      <h5 class="text-RukaPro">Servicios</h5>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="card card-border">
+                    <div class="card-body card-border-body">
+                      This is some text within a card body.
+                    </div>
+                  </div>
+                  <div class="row ">
+                    <div class="col-sm-12 col-lg-12 center-block">
+                      <div id="servicios" class="form-group form-material row d-flex justify-content-center">
+                        {{#each servicios}}
+                        <div class="col-sm-4" style="padding-top: 10px;">
+                          <div class="card" style="margin-bottom: 0px;">
+                            <div class="card-header bg-RukaPro">
+                              <h5 class="card-title text-center">SERVICIO {{nombreServicio}}</h5>
+                            </div>
+                            <ul class="price">
+                              <li>{{descripcionServicio}}</li>
+                              <li>Precio: ${{formatMoney neto}}</li>
+                              <li>IVA: ${{formatMoney iva}}</li>
+                            </ul>
+                            <div class="card-footer text-muted text-center">
+                              <div class="form-check">
+                                {{#if (eqBool obligatorioServicio)}}
+                                <input type="checkbox" class="form-check-input" id="{{idServicios}}" disabled checked>
+                                {{else}}
+                                <input type="checkbox" class="form-check-input" id="{{idServicios}}">
+                                {{/if}}
+                                <label class="form-check-label" for="{{idServicios}}">Seleccionar</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="terminosycondiciones">
+                  <label class="form-check-label" for="terminosycondiciones">Aceptar Terminos y Condiciones</label>
+                </div>
+              </div>
+              <br>
+              <div class="form-group text-center">
+                <button id="agregar" type="button" name="btnCrear" class="btn bg-RukaPro botonAccion">Enviar
+                  Solicitud</button>
+                <a href="/" class="btn bg-danger">Volver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script nonce="{{nonce}}">
+  'use strict'
+
+  $(document).ready(function () {
+    regionesSelect2N('#regiones')
+    comunaSelect2N('#comunas')
+  });
+
+  $('#regiones').on('select2:select', (e) => {
+    $('#comunas').empty()
+    comunaSelect2N('#comunas', e.params.data.id)
+  });
+
+  $(document).on('click', '#agregar', () => {
+    if (validar()) {
+      $.ajax({
+        method: 'POST',
+        dataType: 'json',
+        url: "/solicitudServicio",
+        data: dataJson(),
+        beforeSend: loading()
+      })
+        .done(function (data) {
+          Swal.close();
+          if (data.url) {
+            Swal.fire({
+              title: 'Solicitud enviada con éxito',
+              text: "Un ejecutivo se contactara con ústed.",
+              icon: 'success',
+            })
+              .then((result) => {
+                if (result.isConfirmed) window.location.replace(data.url)
+              })
+          }
+          if (data.error) Swal.fire('Error', data.error, 'error');
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+          Swal.close();
+          console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+        })
+    }
+  });
+
+  function validar() {
+    let validar = true;
+    let datos = dataJson();
+    //Comunidad
+    if (datos.nombreComunidad == "") validar = validarMensaje('#nombreComunidad', 'Ingrese un nombre.', 'i');
+    if (datos.regionComunidad == null) validar = validarMensaje('#regiones', 'Selecione una region.', 's');
+    if (datos.comunaComunidad == null) validar = validarMensaje('#comunas', 'Selecione una comuna.', 's');
+    if (datos.ciudadComunidad == "") validar = validarMensaje('#ciudad', 'Ingrese una Ciudad.', 'i');
+    if (datos.calleComunidad == "") validar = validarMensaje('#calleComunidad', 'Ingrese una Calle.', 'i');
+    if (datos.numeroComunidad == "") validar = validarMensaje('#numeroComunidad', 'Ingrese un Numero.', 'i');
+    //Comite
+    if (datos.nombreComite == "") validar = validarMensaje('#nombreComite', 'Ingrese Nombres Comité.', 'i');
+    if (datos.apellidoComite == "") validar = validarMensaje('#apellidoComite', 'Ingrese un Apellidos Comité.', 'i');
+    if (datos.correoComite == "") validar = validarMensaje('#correoComite', 'Ingrese un Correo Comité.', 'i');
+    if (!validarEmail(datos.correoComite)) validar = validarMensaje('#correoComite', 'Ingrese un correo de comité valido .', 'i');
+    //Administrador
+    if (!validarEmail(datos.correoAdmin)) validar = validarMensaje('#correoAdmin', 'Ingrese un correo de administrador valido .', 'i');
+    if (!$('#terminosycondiciones').prop('checked')) validar = validarMensaje('#terminosycondiciones', 'Acepte Termino y Condiciones.', 'c');
+    if ($('#servicios input[type=checkbox]:checked').length == 0) validar = validarMensaje('#servicios input[type=checkbox]', 'Debe seleccionar al menos un servicio.', 'c');
+
+    return validar;
+  }
+
+  function dataJson() {
+    var servicios = new Array();
+    $('#servicios input[type=checkbox]:checked').each(function () { servicios.push($(this).prop("id")); });
+    return {
+      //Comunidad
+      nombreComunidad: $("#nombreComunidad").val(),
+      tipoComunidad: $("#tipoComunidad").val(),
+      calleComunidad: $("#calleComunidad").val(),
+      numeroComunidad: $("#numeroComunidad").val(),
+      regionComunidad: $("#regiones").val(),
+      comunaComunidad: $("#comunas").val(),
+      ciudadComunidad: $("#ciudad").val(),
+      //Comité
+      correoComite: $('#correoComite').val(),
+      nombreComite: $('#nombreComite').val(),
+      apellidoComite: $('#apellidoComite').val(),
+      telefonoComite: $('#telefonoComite').val(),
+      //Admin
+      correoAdmin: $('#correoAdmin').val(),
+      nombreAdmin: $('#nombreAdmin').val(),
+      apellidoAdmin: $('#apellidoAdmin').val(),
+      telefonoAdmin: $('#telefonoAdmin').val(),
+      //Servicios
+      servicios: JSON.stringify(servicios)
+    }
+  }
+
+</script>

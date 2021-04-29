@@ -1,0 +1,363 @@
+th {
+  font-size: 0.67rem;
+}
+
+td {
+  font-size: 0.67rem;
+}
+
+body {
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #150c63;
+}
+
+.card {
+  border-radius: 0.35rem;
+}
+
+.card-header:first-child {
+  border-radius: calc(0.35rem - 1px) calc(0.35rem - 1px) 0 0;
+}
+
+.form-control:focus {
+  color: #6e707e;
+  background-color: #fff;
+  border-color: #bac8f3;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.form-control,
+.btn {
+  border-radius: 0.25rem;
+}
+
+.custom-control-label::before,
+.custom-control-label::after {
+  top: 0.8rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+th.dt-center,
+td.dt-center {
+  text-align: center;
+}
+
+th.dt-right,
+td.dt-right {
+  text-align: right;
+}
+
+tr.highlight {
+  background-color: #ffe000 !important;
+}
+
+.invalid {
+  border-color: #ff0000;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+  outline: 0 none;
+}
+
+.modal.modal-wide .modal-dialog {
+  width: 60%;
+}
+
+.bold-font {
+  font-weight: 900 !important;
+}
+
+.popover-font {
+  color: #757575 !important;
+}
+
+.negative {
+  color: rgba(255, 0, 0, 1);
+}
+
+.positive {
+  color: rgb(0, 143, 0);
+}
+
+.navbar-RukaPro {
+  color: rgb(255, 255, 255);
+  background-color: #f95b00;
+  background-image: #f95b00;
+}
+
+.text-RukaPro {
+  color: #ff8037;
+}
+
+.text-RukaPro[href]:hover,
+.text-RukaPro[href]:focus {
+  color: #ff8037;
+}
+
+.bg-RukaPro {
+  background-color: #ff8037;
+}
+
+.border-RukaPro {
+  border-color: #ff8037;
+}
+
+.border-top-RukaPro {
+  border-top-color: #ff8037;
+}
+
+.border-bottom-RukaPro {
+  border-bottom-color: #ff8037;
+}
+
+.border-left-RukaPro {
+  border-left-color: #ff8037;
+}
+
+.border-right-RukaPro {
+  border-right-color: #ff8037;
+}
+
+hr {
+  height: 3px;
+  margin-top: 0px;
+  background-color: #ff8037;
+  border-style: none;
+}
+
+.shadow {
+  box-shadow: 2px 2px 5px #999;
+}
+
+.card-border {
+  border-style: none;
+}
+
+.card-border-body {
+  border: 1px solid #ff7043;
+  padding: 13px;
+}
+
+/*COLOR PLACEHOLDER*/
+.holderRukaPro::-webkit-input-placeholder {
+  color: #ff8037;
+}
+
+.holderRukaPro:-moz-placeholder {
+  /* Firefox 18- */
+  color: #ff8037;
+}
+
+.holderRukaPro::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #ff8037;
+}
+
+.holderRukaPro:-ms-input-placeholder {
+  color: #ff8037;
+}
+
+.holderBlanco::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.holderBlanco:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff;
+}
+
+.holderBlanco::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+}
+
+.holderBlanco:-ms-input-placeholder {
+  color: #fff;
+}
+
+.holderCenter::-webkit-input-placeholder {
+  text-align: center;
+}
+
+.holderCenter:-moz-placeholder {
+  /* Firefox 18- */
+  text-align: center;
+}
+
+.holderCenter::-moz-placeholder {
+  /* Firefox 19+ */
+  text-align: center;
+}
+
+.holderCenter:-ms-input-placeholder {
+  text-align: center;
+}
+
+:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+/*SWEETALERT2*/
+
+.swal2-icon.swal2-success,
+.swal2-icon.swal2-error,
+.swal2-icon.swal2-warning,
+.swal2-icon.swal2-info,
+.swal2-icon.swal2-question {
+  font-size: 1rem;
+}
+
+.swal2-container.swal2-shown {
+  z-index: 15000;
+}
+
+.swal2-icon {
+  width: 5em !important;
+  height: 5em !important;
+  border-width: 0.25em !important;
+}
+/*SELECT2*/
+
+span.select2-dropdown {
+  z-index: 1061;
+}
+
+span.select2-selection--single {
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.select2-close-mask {
+  z-index: 2099;
+}
+
+.select2-dropdown {
+  z-index: 3051;
+}
+
+.custom-dropdown .select2-results__group {
+  font-weight: 900;
+}
+
+.custom-dropdown .select2-results__options .select2-results__options--nested {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.select2-container .select2-selection--single {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 35px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  color: #444;
+  line-height: 23px;
+}
+
+.select2-search--dropdown:after {
+  content: "";
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+  max-height: 500px !important;
+}
+/*ALERTAS TABLAS*/
+
+.alert.alert-primary,
+.alert.alert-secondary,
+.alert.alert-success,
+.alert.alert-danger,
+.alert.alert-warning,
+.alert.alert-info,
+.alert.alert-light,
+.alert.alert-dark {
+  position: relative;
+  padding: 7px 26px;
+  margin-bottom: -0.75rem;
+  border-radius: 34px;
+}
+/*DATATABLE*/
+
+.table caption + thead tr:first-child td,
+.table caption + thead tr:first-child th,
+.table colgroup + thead tr:first-child td,
+.table colgroup + thead tr:first-child th,
+.table thead:first-child tr:first-child td,
+.table thead:first-child tr:first-child th {
+  border-top-width: thin;
+}
+
+.table thead th {
+  border-bottom: 2px solid #ddd;
+}
+
+.table thead th {
+  background-color: #ff961d;
+}
+
+.table tfoot {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.table td, .table th {
+  border-bottom: 1px solid #ddd;
+}
+
+.table tfoot th {
+  border: none;
+}
+
+td.details-control {
+  background: url("../../imagenes/details_open.png") no-repeat center center;
+  cursor: pointer;
+}
+
+tr.shown td.details-control {
+  background: url("../../imagenes/details_close.png") no-repeat center center;
+}
+
+.dataTables_paginate .paginate_button.current,
+.dataTables_paginate .paginate_button.current:hover,
+.dataTables_paginate .paginate_button.current:focus {
+  color: #fff;
+  background-color: #ff8037;
+}
+/*BOOTSTRAP*/
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  /*transform: rotate(-90deg);*/
+  position: absolute;
+  right: 6px;
+  top: 0.8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
+.dropdown-toggle.white::after {
+  color: white;
+}

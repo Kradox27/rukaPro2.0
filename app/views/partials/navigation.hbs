@@ -1,0 +1,194 @@
+<div class="navbar navbar-expand-md navbar-RukaPro">
+  <div class="navbar-brand p-1">
+    <a href="/" class="d-inline-block">
+      <img src="/imagenes/RukaPro_Blanco.png" alt="" style="width: 40px; height: 40px">
+    </a>
+  </div>
+  <div class="d-md-none">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile"><i
+        class="icon-menu3 text-white"></i></button>
+  </div>
+  <div class="collapse navbar-collapse justify-content-end" id="navbar-mobile">
+    {{#if user}}
+    <span class="badge bg-success-400 mr-3">{{toUpper user.rol.descripcionRol}}</span>
+    <div class="row">
+      <div class="form-group my-3 my-lg-0">
+        <input id="comboComunidad" style="width:200px;" data-plugin="select2" class="form-control"></input>
+      </div>
+    </div>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown dropdown-user">
+        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle white" data-toggle="dropdown">
+          <img src="/imagenes/profile.png" class="rounded-circle mr-2" height="34" alt="">
+          <span style="color:white;">{{user.usuario.nombres}}</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="#" class="dropdown-item"><i class="icon-user-plus"></i>Mi Perfil</a>
+          <div class="dropdown-divider"></div>
+          <a href="/logout" class="dropdown-item"><i class="icon-switch2"></i>Cerrar Sesión</a>
+        </div>
+      </li>
+    </ul>
+    {{else}}
+
+    {{/if}}
+  </div>
+</div>
+
+{{!-- OPCIONES --}}
+{{#if user}}
+<div class="navbar navbar-expand-md navbar-light">
+  <div class="text-center d-md-none w-100">
+    <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse"
+      data-target="#navbar-navigation"><i class="icon-unfold mr-2"></i>Menú de Opciones</button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-navigation">
+    <ul class="navbar-nav">
+      <!-- MENU MI EMPRESA -->
+      {{#if (eqRol 'GEN')}}
+      <li class="nav-item dropdown">
+        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown"
+          data-hover="dropdown" aria-expanded="false">
+          <i class="icon-home4 mr-2"></i><span>RukaPRO</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-left">
+          {{#if (eqRol 'GEN-PERF')}}
+          <a href="/rutaClientes/miEmpresa" class="dropdown-item"><i class="icon-home7"></i>Datos
+            {{user.rol.descripcionRol}}</a>
+          {{/if}}
+          {{#if (eqRol 'GEN-RYP')}}
+          <a href="/mantenedor/roles" class="dropdown-item"><i class="icon-list3"></i>Roles y Permisos</a>
+          {{/if}}
+          {{#if (eqRol 'GEN-USER')}}
+          <a href="/mantenedor/usuarios" class="dropdown-item"><i class="icon-users2"></i>Usuarios</a>
+          {{/if}}
+          {{#if (eqRol 'GEN-SOL')}}
+          <a href="/mantenedor/solicitud" class="dropdown-item"><i class="icon-stack-check"></i>Solicitudes</a>
+          {{/if}}
+          {{#if (eqRol 'GEN-ADMIN')}}
+          <a href="/mantenedor/administrador" class="dropdown-item"><i class="icon-users2"></i>Administradores</a>
+          {{/if}}
+          {{#if (eqRol 'GEN-COMITE')}}
+          <a href="/mantenedor/comite" class="dropdown-item"><i class="icon-users2"></i>Comitiva</a>
+          {{/if}}
+        </div>
+      </li>
+      {{/if}}
+      <!-- MENU MANTENEDORES-->
+      {{#if (eqRol 'MAN')}}
+      <li class="nav-item dropdown">
+        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-cog3 mr-2"></i>
+          <span>Mantenedores</span>
+        </a>
+        <div class="dropdown-menu">
+          {{#if (eqRol 'MAN-CLI')}}
+          <a href="/rutaClientes" class="dropdown-item"><i class="icon-user-tie"></i>Clientes</a>
+          {{/if}}
+          {{#if (eqRol 'MAN-SER')}}
+          <a href="/mantenedor/servicios" class="dropdown-item"><i class="icon-stack-check"></i>Servicios</a>
+          {{/if}}
+          {{#if (eqRol 'MAN-COM')}}
+          {{#if (eq user.rol.codigoRol 'SUPERADMIN') }}
+          <a href="/mantenedor/comunidades" class="dropdown-item"><i class="icon-city"></i>Comunidades</a>
+          {{else}}
+          <div class="dropdown-submenu">
+            <a href="#" class="dropdown-item dropdown-toggle" data-toggle="dropdown">
+              <i class="icon-city mr-2"></i>
+              <span>Comunidades</span>
+            </a>
+            <ul class="dropdown-menu">
+              <a href="/mantenedor/items/" class="dropdown-item"><i class="icon-add"></i>Items</a>
+              <a href="/mantenedor/unidades/" class="dropdown-item"><i class="icon-list2"></i>Unidades</a>
+              <a href="/mantenedor/gastosComunes/" class="dropdown-item"><i class="icon-coin-dollar"></i>Gastos
+                Comunes</a>
+              <a href="/mantenedor/trabajadores/" class="dropdown-item"><i class="icon-users2"></i>Trabajadores</a>
+              <a href="/mantenedor/fondos/" class="dropdown-item"><i class="icon-percent"></i>Fondos</a>
+              <a href="/mantenedor/tipoMedidores/" class="dropdown-item"><i class="icon-meter2"></i>Tipo de
+                Medidores</a>
+              {{#if (eq user.rol.codigoRol 'ADMIN') }}
+              <a id="editarComunidad" class="dropdown-item"><i class="icon-pencil"></i>Editar</a>
+              {{/if}}
+            </ul>
+          </div>
+          {{/if}}
+          {{/if}}
+        </div>
+      </li>
+      {{/if}}
+      <!-- MENU GESTION-->
+      {{#if (eqRol 'GES')}}
+      <li class="nav-item dropdown">
+        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-coin-dollar mr-2"></i>
+          <span>Gestion</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-left">
+          {{#if (eqRol 'GES-COT')}}
+          <a href="/rutaGestion" class="dropdown-item"><i class="icon-design"></i>Cotizaciones</a>
+          {{/if}}
+          {{#if (eqRol 'GES-CEI')}}
+          <a href="/mantenedor/cargo" class="dropdown-item"><i class="icon-enter3"></i>Cargos e Ingresos</a>
+          {{/if}}
+          {{#if (eqRol 'GES-TIC')}}
+          <a href="/rutaGestion" class="dropdown-item"><i class="icon-enter3"></i>Tickets</a>
+          {{/if}}
+        </div>
+      </li>
+      {{/if}}
+      <!-- MENU FACTURACION-->
+      {{#if (eqRol 'FAC')}}
+      <li class="nav-item dropdown">
+        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-font mr-2"></i>
+          <span>Facturación</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-left">
+          {{#if (eqRol 'FAC-BOR')}}
+          <a href="/rutaFacturacion/borradores" class="dropdown-item"><i class="icon-files-empty"></i>Borradores</a>
+          {{/if}}
+          {{#if (eqRol 'FAC-DOCE')}}
+          <a href="/rutaFacturacion/dteEmitidos" class="dropdown-item"><i class="icon-file-check"></i>Documentos
+            Emitidos</a>
+          {{/if}}
+          {{#if (eqRol 'FAC-FAM')}}
+          <a href="/rutaFacturacion/facturaAfecta" class="dropdown-item"><i class="icon-pen-plus"></i>Factura Afecta
+            Manual</a>
+          {{/if}}
+          {{#if (eqRol 'FAC-FEM')}}
+          <a href="/rutaFacturacion/facturaExenta" class="dropdown-item"><i class="icon-pen-minus"></i>Factura Exenta
+            Manual</a>
+          {{/if}}
+        </div>
+      </li>
+      {{/if}}
+      <!-- MENU  INDICADORES-->
+      {{#if (eqRol 'IND')}}
+      <li class="nav-item dropdown">
+        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-graph mr-2"></i>
+          <span>Indicadores</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-left">
+          {{#if (eqRol 'IND-ING')}}
+          <a href="#" class="dropdown-item"><i class="icon-stack-text"></i>Ingresos</a>
+          {{/if}}
+          {{#if (eqRol 'IND-FACT')}}
+          <a href="#" class="dropdown-item"><i class="icon-stack-text"></i>Facturación</a>
+          {{/if}}
+          {{#if (eqRol 'IND-RM')}}
+          <a href="#" class="dropdown-item"><i class="icon-list-numbered"></i>Ranking&nbsp;Morosos</a>
+          {{/if}}
+          {{#if (eqRol 'IND-RS')}}
+          <a href="#" class="dropdown-item"><i class="icon-stats-growth"></i>Resumen Semestral</a>
+          {{/if}}
+        </div>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
+</div>
+{{/if}}
+<!--PARA PROBAR LOS JSON-->
+{{!--
+<pre>{{toJSON aux}}</pre> --}}

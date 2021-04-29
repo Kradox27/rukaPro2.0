@@ -1,0 +1,308 @@
+<!-- Page header -->
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-grid2 mr-2 ml-1"></i> <span class="font-weight-semibold text-bluedark">Fondos de la
+                    Comunidad</span></h4>
+            <a href="/" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+        {{#if (eqBool user.habilitado) }}
+        <div class="header-elements d-none">
+            <div id="btnCrear" class="d-flex justify-content-center">
+                <button id="btnCrear" type="button"
+                    class="btn btn-outline btn-sm bg-RukaPro text-RukaPro border-RukaPro d-inline-block">Crear
+                    Fondo</button>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+<!-- /page header -->
+
+<!-- Begin Page Content -->
+<div class="content">
+
+    <!-- Informacion -->
+    {{>infoComunidad}}
+
+    <!-- Contenido -->
+    <div class="card border-bottom-RukaPro" id="tabla-panel">
+        <a href="#collapseCardOne"
+            class="card-header py-2 d-sm-flex text-RukaPro align-items-center justify-content-between mb-4"
+            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardOne">
+            <h5 class="m-0 font-weight-bold text-bluedark d-inline-block">Listado de Fondos</h5>
+        </a>
+        <div class="card-body border-bottom-info">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover" id="tablaDT" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Nombre Fondo</th>
+                            <th>Valor Porcentaje</th>
+                            <th>Valor Fijo</th>
+                            <th class="th-sm" width="10%">Acciones</th>
+                        </tr>
+                        </thread>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if (eqBool user.habilitado) }}
+<!-- Inicio Modal Fondo-->
+<div class="modal fade" id="modal-fondo">
+    <div class="container-fluid">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="">
+                    <h4 class="modal-title mb-0" id="modal-titulo"> </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group text-bluedark">
+                        <label>Nombre Fondo</label>
+                        <input id="nombres" type="text" class="form-control">
+                        <br>
+                        <div id="checkInput">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                    value="option1" checked>
+                                <label class="form-check-label" for="inlineRadio1">Valor Porcentaje</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                    value="option2">
+                                <label class="form-check-label" for="inlineRadio2">Valor Fijo</label>
+                            </div>
+                        </div>
+                        <input id="porcentaje" class="form-control text-center noPaste soloNumerosConPunto porcentaje"
+                            type="text" placeholder="0">
+                        <input id="fijo" class="form-control text-center noPaste soloNumeros " type="text"
+                            placeholder="0">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success botonAccion"><i
+                                class="fa fa-database"></i>&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fa fa-clone"></i>&nbsp;&nbsp;&nbsp;Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<script nonce="{{nonce}}">
+    'use strict'
+    //modal-fondo
+    var idComunidad = "{{ idComunidad }}";
+
+    $(document).ready(() => {
+        buscarFondos();
+        estadoSelect2N('#comboEstado');
+        $('[data-toggle="tooltip"]').tooltip();
+        $("#fijo").hide();
+
+    });
+
+    function buscarFondos() {
+        $.ajax({
+            method: "POST",
+            url: "/mantenedor/fondos/buscarFondosAll",
+            dataType: 'json',
+            data: { idComunidad: idComunidad },
+            beforeSend: loading()
+        })
+            .done(function (data) {
+                Swal.close();
+                if (data.ok) renderTable(data.ok)
+                if (data.error) Swal.fire('Error', data.error, 'error');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.close();
+                console.log("Error al buscar: ", errorMessage(jqXHR, textStatus, errorThrown))
+            })
+
+    }
+
+    '{{#if (eqBool user.habilitado) }}'
+    $('.modal').on('hidden.bs.modal', () => {
+        $('.modal').find("input").val("").removeClass('invalid');
+        $("#inlineRadio1").prop('checked', true);
+        $("#porcentaje").show();
+        $("#fijo").hide();
+    })
+
+    $("#btnCrear").on('click', () => {
+        if ($('#tablaDT').DataTable().rows().data().toArray().length < 5) {
+            $("#inlineRadio1").click(function () {
+                $("#porcentaje").val("").show();
+                $("#fijo").val("").hide();
+            });
+            $("#inlineRadio2").click(function () {
+                $("#porcentaje").val("").hide();
+                $("#fijo").val("").show();
+            });
+            $('.botonAccion').attr('id', 'agregar');
+            $('#modal-titulo').text("Nuevo Fondo").parent().attr('class', 'modal-header bg-RukaPro')
+            $('#modal-fondo').modal('show');
+        } else toastr.warning('No puede ingresar mas de 5 Fondos.');
+    });
+
+    $(document).on('click', '#agregar', () => {
+        let validar = true;
+        if ($('#nombres').val() == "") validar = validarMensaje('#nombres', 'Ingrese un Nombre.', 'i');
+        if ($("input[name='inlineRadioOptions']:checked").val() == "option1" && $('#porcentaje').val() == "") validar = validarMensaje('#porcentaje', 'Ingrese un Porcentaje.', 'i');
+        if ($("input[name='inlineRadioOptions']:checked").val() == "option2" && $('#fijo').val() == "") validar = validarMensaje('#fijo', 'Ingrese un Valor.', 'i');
+        if (validar) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: "/mantenedor/fondos/crearFondo",
+                data: {
+                    nombreFondo: $("#nombres").val(),
+                    porcentajeFondo: $("#porcentaje").val(),
+                    valorFondo: $("#fijo").val(),
+                    idComunidad: idComunidad,
+                    tipo: "normal"
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        agregarDT('#tablaDT', data.ok);
+                        Swal.fire('Éxito', 'Fondo ingresado.', 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error');
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al crear: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+
+    $(document).on('click', 'button[name="btnEditar"]', function () {
+        let id = $(this).attr("id");
+        let row = $('#tablaDT').DataTable().rows().data().toArray().find(e => e.idFondo == id);
+        $('#nombres').val(row.nombreFondo);
+        $("#porcentaje").hide();
+        $("#fijo").hide();
+        if (row.porcentajeFondo != 0) {
+            $("#porcentaje").val(row.porcentajeFondo).show();
+            $("#inlineRadio1").prop('checked', true);
+        } else if (row.valorFondo != 0) {
+            $("#fijo").val(row.valorFondo).show();
+            $("#inlineRadio2").prop('checked', true);
+        } else {
+            $("#porcentaje").val("").show();
+            $("#inlineRadio1").prop('checked', true);
+        }
+        $("#inlineRadio1").click(function () {
+            $("#porcentaje").val(row.porcentajeFondo).show();
+            $("#fijo").val("").hide();
+        });
+        $("#inlineRadio2").click(function () {
+            $("#porcentaje").val("").hide();
+            $("#fijo").val(row.valorFondo).show();
+        });
+        $('.botonAccion').attr('id', 'editar');
+        $('#modal-titulo').text("Editar Comunidad").parent().attr('class', 'modal-header bg-primary')
+        $('#modal-fondo').data('id', id).modal('show');
+    });
+
+    $(document).on('click', '#editar', () => {
+        let validar = true;
+        if ($('#nombres').val() == "") validar = validarMensaje('#nombres', 'Ingrese un Nombre.', 'i');
+        if ($("input[name='inlineRadioOptions']:checked").val() == "option1" && $('#porcentaje').val() == "") validar = validarMensaje('#porcentaje', 'Ingrese un Porcentaje.', 'i');
+        if ($("input[name='inlineRadioOptions']:checked").val() == "option2" && $('#fijo').val() == "") validar = validarMensaje('#fijo', 'Ingrese un Valor.', 'i');
+        if (validar) {
+            var id = $('#modal-fondo').data('id')
+            $.ajax({
+                method: 'PUT',
+                dataType: 'json',
+                url: "/mantenedor/fondos/editarFondo/" + id,
+                data: {
+                    nombreFondo: $("#nombres").val(),
+                    porcentajeFondo: $("#porcentaje").val(),
+                    valorFondo: $("#fijo").val(),
+                    idComunidad: idComunidad
+                },
+                beforeSend: loading()
+            })
+                .done(function (data) {
+                    Swal.close();
+                    if (data.ok) {
+                        editarDT('#tablaDT', id, data.fondo);
+                        Swal.fire('Éxito', data.ok, 'success')
+                        $('.modal').modal('hide')
+                    }
+                    if (data.error) Swal.fire('Error', data.error, 'error')
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    console.log("Error al editar: ", errorMessage(jqXHR, textStatus, errorThrown))
+                })
+        }
+    });
+    '{{/if}}'
+
+    function renderTable(datos) {
+        $("#tablaDT-remuneracion").dataTable().fnClearTable();
+        $("#tablaDT-remuneracion").dataTable().fnDestroy();
+        var columnas = [
+            { "data": "" },
+            { "data": "nombreFondo" },
+            { "data": "porcentajeFondo" },
+            { "data": "valorFondo" },
+            { "data": "idFondo" }
+        ];
+
+        var columnaDefs = [
+            {
+                render: function (data, type, row, meta) { return meta.row + 1; },
+                className: "text-center",
+                targets: 0
+            },
+            {
+                render: function (data, type, row, meta) { return data + "%"; },
+                targets: 2
+            },
+            {
+                render: function (data, type, row, meta) { return formatMoney(data, "CLP"); },
+                targets: 3
+            },
+            {
+                render: function (data, type, row) {
+                    let iconEditar = '';
+                    '{{#if (eqBool user.habilitado) }}'
+                    iconEditar = `<button id=${data} type='button' class='btn btn-default' name='btnEditar' data-toggle='tooltip' data-original-title='Editar' data-trigger='hover'><i class='icon-pencil text-primary fa-lg' aria-hidden='true'></i></button>`;
+                    '{{/if}}'
+                    return iconEditar;
+                },
+                width: "15%",
+                className: "text-center",
+                targets: 4
+            },
+        ];
+
+        var rowId = function (a) {
+            return a.idFondo
+        }
+
+        createTableData('#tablaDT', datos, columnas, columnaDefs, rowId);
+    }
+
+</script>
